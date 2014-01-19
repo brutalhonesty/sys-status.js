@@ -1,0 +1,117 @@
+$purePrimary: #0078e7;
+$pureSuccess: rgb(28, 184, 65); /* this is a green */
+$pureError: rgb(202, 60, 60); /* this is a maroon */
+$pureWarning: rgb(223, 117, 20); /* this is an orange */
+$pureSecondary: rgb(66, 184, 221); /* this is a light blue */
+h1#logo span#statusTitle {
+    color: $pureSuccess;
+}
+
+div#header h1#logo {
+    margin-left: 4%;
+}
+
+h1#registerTitle span {
+    color: $purePrimary;
+}
+aside {
+    padding: 0.3em 1em;
+    border-radius: 3px;
+    color: #fff;
+}
+
+.aside-success, .aside-error {
+    display: none;
+    width: 30%;
+    background: $pureSuccess;
+}
+.pure-button-success,
+.pure-button-error,
+.pure-button-warning,
+.pure-button-secondary {
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.pure-button-success, .aside-success {
+    background: $pureSuccess;
+}
+
+.pure-button-success:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.pure-button-error, .aside-error {
+    background: $pureError;
+}
+
+.pure-button-warning {
+    background: $pureWarning;
+}
+
+.pure-button-secondary {
+    background: $pureSecondary;
+}
+
+.pure-button-xsmall {
+    font-size: 70%;
+}
+
+.pure-button-small {
+    font-size: 85%;
+}
+
+.pure-button-large {
+    font-size: 110%;
+}
+
+.pure-button-xlarge {
+    font-size: 125%;
+}
+
+.pure-form .pure-radio {
+    display: inline-block;
+    width: 10%;
+}
+
+div#registerTron {
+    background-color: transparent;
+}
+
+hr {
+    width: 100%;
+}
+
+body {
+    background: #f9f9f9;
+}
+
+h2#componentTitle, div#componentError {
+    display: inline-block;
+    width: 75%;
+}
+
+button#addComponent {
+    float: right;
+    margin-top: 3%;
+}
+
+/*Modal*/
+.modal-backdrop.animation-fade {
+  opacity: .5;
+  transition: opacity .15s linear;
+  &.ng-enter {
+    opacity: 0;
+    &.ng-enter-active {
+      opacity: .5;
+    }
+  }
+  &.ng-leave {
+    opacity: .5;
+    &.ng-leave-active {
+      opacity: 0;
+    }
+  }
+}

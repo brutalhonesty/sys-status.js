@@ -1,0 +1,24 @@
+<h1 id="registerTitle"><span>Register</span> Your Site</h1>
+<aside class="aside-error">
+    {{aside.message}}
+</aside>
+<div id="registerTron" class="jumbotron">
+    <form class="pure-form">
+        <fieldset class="pure-group">
+            <label for="site">Site</label>
+            <input type="text" id="site" class="pure-input-1-2" placeholder="Site Name" ng-model="site" autofocus>
+        </fieldset>
+
+        <fieldset class="pure-group">
+            <label for="email">Email</label>
+            <input type="email" class="pure-input-1-2" placeholder="Email Address" ng-model="email">
+        </fieldset>
+
+        <fieldset class="pure-group">
+            <label for="password">Password</label>
+            <input type="password" class="pure-input-1-2" placeholder="Password" ng-model="password">
+        </fieldset>
+
+        <button type="submit" class="pure-button pure-input-1-2 pure-button-primary" ng-click="register()">Register</button>
+    </form>
+</div>

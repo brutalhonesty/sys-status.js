@@ -1,0 +1,14 @@
+<div ng-include="'partials/navbar'"></div>
+<h2 id="componentTitle">Components</h2>
+<button id="addComponent" class="pure-button pure-button-primary pure-button-xlarge" ng-click="addComponent()">Add Component</button>
+<div id="componentError">
+	{{componentError}}
+</div>
+<form class="pure-form" ng-repeat="component in components">
+	{{component.name}}
+	Current Status: {{component.status}}
+	<a ng-click="editComponent()">Edit</a>
+	<a ng-click="deleteComponent()">Delete</a>
+</form>
+<h2 id="thirdPartyComponent">3rd Party Components</h2>
+<p>Let your subscribers know of system level statuses from external services.</p>
