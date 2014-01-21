@@ -1,14 +1,25 @@
 <div ng-include="'partials/navbar'"></div>
+<aside class="aside-error" ng-show="asideError">
+	{{asideError}}
+</aside>
 <h2 id="componentTitle">Components</h2>
 <button id="addComponent" class="pure-button pure-button-primary pure-button-xlarge" ng-click="addComponent()">Add Component</button>
-<div id="componentError">
+<div id="componentError" ng-show="componentError">
 	{{componentError}}
 </div>
+<div id="componentSuccess" ng-show="componentSuccess">
+	{{componentSuccess}}
+</div>
 <form class="pure-form" ng-repeat="component in components">
-	{{component.name}}
-	Current Status: {{component.status}}
-	<a ng-click="editComponent()">Edit</a>
-	<a ng-click="deleteComponent()">Delete</a>
+	<strong>{{component.name}}</strong><br/>
+	<small id="componentStatus" class="{{component.status === 'Operational' ? 'operational' : ''}}{{component.status === 'Degraded Performance' ? 'degraded' : ''}}{{component.status === 'Partial Outage' ? 'partial' : ''}}{{component.status === 'Major Outage' ? 'major' : ''}}">
+		Current Status: {{component.status}}
+	</small>
+	<div id="componentEdit">
+		<a class="componentEdit" ng-click="editComponent()">Edit</a>
+		<a class="componentEdit" ng-click="deleteComponent()">Delete</a>
+	</div>
+	<hr/>
 </form>
 <h2 id="thirdPartyComponent">3rd Party Components</h2>
 <p>Let your subscribers know of system level statuses from external services.</p>

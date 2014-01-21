@@ -1,0 +1,28 @@
+<div id="statusPageContainer" class="container">
+	<h1>{{company.siteName}}</h1>
+	<div id="statusPageStatus" ng-show="company.incidents.length === 0">
+		<strong><h2>All Systems Operational</h2></strong>
+		<div id="refreshed">
+			<span>Refreshed</span>
+			<span am-time-ago="lastUpdate"></span>
+		</div>
+	</div>
+	<div class="pure-g-r" ng-show="company.incidents">
+		<div id="incident{{$index + 1}}" class="pure-u-1 l-box" ng-repeat="incident in company.incidents">
+            <div id="incidentHeader">
+                {{incident.name}}
+            </div>
+            <div id="incidentContent">
+                {{incident.type}} - {{incident.message}}
+                <br>
+                <small>{{incident.date | date:'medium'}}</small>
+            </div>
+        </div>
+	</div>
+	<br>
+	<div class="pure-g-r" ng-show="company.components">
+		<div id="component{{$index + 1}}" class="pure-u-1 l-box component" ng-repeat="component in company.components">
+			{{component.name}}<i class="fa fa-question-circle"></i>{{component.description}} <span id="componentStatus" class="{{component.status === 'Operational' ? 'operational' : ''}}{{component.status === 'Degraded Performance' ? 'degraded' : ''}}{{component.status === 'Partial Outage' ? 'partial' : ''}}{{component.status === 'Major Outage' ? 'major' : ''}}">{{component.status}}</span>
+		</div>
+	</div>
+</div>

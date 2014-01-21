@@ -5,14 +5,18 @@
 				<button type="button" class="close" ng-click="$hide()">&times;</button>
 				<h3>Add a Component</h3>
 			<div class="modal-body">
-				<label for="componentName">Component Name</label>
-				<input type="text" ng-model="componentName" placeholder="Component Name">
-				<label for="description">Description</label>
-				<input type="text" ng-model="description" placeholder="Frontend application and API servers">
+				<form class="pure-form">
+        			<fieldset class="pure-group">
+						<label for="componentName">Component Name</label>
+						<input type="text" class="pure-input-1" ng-model="componentName" placeholder="Component Name">
+						<label for="description">Description</label>
+						<input type="text" class="pure-input-1" ng-model="description" placeholder="Frontend application and API servers">
+					</fieldset>
+				</form>
 			</div>
-		<div class="modal-footer">
-			<button class="pure-button pure-button-xlarge" ng-click="$hide()">Close</button>
-			<button id="addComponent" class="pure-button pure-button-primary pure-button-xlarge" ng-click="createComponent()">Create Component</button>
-      	</div>
-    </div>
+			<div class="modal-footer">
+				<button id="addComponent" class="pure-button pure-button-primary pure-button-xlarge" ng-click="modal.saved=true;createComponent(componentName, description);$hide()">Create Component</button>
+      		</div>
+    	</div>
+	</div>
 </div>

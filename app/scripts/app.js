@@ -1,9 +1,16 @@
 'use strict';
 
-var statusPitApp = angular.module('statusPitApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute', 'ngAnimate', 'mgcrea.ngStrap.modal']).config(function ($routeProvider, $locationProvider, $modalProvider) {
+var statusPitApp = angular.module('statusPitApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute', 'ngAnimate', 'mgcrea.ngStrap.modal', 'angularMoment']).config(function ($routeProvider, $locationProvider, $modalProvider) {
     $routeProvider.when('/', {
         templateUrl: 'partials/main',
         controller: 'MainCtrl'
+    })
+    .when('/login', {
+        templateUrl: 'partials/login',
+        controller: 'LoginCtrl'
+    }).when('/statusPage', {
+        templateUrl: 'partials/statusPage',
+        controller: 'StatusPageCtrl'
     }).when('/getStarted', {
         templateUrl: 'partials/getStarted',
         controller: 'GetStartedCtrl'
@@ -13,8 +20,10 @@ var statusPitApp = angular.module('statusPitApp', ['ngCookies', 'ngResource', 'n
     }).when('/components', {
         templateUrl: 'partials/components',
         controller: 'ComponentsCtrl'
-    })
-    .otherwise({
+    }).when('/notifications', {
+        templateUrl: 'partials/notifications',
+        controller: 'NotificationsCtrl'
+    }).otherwise({
         redirectTo: '/'
     });
     angular.extend($modalProvider.defaults, {

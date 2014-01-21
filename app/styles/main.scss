@@ -38,7 +38,7 @@ aside {
     background: $pureSuccess;
 }
 
-.pure-button-success:hover {
+.pure-button-success:hover, .pure-button-primary:hover {
     text-decoration: none;
     color: white;
 }
@@ -73,10 +73,10 @@ aside {
 
 .pure-form .pure-radio {
     display: inline-block;
-    width: 10%;
+    margin: .5em 1.5em;
 }
 
-div#registerTron {
+div#registerTron, div#loginTron {
     background-color: transparent;
 }
 
@@ -95,7 +95,109 @@ h2#componentTitle, div#componentError {
 
 button#addComponent {
     float: right;
-    margin-top: 3%;
+}
+
+.operational {
+    font-size: 85%;
+    color: #2ecc71;
+}
+
+.degraded {
+    font-size: 85%;
+    color: #f1c40f;
+}
+
+.partial {
+    font-size: 85%;
+    color: rgb(230, 126, 34);
+}
+
+.major {
+    font-size: 85%;
+    color: rgb(231, 76, 60);
+}
+
+a.componentEdit {
+    cursor: pointer;
+}
+
+div#componentEdit {
+    float: right;
+}
+
+div#incidentHeader {
+    background: #333;
+    color: white;
+    height: 50px;
+    padding-left: 2em;
+    line-height: 3.3em;
+}
+
+button#newIncident {
+    float: right;
+}
+
+div#openIncidentContainer div.page-header h1 {
+    float: left;
+    line-height: 0em;
+}
+
+div#openIncidentContainer div.page-header {
+    overflow: auto;
+}
+
+div#incidentHeader button {
+    float: right;
+    height: 100%;
+    margin: 0;
+}
+
+a#statusPage {
+    float: right;
+}
+
+div#statusPageStatus {
+    background-color: $pureSuccess;
+    padding: 0.4em;
+}
+
+div#statusPageStatus strong {
+    color: white;
+    display: inline-block;
+    margin-left: 2%;
+}
+
+div#statusPageStatus div#refreshed {
+    color: white;
+    float: right;
+    margin-top: 1.2em;
+    margin-right: 2em;
+}
+
+div#openIncidentContainer hr {
+    border-top: 1px solid #A3A3A3;
+}
+
+.pure-g-r > div {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+div#incidentContent {
+    padding: 1.5em;
+}
+
+div.pure-u-1.l-box {
+    border: 1px solid #E0E0E0;
+}
+
+div.pure-u-1.l-box.component {
+    padding: 1.5em;
+}
+
+span#componentStatus {
+    float: right;
 }
 
 /*Modal*/

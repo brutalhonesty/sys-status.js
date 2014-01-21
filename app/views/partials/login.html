@@ -1,0 +1,19 @@
+<h1 id="loginTitle">Login</h1>
+<aside class="aside-error" ng-show="asideError">
+    {{asideError}}
+</aside>
+<div id="loginTron" class="jumbotron">
+    <form class="pure-form">
+        <fieldset class="pure-group">
+            <label for="email">Email</label>
+            <input type="email" class="pure-input-1-2" placeholder="Email Address" ng-model="email">
+        </fieldset>
+
+        <fieldset class="pure-group">
+            <label for="password">Password</label>
+            <input type="password" class="pure-input-1-2" placeholder="Password" ng-model="password">
+        </fieldset>
+
+        <button type="submit" class="pure-button pure-input-1-2 pure-button-primary" ng-click="login()">Login</button>
+    </form>
+</div>
