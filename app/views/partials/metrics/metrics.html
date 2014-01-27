@@ -1,0 +1,33 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="metricsContainer">
+    <h1>Public Metrics</h1>
+    <div class="pure-menu pure-menu-open pure-menu-horizontal">
+        <ul>
+            <li class="pure-menu-selected"><a ng-href="/metrics">Metrics</a></li>
+            <li><a ng-href="/metrics/dataSources">Other Data Sources</a></li>
+            <li><a ng-href="/metrics/tutorials">Tutorials</a></li>
+        </ul>
+    </div>
+    <aside class="aside-error" ng-show="asideError">
+        {{asideError}}
+    </aside>
+    <aside class="aside-success" ng-show="asideSuccess">
+        {{asideSuccess}}
+    </aside>
+    <h2>Your Metrics</h2>
+    <button id="addMetric" class="pure-button pure-button-primary pure-button-xlarge" ng-click="addMetric()">Add A Metric</button>
+    <br />
+    <div id="metrics">
+        <div class="pure-u-1" ng-repeat="metric in metrics">
+            <h4 id="metricName">{{metric.name}}</h4>
+            <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" ng-checked="metric.visible">
+                <label class="onoffswitch-label" for="myonoffswitch">
+                    <div class="onoffswitch-inner"></div>
+                    <div class="onoffswitch-switch"></div>
+                </label>
+            </div>
+            <a ng-href="/metric/{{metric.id}}" id="hiddenMetricEdit">Edit</a>
+        </div>
+    </div>
+</div>

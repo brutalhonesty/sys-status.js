@@ -1,0 +1,18 @@
+var metricid = &metricid&;
+var metrickey = &metrickey&;
+var request = require('request');
+setInterval(function () {
+	var dhash = {
+		timeStamp: Date.now() - Math.floor((Math.random()*288)+0) * 5 * 60,
+		value: (Math.random()*100)
+	};
+	request.post('http://mysys-status-site.com/api/inputMetricData', {form:{dhash: dhash, metrickey: metrickey, metricID: metricid}}, function (err, res, body) {
+		if(err) {
+			// Handle error
+		}
+		if(res.statusCode !== 200) {
+			// Handle issue with input or server error
+		}
+		console.log(body); // Expected {}
+	});
+}, 5000);

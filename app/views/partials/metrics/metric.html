@@ -1,0 +1,64 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="metricContainer">
+    <aside class="aside-success" ng-show="asideSuccess">
+        {{asideSuccess}}
+    </aside>
+    <div ng-show="error">
+        <h1>{{error}}</h1>
+    </div>
+    <div ng-show="metric && !error">
+        <h1>{{metric.name}}</h1>
+        <div id="metrickey" ng-show="metrickey">
+            <h3>Your metric key is: {{metrickey}}.</h3>
+        </div>
+        <div id="metrickeyMissing" ng-show="!metrickey">
+            <h3>Metric key missing.</h3>
+        </div>
+        <div id="dataMissing" ng-show="metric.data.length === 0">
+            <h2>Waiting for data...</h2>
+            <h4>Here is an example script to get data "flowing".</h4>
+            <div ace="javascript" ng-model="aceInput" class="ace-editor">
+                <textarea name="tutorial[contents]"></textarea>
+            </div>
+        </div>
+        <nvd3-line-chart
+            data="exampleData"
+            showXAxis="true"
+            showYAxis="true"
+            tooltips="true"
+            interactive="true"
+            xAxisTickValues="xAxisTickValuesFunction()"
+            xAxisTickFormat="xAxisTickFormatFunction()">
+        </nvd3-line-chart>
+        <form id="metricForm" class="pure-form" ng-show="metric.data && metric.data.length > 0">
+            <div class="pure-g-r">
+                <fieldset class="pure-group pure-u-1-3">
+                    <label for="displayName">Display Name</label>
+                    <input type="text" class="pure-input-1" ng-model="metric.name" placeholder="My Metric">
+                    <label for="displayName">Description</label>
+                    <input type="text" class="pure-input-1" ng-model="metric.description" placeholder="The HTTP web throughput of our API server cluster.">
+                    <label for="displayName">Display Suffix</label>
+                    <input type="text" class="pure-input-1" ng-model="metric.suffix" placeholder="reqs/min, %, ms, etc." value="">
+                </fieldset>
+                <fieldset class="pure-group pure-u-1-2">
+                    <label for="decimalPlaces">Decimal Places</label>
+                    <select name="Decimal Places" id="decimalPlaces" ng-model="metric.decimalPlaces" ng-options="decimal.value as decimal.displayName for decimal in decimals" ng-init="metric.decimalPlaces = 0" class="pure-input-1-2"></select>
+                    <br/>
+                    <label for="yAxisContainer">Y-Axis</label>
+                    <div id="yAxisContainer">
+                        <label for="yAxisMin">Min</label>
+                        <input type="number" id="yAxisMin" class="pure-input-1-4" min="0" placeholder="0" ng-model="metric.axis.y.min">
+                        <label for="yAxisMax">Max</label>
+                        <input type="number" id="yAxisMax" class="pure-input-1-4" min="0" placeholder="100" ng-model="metric.axis.y.max">
+                        <label for="hideYAxis" class="pure-radio"><input type="checkbox" id="hideYAxis" ng-model="metric.axis.y.hide">Hide Y-Axis
+                        </label>
+                    </div>
+                </fieldset>
+                <fieldset class="pure-group pure-u-1-2">
+                    <button type="submit" class="pure-button pure-input-1-4 pure-button-primary" ng-click="updateMetric()">Update Metric</button>
+                    <a id="deleteMetric" ng-click="deleteMetricReq()">Delete metric</a>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+</div>

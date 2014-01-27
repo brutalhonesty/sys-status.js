@@ -1,0 +1,25 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="notificationContainer">
+    <h1>Notifications</h1>
+    <div class="pure-menu pure-menu-open pure-menu-horizontal">
+        <ul>
+            <li><a ng-href="/notifications">Subscribers</a></li>
+            <li><a ng-href="/notifications/settings">Settings</a></li>
+            <li class="pure-menu-selected"><a ng-href="/notifications/faq">FAQ</a></li>
+        </ul>
+    </div>
+    <div class="pure-g-r">
+    <div class="pure-u-1-2">
+        <p><h3>When does this site send notifications to my subscribers?</h3></p>
+        <p>For email &amp; SMS, it only sends notifications to subscribers when you create or update an incident.</p>
+        <p>For webhooks, it sends notifications for components changing status, as well as incidents created or updated.</p>
+        <p><h3>Do it send notifications when I change a component's status?</h3></p>
+        <p>Only for webhook subscriptions.</p>
+    </div>
+    <div class="pure-u-1-2">
+        <p><h3>What happens if you don't want to use notifications?</h3></p>
+        <p>Allowing users to subscribe to updates of your status page is optional. Use the checkboxes <a ng-href="/notifications/settings">in the settings tab</a> to turn specific ones on and off.</p>
+        <p><h3>Have any other questions?</h3></p>
+        <p>This FAQ may not be complete. <br/> Feel free to post questions in issues on the <a href="//github.com/brutalhonesty/sys-status.js">repository page</a>.</p>
+    </div>
+</div>

@@ -25,6 +25,21 @@ aside {
     width: 30%;
     background: $pureSuccess;
 }
+
+div#metrickey {
+    height: 20px;
+    background: $pureSuccess;   
+}
+
+div#metrickeyMissing {
+    background: $pureError;
+}
+
+div#metrickey, div#metrickeyMissing {
+    height: 25px;
+    text-align: center;
+}
+
 .pure-button-success,
 .pure-button-error,
 .pure-button-warning,
@@ -93,7 +108,7 @@ h2#componentTitle, div#componentError {
     width: 75%;
 }
 
-button#addComponent {
+button#addComponent, button#addMetric, a#hiddenMetricEdit, div#componentEdit, button#newIncident {
     float: right;
 }
 
@@ -117,12 +132,8 @@ button#addComponent {
     color: rgb(231, 76, 60);
 }
 
-a.componentEdit {
+a.componentEdit, a#deleteMetric {
     cursor: pointer;
-}
-
-div#componentEdit {
-    float: right;
 }
 
 div#incidentHeader {
@@ -130,11 +141,10 @@ div#incidentHeader {
     color: white;
     height: 50px;
     padding-left: 2em;
-    line-height: 3.3em;
 }
 
-button#newIncident {
-    float: right;
+div.incident {
+    padding: 30px !important;
 }
 
 div#openIncidentContainer div.page-header h1 {
@@ -198,6 +208,19 @@ div.pure-u-1.l-box.component {
 
 span#componentStatus {
     float: right;
+}
+
+input#userAutoSubscribe, input#userIndivComponents, input#userIndivIncidents, h2#subscriptionTypes, h2#notificationDeliveryTypes, input#allowEmailSubs, input#allowSMSSubs, input#allowWebSubs, input#yAxisMin, input#yAxisMax, input#hideYAxis, div#metrics h4#metricName {
+    display: inline-block;
+}
+
+form#metricForm > div > fieldset:nth-child(2) {
+    margin-top: 2%;
+    margin-left: 2%;
+}
+
+a#hiddenMetricEdit {
+    margin-top: 1.5%;
 }
 
 /*Modal*/

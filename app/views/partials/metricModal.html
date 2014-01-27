@@ -1,0 +1,32 @@
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="$hide()">&times;</button>
+                <h3>Add a Metric</h3>
+            <div class="modal-body">
+                <form class="pure-form">
+                    <fieldset class="pure-group">
+                        <label for="dataSource">Data Source</label>
+                        <select name="DataSource" id="dataSource" ng-model="dataSource" ng-options="data.value as data.displayName for data in dataSources" class="pure-input-1-2">
+                            <option value="">Select a data source..</option>
+                        </select>
+                        <div id="dataSourceInput" ng-hide="dataSource === selfData">
+                            <fieldset class="pure-group">
+                                <label for="displayName">Display Name</label>
+                                <input type="text" id="displayName" class="pure-input-1-2" placeholder="ex. Mean Reponse Time" ng-model="displayName" autofocus>
+                            </fieldset>
+                            <fieldset class="pure-group">
+                                <label for="displaySuffix">Display Suffix</label>
+                                <input type="text" id="displaySuffix" class="pure-input-1-2" placeholder="ex. reqs/min" ng-model="displaySuffix" autofocus>
+                            </fieldset>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="addMetric" class="pure-button pure-button-primary pure-button-xlarge" ng-click="modal.saved=true;storeMetric(dataSource, displayName, displaySuffix);$hide()">Add Metric</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="notificationContainer">
+    <h1>Notifications</h1>
+    <div class="pure-menu pure-menu-open pure-menu-horizontal">
+        <ul>
+            <li><a ng-href="/notifications">Subscribers</a></li>
+            <li class="pure-menu-selected"><a ng-href="/notifications/settings">Settings</a></li>
+            <li><a ng-href="/notifications/faq">FAQ</a></li>
+        </ul>
+    </div>
+    <aside class="aside-success" ng-show="asideSuccess">
+        {{asideSuccess}}
+    </aside>
+    <aside class="aside-error" ng-show="asideError">
+        {{asideError}}
+    </aside>
+    <form class="pure-form">
+        <h2 id="subscriptionTypes">Subscription Types</h2>
+        <div class="pure-g-r">
+            <fieldset class="pure-group pure-u-1-2">
+                <label for="userAutoSubscribe" class="pure-radio">
+                    <input id="userAutoSubscribe" type="checkbox" name="subscriptionTypes1" ng-model="allowAutoSubscribe"> Allow users to be auto-subscribed to every incident <i class="fa fa-question-circle" bs-tooltip="allowAutoIncidentTool"></i>
+                </label>
+            </fieldset>
+            <fieldset class="pure-group pure-u-1-2">
+                <label for="userIndivComponents" class="pure-radio">
+                    <input id="userIndivComponents" type="checkbox" name="subscriptionTypes2" ng-model="userIndivComponents"> Allow users to subscribe to individual components <i class="fa fa-question-circle" bs-tooltip="allowIndivCompTool"></i>
+                </label>
+            </fieldset>
+            <fieldset class="pure-group pure-u-1-2">
+                <label for="userIndivIncidents" class="pure-radio">
+                    <input id="userIndivIncidents" type="checkbox" name="subscriptionTypes3" ng-model="userIndivIncidents"> Allow users to subscribe to individual incidents <i class="fa fa-question-circle" bs-tooltip="allowIndivIncidentsTool"></i>
+                </label>
+            </fieldset>
+        </div>
+        <h2 id="notificationDeliveryTypes">Notificiation Delivery Types</h2>
+        <div class="pure-g-r">
+            <fieldset class="pure-group pure-u-1-2">
+                <label for="allowEmailSubs" class="pure-radio">
+                    <input id="allowEmailSubs" type="checkbox" name="notificationsTypes1" ng-model="allowEmailSubs"> Allow email subscribers <i class="fa fa-question-circle" bs-tooltip="allowEmailSubsTool"></i>
+                </label>
+            </fieldset>
+            <fieldset class="pure-group pure-u-1-2">
+                <label for="allowSMSSubs" class="pure-radio">
+                    <input id="allowSMSSubs" type="checkbox" name="notificationsTypes2" ng-model="allowSMSSubs"> Allow SMS subscribers <i class="fa fa-question-circle" bs-tooltip="allowSMSSubsTool"></i>
+                </label>
+            </fieldset>
+            <fieldset class="pure-group pure-u-1-2">
+                <label for="allowWebSubs" class="pure-radio">
+                    <input id="allowWebSubs" type="checkbox" name="notificationsTypes3" ng-model="allowWebSubs"> Allow webhook subscribers <i class="fa fa-question-circle" bs-tooltip="allowWebSubsTool"></i>
+                </label>
+            </fieldset>
+        </div>
+        <button type="submit" class="pure-button pure-input-1-4 pure-button-primary">Save All Changes</button>
+    </form>
+</div>

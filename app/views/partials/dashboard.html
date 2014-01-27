@@ -11,7 +11,7 @@
             <h1>Open Incidents</h1>
             <button type="button" id="newIncident" class="pure-button pure-button-xlarge pure-button-primary" ng-click="newIncident()">New Incident</button>
         </div>
-        <div id="incident{{$index + 1}}" class="jumbotron" ng-repeat="incident in incidents">
+        <div id="incident{{$index + 1}}" class="incident jumbotron" ng-repeat="incident in incidents">
             <div id="incidentHeader">
                 {{incident.name}}
                 <button type="button" class="pure-button pure-button-xsmall pure-button-primary" ng-click="updateIncident()">Update Incident</button>

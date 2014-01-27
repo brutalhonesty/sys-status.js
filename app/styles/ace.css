@@ -1,0 +1,5 @@
+/* MUST HAVE WIDTH/HEIGHT */
+.ace-editor {
+    width: 100%;
+    height: 300px;
+}

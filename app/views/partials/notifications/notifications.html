@@ -1,0 +1,34 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="notificationContainer">
+	<h1>Notifications</h1>
+	<div class="pure-menu pure-menu-open pure-menu-horizontal">
+		<ul>
+	        <li class="pure-menu-selected"><a ng-href="/notifications">Subscribers</a></li>
+	        <li><a ng-href="/notifications/settings">Settings</a></li>
+	        <li><a ng-href="/notifications/faq">FAQ</a></li>
+	    </ul>
+    </div>
+	<div class="pure-g-r">
+		<div class="pure-u-1-3">
+			<center>
+				<h3>Email Subscribers</h3>
+				<h1>{{subscribers.email.count}}</h1>
+				<h4 ng-show="subscribers.email.disabled">Disabled <a href="/notifications/settings">Reenable?</a></h4>
+			</center>
+		</div>
+		<div class="pure-u-1-3">
+			<center>
+				<h3>SMS Subscribers</h3>
+				<h1>{{subscribers.sms.count}}</h1>
+				<h4 ng-show="subscribers.sms.disabled">Disabled <a href="/notifications/settings">Reenable?</a></h4>
+			</center>	
+		</div>
+		<div class="pure-u-1-3">
+			<center>
+				<h3>Webhook Subscribers</h3>
+				<h1 ng-show="subscribers.webhook">{{subscribers.webhook.count}}</h1>
+				<h4 ng-show="subscribers.webhook.disabled">Disabled <a href="/notifications/settings">Reenable?</a></h4>
+			</center>
+		</div>
+	</div>
+</div>

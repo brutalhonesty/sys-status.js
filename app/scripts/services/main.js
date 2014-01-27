@@ -59,6 +59,39 @@ statusPitApp.service('API', ['$http', function ($http) {
         },
         getCompany: function(email) {
             return $http.get('/api/getCompany?email=' + email);
+        },
+        getSubscriptions: function(email) {
+            return $http.get('/api/getSubscribers?email=' + email);  
+        },
+        getMetrics: function(email) {
+            return $http.get('/api/getMetrics?email=' + email);    
+        },
+        getMetric: function(email, id) {
+            return $http.get('/api/getMetric?email=' + email+'&id=' + id);    
+        },
+        createMetric: function(metricData) {
+            return $http({
+                url: '/api/createMetric',
+                method: 'POST',
+                data: $.param(metricData),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        },
+        deleteMetric: function(metricData) {
+            return $http({
+                url: '/api/deleteMetric',
+                method: 'POST',
+                data: $.param(metricData),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'} 
+            });
+        },
+        updateMetric: function(metricData) {
+            return $http({
+                url: '/api/updateMetric',
+                method: 'POST',
+                data: $.param(metricData),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
         }
     }
 }]);

@@ -1,15 +1,8 @@
-<div class="pure-menu pure-menu-open pure-menu-horizontal">
-    <a href="/statusPage" id="statusPage">View Status Page</a>
-	<a href="#" class="pure-menu-heading"><h1 id="logo"><span id="sysTitle">Sys</span> <span id="statusTitle">Status</span></h1></a>
+<div class="pure-menu pure-menu-open pure-menu-horizontal" ng-controller="NavbarCtrl">
+    <a ng-href="/statusPage" id="statusPage">View Status Page</a>
+	<a ng-href="#" class="pure-menu-heading"><h1 id="logo"><span id="sysTitle">Sys</span> <span id="statusTitle">Status</span></h1></a>
     <ul>
-        <li class="pure-menu-selected"><a href="/dashboard">Dashboard</a></li>
-        <li><a href="/incidients">Incidents</a></li>
-        <li><a href="/components">Components</a></li>
-        <li><a href="/metrics">Public Metrics</a></li>
-        <li><a href="/customize">Customize Page</a></li>
-        <li><a href="/notifications">Notifications</a></li>
-        <li><a href="/team">Team Members</a></li>
-        <li><a href="/integration">Integrations</a></li>
+        <li ng-repeat="item in menu" ng-class="{'pure-menu-selected': isActive(item.link)}"><a ng-href="{{item.link}}">{{item.title}}</a></li>
     </ul>
 </div>
 <hr />
