@@ -6,7 +6,7 @@ statusPitApp.controller('MainCtrl', ['$scope', '$location', function ($scope, $l
 statusPitApp.controller('NavbarCtrl', ['$scope', '$location', function ($scope, $location) {
     $scope.menu = [
         {title: 'Dashboard', link: '/dashboard'},
-        {title: 'Incidents', link: '/incidients'},
+        {title: 'Incidents', link: '/incidents'},
         {title: 'Components', link: '/components'},
         {title: 'Public Metrics', link: '/metrics'},
         {title: 'Customize Page', link: '/customize'},
@@ -85,12 +85,100 @@ statusPitApp.controller('DashboardCtrl', ['$scope', '$location', 'API', '$window
             $scope.asideSuccess = data.message;
             $scope.incident = '';
             $scope.message = '';
-            $scope.incidentValue = 'Investigating'
+            $scope.incidentValue = 'Investigating';
+        }).error(function (error) {
+            $scope.asideError = error.message;
+        });
+    };
+    $scope.updateIncident = function(incidentID) {
+        $location.path('/incident/'+incidentID);
+    };
+}]);
+
+statusPitApp.controller('IncidentsCtrl', ['$scope', '$window', 'API', '$modal', function ($scope, $window, api, $modal) {
+    getIncidents($scope, $window, api);
+    var createIncidentModal = $modal({
+        html: true,
+        backdrop: false,
+        show: false,
+        scope: $scope,
+        animation: 'animation-fadeAndScale',
+        template: 'views/partials/newIncidentModal.html'
+    });
+    $scope.addIncident = function() {
+        createIncidentModal.$promise.then(function() {
+            $scope.$$postDigest(function() {
+                createIncidentModal.show();
+            });
+        });
+    };
+    $scope.createIncident = function(incident, incidentValue, message) {
+        var incidentData = {
+            name: incident,
+            type: incidentValue,
+            message: message,
+            email: $window.localStorage.getItem('email') || null
+        };
+        api.createIncident(incidentData).success(function (data) {
+            $scope.asideSuccess = data.message;
+            $scope.incident = '';
+            $scope.message = '';
+            $scope.incidentValue = 'Investigating';
+            getIncidents($scope, $window, api);
+        }).error(function (error) {
+            $scope.asideError = error.message;
+        });
+    };
+    var incidentDeleteReqModal = $modal({
+        html: true,
+        backdrop: false,
+        show: false,
+        scope: $scope,
+        animation: 'animation-fadeAndScale',
+        template: 'views/partials/incidents/incidentDeleteReqModal.html'
+    });
+    $scope.deleteIncidentReq = function() {
+        incidentDeleteReqModal.$promise.then(function() {
+            $scope.$$postDigest(function() {
+                incidentDeleteReqModal.show();
+            });
+        });
+    };
+    $scope.deleteIncident = function() {
+    };
+}]);
+
+statusPitApp.controller('MaintenanceCtrl', ['$scope', function ($scope) {
+
+}]);
+
+statusPitApp.controller('TemplatesCtrl', ['$scope', function ($scope) {
+
+}]);
+
+statusPitApp.controller('IncidentCtrl', ['$scope', '$route', '$window', 'API', function ($scope, $route, $window, api) {
+    var incidentID = $route.current.params.id;
+    var email = $window.localStorage.getItem('email') || null;
+    api.getIncident(email, incidentID).success(function (incidentResponse) {
+        $scope.incident = incidentResponse.incident;
+    }).error(function (error) {
+        $scope.asideError = error.message;
+    });
+    $scope.updateIncident = function() {
+        var incidentReq = {
+            id: incidentID,
+            email: email,
+            type: $scope.incidentValue,
+            message: $scope.message
+        };
+        api.updateIncident(incidentReq).success(function (incidentUpdated) {
+            $location.path('/incidents').search({'updated': 1});
         }).error(function (error) {
             $scope.asideError = error.message;
         });
     };
 }]);
+
 statusPitApp.controller('ComponentsCtrl', ['$scope', '$window', 'API', '$modal', function ($scope, $window, api, $modal) {
     getComponents($scope, $window, api);
     var componentModal = $modal({
@@ -213,7 +301,18 @@ statusPitApp.controller('MetricsCtrl', ['$scope', '$modal', 'API', '$window', '$
         };
         api.createMetric(metric).success(function (metricResponse) {
             $location.path('/metric/'+metricResponse.id).search({'added': 1});
-            $window.localStorage.setItem('metrickey', metricResponse.metrickey);
+        }).error(function (error) {
+            $scope.asideError = error.message;
+        });
+    };
+    $scope.updateMetric = function(metricID, visibility) {
+        var metric = {
+            id: metricID,
+            visibility: visibility,
+            email: $window.localStorage.getItem('email') || null
+        }
+        api.updateMetricVisibility(metric).success(function (metricResponse) {
+            $scope.asideSuccess = metricResponse.message;
         }).error(function (error) {
             $scope.asideError = error.message;
         });
@@ -223,9 +322,10 @@ statusPitApp.controller('MetricsCtrl', ['$scope', '$modal', 'API', '$window', '$
 statusPitApp.controller('MetricCtrl', ['$scope', '$window', 'API', '$route', '$modal', '$location', function ($scope, $window, api, $route, $modal, $location) {
     var metricID = $route.current.params.id || null;
     if($route.current.params.added == 1) { // Use '==' instead of '===' for datatypes (string vs int)
-        $scope.asideSuccess = 'Metric added';
+        $scope.asideSuccess = 'Metric added.';
+    } else if($route.current.params.updated == 1) { // Use '==' instead of '===' for datatypes (string vs int)
+        $scope.asideSuccess = 'Metric updated.';
     }
-    $scope.metrickey = $window.localStorage.getItem('metrickey') || null;
     getMetric($scope, $window, api, metricID);
     $scope.fn = {};
     $scope.lineData = {};
@@ -264,8 +364,11 @@ statusPitApp.controller('MetricCtrl', ['$scope', '$window', 'API', '$route', '$m
     $scope.updateMetric = function() {
         var metric = $scope.metric;
         metric.email = $window.localStorage.getItem('email') || null;
+        if(metric.data) {
+            delete metric.data;
+        }
         api.updateMetric(metric).success(function (updateMetricResponse) {
-            $scope.asideSuccess = updateMetricResponse.message;
+            $window.location.href = '/metric/'+metric.id+'?updated=1';
         }).error(function (error) {
             $scope.error = error.message;
         });
@@ -316,7 +419,7 @@ function getMetrics($scope, $window, api) {
     // TODO add session
     var email = $window.localStorage.getItem('email') || null;
     api.getMetrics(email).success(function (metricsData) {
-        $scope.metrics = metricsData.metrics
+        $scope.metrics = metricsData
     }).error(function (error) {
         $scope.asideError = error.message;
     });
@@ -327,41 +430,41 @@ function getMetric($scope, $window, api, metricID) {
     var email = $window.localStorage.getItem('email') || null;
     api.getMetric(email, metricID).success(function (metricData) {
         $scope.metric = metricData.metric;
-        $scope.metric.data.sort(function (a, b) { return a.timeStamp > b.timeStamp;});
-        var graphData = [];
-        for(var metricCounter = 0; metricCounter < $scope.metric.data.length; metricCounter++) {
-            var graphInnerData = [];
-            //$scope.metric.data[metricCounter].timeStamp = $scope.metric.data[metricCounter].timeStamp.slice(0, -3);
-            graphInnerData.push(parseInt($scope.metric.data[metricCounter].timeStamp, 10), parseInt($scope.metric.data[metricCounter].value, 10));
-            graphData.push(graphInnerData);
-        }
-        $scope.exampleData = [{
-            "key": $scope.metric.name,
-            "values": graphData
-        }];
-        $scope.xAxisTickFormat = function(){
-            return function(d){
-                return d3.time.format('%X')(new Date(d));
+        $scope.metrickey = metricData.metric.metrickey;
+        if($scope.metric.data.length === 0) {
+            // TODO figure out a way to poll new metric data.
+        } else {
+            // Sort timestamps even though we expect the values to be in numerical order from the server because we expect the user to send them in sequencial order
+            $scope.metric.data.sort(function (a, b) { return a.timeStamp - b.timeStamp; });
+            var graphData = [];
+            // Create multi-dimensional array of values [[time, value], [time, value], etc..]
+            for(var metricCounter = 0; metricCounter < $scope.metric.data.length; metricCounter++) {
+                var graphInnerData = [];
+                graphInnerData.push(parseInt($scope.metric.data[metricCounter].timeStamp, 10), parseFloat(parseFloat($scope.metric.data[metricCounter].value, 10).toFixed($scope.metric.decimalPlaces), 10));
+                graphData.push(graphInnerData);
             }
-        }
-        $scope.xAxisTickFormatFunction = function(){
-            return function(d){
-                return d3.time.format('%H:%M')(moment.unix(d).toDate());
-            }
-        };
-        $scope.xAxisTickValuesFunction = function(){
-            return function(d){
-                var tickVals = [];
-                var values = d[0].values;
-                var interestedTimeValuesArray = [0, 15, 30, 45];
-                for(var i in values){
-                    if(interestedTimeValuesArray.indexOf(moment.unix(values[i][0]).minute()) >= 0){
-                        tickVals.push(values[i][0]);
-                    }
-                }
-                return tickVals;
+            $scope.metricData = [{
+                "key": $scope.metric.name,
+                "values": graphData
+            }];
+            $scope.yAxisLabel = function() {
+                return $scope.metric.suffix;
             };
-        };
+            $scope.forceY = function() {
+                return [$scope.metric.axis.y.min, $scope.metric.axis.y.max];
+            };
+            $scope.showX = function() {
+                return !$scope.metric.axis.x.hide;
+            }
+            $scope.showY = function() {
+                return !$scope.metric.axis.y.hide;
+            }
+            $scope.xAxisTickFormatFunction = function(){
+                return function(d){
+                    return d3.time.format('%H:%M')(moment(d).toDate());
+                }
+            };
+        }
         $scope.aceInput = metricData.template;
     }).error(function (error) {
         $scope.error = error.message;

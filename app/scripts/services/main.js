@@ -57,6 +57,17 @@ statusPitApp.service('API', ['$http', function ($http) {
         getIncidents: function(email) {
             return $http.get('/api/getIncidents?email=' + email);
         },
+        getIncident: function(email, id) {
+            return $http.get('/api/getIncident?email=' + email + '&id=' + id);
+        },
+        updateIncident: function(incidentData) {
+            return $http({
+                url: '/api/updateIncident',
+                method: 'POST',
+                data: $.param(incidentData),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });
+        },
         getCompany: function(email) {
             return $http.get('/api/getCompany?email=' + email);
         },
@@ -67,7 +78,7 @@ statusPitApp.service('API', ['$http', function ($http) {
             return $http.get('/api/getMetrics?email=' + email);    
         },
         getMetric: function(email, id) {
-            return $http.get('/api/getMetric?email=' + email+'&id=' + id);    
+            return $http.get('/api/getMetric?email=' + email + '&id=' + id);
         },
         createMetric: function(metricData) {
             return $http({
@@ -92,6 +103,14 @@ statusPitApp.service('API', ['$http', function ($http) {
                 data: $.param(metricData),
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'}
             });
+        },
+        updateMetricVisibility: function(metricData) {
+            return $http({
+                url: '/api/updateMetricVisibility',
+                method: 'POST',
+                data: $.param(metricData),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            });  
         }
     }
 }]);

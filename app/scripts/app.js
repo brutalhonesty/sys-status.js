@@ -19,6 +19,18 @@ var statusPitApp = angular.module('statusPitApp', ['ngCookies', 'ngResource', 'n
     }).when('/components', {
         templateUrl: 'partials/components',
         controller: 'ComponentsCtrl'
+    }).when('/incidents', {
+        templateUrl: 'partials/incidents/incidents',
+        controller: 'IncidentsCtrl'
+    }).when('/incidents/maintenance', {
+        templateUrl: 'partials/incidents/maintenance',
+        controller: 'MaintenanceCtrl'
+    }).when('/incidents/templates', {
+        templateUrl: 'partials/incidents/templates',
+        controller: 'TemplatesCtrl'
+    }).when('/incident/:id', {
+        templateUrl: 'partials/incidents/incident',
+        controller: 'IncidentCtrl'
     }).when('/notifications', {
         templateUrl: 'partials/notifications/notifications',
         controller: 'NotificationsCtrl'

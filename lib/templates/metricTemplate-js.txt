@@ -3,7 +3,7 @@ var metrickey = &metrickey&;
 var request = require('request');
 setInterval(function () {
 	var dhash = {
-		timeStamp: Date.now() - Math.floor((Math.random()*288)+0) * 5 * 60,
+		timeStamp: Date.now(),
 		value: (Math.random()*100)
 	};
 	request.post('http://mysys-status-site.com/api/inputMetricData', {form:{dhash: dhash, metrickey: metrickey, metricID: metricid}}, function (err, res, body) {
@@ -15,4 +15,4 @@ setInterval(function () {
 		}
 		console.log(body); // Expected {}
 	});
-}, 5000);
+}, 300000);

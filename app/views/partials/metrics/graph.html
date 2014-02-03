@@ -1,0 +1,15 @@
+<nvd3-line-chart
+      data="metricData"
+      width="800"
+      height="300"
+      showXAxis="{{showX()}}"
+      showYAxis="{{showY()}}"
+      tooltips="true"
+      interactive="true"
+      xAxisTickFormat="xAxisTickFormatFunction()"
+      yAxisLabel="{{yAxisLabel()}}"
+      xAxisLabel="Date"
+      margin="{left:150,top:50,bottom:0,right:0}"
+      forcey="{{forceY()}}"
+      ng-show="metric.data && metric.data.length > 0">
+</nvd3-line-chart>

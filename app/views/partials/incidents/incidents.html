@@ -1,0 +1,24 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="incidentContainer" class="container">
+    <h1>Incidents</h1>
+    <div class="pure-menu pure-menu-open pure-menu-horizontal">
+        <ul>
+            <li class="pure-menu-selected"><a ng-href="/incidents">Incidents</a></li>
+            <li><a ng-href="/incidents/maintenance">Scheduled Maintenance</a></li>
+            <li><a ng-href="/incidents/templates">Incident Templates</a></li>
+        </ul>
+    </div>
+    <h2>Incidents</h2>
+    <button id="addIncident" class="pure-button pure-button-primary pure-button-xlarge" ng-click="addIncident()">Add Incident</button>
+    <br />
+    <div id="incidents">
+        <div class="pure-u-1" ng-repeat="incident in incidents">
+            <h3 id="incidentName">{{incident.name}}</h3>
+            <a ng-click="deleteIncidentReq()" id="incidentDelete">Delete</a>
+            <a ng-href="/incident/{{incident.id}}" id="incidentEdit" ng-show="incident.type !== 'Resolved'">Update</a>
+            <a ng-href="/incident/{{incident.id}}/view" id="incidentEdit" ng-show="incident.type === 'Resolved'">View Incident</a>
+            <a ng-href="/incident/{{incident.id}}/postmortem" id="incidentEdit" ng-show="incident.type === 'Resolved'">Write Postmortem</a>
+            <hr />
+        </div>
+    </div>
+</div>

@@ -3,13 +3,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" ng-click="$hide()">&times;</button>
-                <h1>Create an Incident</h1>
+                <h1>Update Incident</h1>
                 <div class="modal-body">
                     <form class="pure-form" ng-init="incidentValue='Investigating'">
-                        <fieldset class="pure-group">
-                            <label for="incident">Incident Name</label>
-                            <input type="text" id="incident" class="pure-input-1" placeholder="Incident Name" ng-model="incident" autofocus>
-                        </fieldset>
                             <label for="investigating" class="pure-radio">
                                 <input id="investigating" type="radio" name="optionsIncident" value="Investigating" ng-model="incidentValue"> Investigating
                             </label>
@@ -29,7 +25,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button id="createIncident" class="pure-button pure-button-primary pure-button-xlarge"ng-click="modal.saved=true;createIncident(incident, incidentValue, message);$hide()">Create Incident</button>
+                    <button id="updateIncident" class="pure-button pure-button-primary pure-button-xlarge"ng-click="modal.saved=true;updateIncident(incidentValue, message);$hide()">Update Incident</button>
                 </div>
             </div>
         </div>

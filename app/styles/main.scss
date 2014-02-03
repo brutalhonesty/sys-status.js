@@ -108,7 +108,7 @@ h2#componentTitle, div#componentError {
     width: 75%;
 }
 
-button#addComponent, button#addMetric, a#hiddenMetricEdit, div#componentEdit, button#newIncident {
+button#addComponent, button#addMetrmetricEdit, div#componentEdit, button#newIncident, button#addIncident, a#incidentEdit, a#incidentDelete {
     float: right;
 }
 
@@ -132,7 +132,7 @@ button#addComponent, button#addMetric, a#hiddenMetricEdit, div#componentEdit, bu
     color: rgb(231, 76, 60);
 }
 
-a.componentEdit, a#deleteMetric {
+a.componentEdit, a#deleteMetric, div#incidents a#incidentDelete {
     cursor: pointer;
 }
 
@@ -210,7 +210,7 @@ span#componentStatus {
     float: right;
 }
 
-input#userAutoSubscribe, input#userIndivComponents, input#userIndivIncidents, h2#subscriptionTypes, h2#notificationDeliveryTypes, input#allowEmailSubs, input#allowSMSSubs, input#allowWebSubs, input#yAxisMin, input#yAxisMax, input#hideYAxis, div#metrics h4#metricName {
+input#userAutoSubscribe, input#userIndivComponents, input#userIndivIncidents, h2#subscriptionTypes, h2#notificationDeliveryTypes, input#allowEmailSubs, input#allowSMSSubs, input#allowWebSubs, input#yAxisMin, input#yAxisMax, input#hideYAxis, input#xAxisMin, input#xAxisMax, input#hideXAxis, div#metrics h4#metricName, h3#incidentName {
     display: inline-block;
 }
 
@@ -219,8 +219,12 @@ form#metricForm > div > fieldset:nth-child(2) {
     margin-left: 2%;
 }
 
-a#hiddenMetricEdit {
+a#metricEdit, a#incidentEdit, a#incidentDelete {
     margin-top: 1.5%;
+}
+
+div#incidents a#incidentEdit, div#incidents a#incidentDelete {
+    margin-left: 2%;
 }
 
 /*Modal*/

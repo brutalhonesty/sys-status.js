@@ -1,0 +1,26 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="incidentContainer" class="container">
+	<aside class="aside-error" ng-show="asideError">
+    	{{asideError}}
+	</aside>
+	<h2>{{incident.name}}</h2>
+    <form class="pure-form" ng-init="incidentValue='Investigating'">
+            <label for="investigating" class="pure-radio">
+                <input id="investigating" type="radio" name="optionsIncident" value="Investigating" ng-model="incidentValue"> Investigating
+            </label>
+            <label for="identified" class="pure-radio">
+                <input id="identified" type="radio" name="optionsIncident" value="Identified" ng-model="incidentValue"> Identified
+            </label>
+            <label for="monitoring" class="pure-radio">
+                <input id="monitoring" type="radio" name="optionsIncident" value="Monitoring" ng-model="incidentValue"> Monitoring
+            </label>
+            <label for="resolved" class="pure-radio">
+                <input id="resolved" type="radio" name="optionsIncident" value="Resolved" ng-model="incidentValue"> Resolved
+            </label>
+        <fieldset class="pure-group">
+            <label for="message">Message</label>
+            <textarea id="message" class="pure-input-1" placeholder="Message" ng-model="message" rows="5"></textarea>
+        </fieldset>
+        <button id="updateIncident" class="pure-button pure-button-primary pure-button-xlarge" ng-click="updateIncident()">Update Incident</button>
+    </form>
+</div>
