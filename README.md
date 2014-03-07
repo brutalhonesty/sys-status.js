@@ -13,7 +13,7 @@ Version
 
 License
 -------
-[GPL v3](https://tldrlegal.com/license/gnu-general-public-license-v3-&#40;gpl-3&#41;)
+[GPL v3](https%3A%2F%2Ftldrlegal.com%2Flicense%2Fgnu-general-public-license-v3-(gpl-3))
 
 
 Dashboard
