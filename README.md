@@ -32,3 +32,17 @@ Customization
 TODO
 ----
 Check out the markdown TODO [list](TODO.md)
+
+Installation
+------------
+
+```bash
+git clone <repo url>
+cd /path/to/repo
+npm install
+bower install
+# Development
+grunt serve
+# Production
+grunt build
+```
