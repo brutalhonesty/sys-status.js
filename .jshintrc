@@ -19,6 +19,16 @@
   "trailing": true,
   "smarttabs": true,
   "globals": {
-    "angular": false
+    "angular": false,
+    "NewIncidentModalCtrl": true,
+    "NewIncidentModalCtrl": true,
+    "DeleteIncidentModalCtrl": true,
+    "DeleteMaintenanceModalCtrl": true,
+    "ComponentModalCtrl": true,
+    "DeleteComponentModalCtrl": true,
+    "MetricModalCtrl": true,
+    "MetricDeleteModalCtrl": true,
+    "AddImageModalCtrl": true,
+    "AddFavModalCtrl": true
   }
 }

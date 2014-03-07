@@ -1,0 +1,44 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="maintenanceContainer" class="container">
+    <aside class="aside-success" ng-show="asideSuccess">
+        {{asideSuccess}}
+    </aside>
+    <aside class="aside-error" ng-show="asideError">
+      {{asideError}}
+    </aside>
+    <h2>{{maintenance.name}}</h2>
+    <div class="pure-menu pure-menu-open pure-menu-horizontal">
+        <ul>
+            <li class="pure-menu-selected"><a ng-href="/incidents/maintenance/{{maintenance.id}}">Maintenance Updates</a></li>
+            <li><a ng-href="/incidents/maintenance/{{maintenance.id}}/details">Scheduled Details</a></li>
+        </ul>
+    </div>
+    <form class="pure-form" ng-init="maintenanceValue='Scheduled'" ng-show="maintenance.completedTime === null">
+            <label for="maintenanceStatus">Maintenance Status</label>
+            <div id="maintenanceStatus">
+                <label for="scheduled" class="pure-radio">
+                    <input id="scheduled" type="radio" name="optionsMaintenance" value="Scheduled" ng-model="maintenanceValue"> Scheduled
+                </label>
+                <label for="inProgress" class="pure-radio">
+                    <input id="inProgress" type="radio" name="optionsMaintenance" value="In Progress" ng-model="maintenanceValue"> In Progress
+                </label>
+                <label for="verifying" class="pure-radio">
+                    <input id="verifying" type="radio" name="optionsMaintenance" value="Verifying" ng-model="maintenanceValue"> Verifying
+                </label>
+                <label for="completed" class="pure-radio">
+                    <input id="completed" type="radio" name="optionsMaintenance" value="Completed" ng-model="maintenanceValue"> Completed
+                </label>
+            </div>
+        <fieldset class="pure-group">
+            <label for="message">Details</label>
+            <textarea id="details" class="pure-input-1" placeholder="Details" ng-model="details" rows="5"></textarea>
+        </fieldset>
+        <button id="updateIncident" class="pure-button pure-button-primary pure-button-xlarge" ng-click="updateMaintenanceEvent()">Update Maintenance</button>
+    </form>
+    <h2>Previous Updates</h2>
+    <!-- Show reverse order of events based on latest time -->
+    <div ng-repeat="event in maintenance.events | orderBy: 'date':true" hover-edit id="eventContainer">
+        <p><strong>{{event.type}}</strong> - {{event.details}} <span id="eventEdit"><a ng-href="" event='event' click-edit>Edit</a></span></p>
+        <p>Posted {{event.date | mfromNow}}. {{event.date | date: 'medium'}}</p>
+</div>
+</div>

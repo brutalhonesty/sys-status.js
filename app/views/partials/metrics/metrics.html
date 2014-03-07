@@ -15,10 +15,10 @@
         {{asideSuccess}}
     </aside>
     <h2>Your Metrics</h2>
-    <button id="addMetric" class="pure-button pure-button-primary pure-button-xlarge" ng-click="addMetric()">Add A Metric</button>
+    <button id="addMetric" class="pure-button pure-button-primary pure-button-xlarge" ng-click="addMetricReq()">Add A Metric</button>
     <br />
     <div id="metrics">
-        <div class="pure-u-1" ng-repeat="metric in metrics">
+        <div class="pure-u-1" ng-repeat="metric in metrics" ng-show="metrics.length > 0">
             <h4 id="metricName">{{metric.name}}</h4>
             <!--TODO: Need to figure out why if we switch one different than the first one, that the first one switches.-->
             <div class="onoffswitch">

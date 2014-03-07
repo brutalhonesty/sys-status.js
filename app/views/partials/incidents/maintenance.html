@@ -7,5 +7,27 @@
 	        <li class="pure-menu-selected"><a ng-href="/incidents/maintenance">Scheduled Maintenance</a></li>
 	        <li><a ng-href="/incidents/templates">Incident Templates</a></li>
 	    </ul>
+  </div>
+    <div id="maintenanceContainer" class="container">
+      <aside class="aside-success" ng-show="asideSuccess">
+        {{asideSuccess}}
+      </aside>
+      <aside class="aside-error" ng-show="asideError">
+        {{asideError}}
+      </aside>
+      <h2>Scheduled Maintenance</h2>
+      <a type="button" id="addMaintenance" class="pure-button pure-button-xlarge pure-button-primary" ng-href="/incidents/maintenance/new">Add Scheduled Maintenance</a>
+      <div class="pure-u-1" ng-repeat="maintenance in maintenances" id="maintenanceList">
+        <strong id="maintenaceType">[{{maintenance.type}}]<span id="maintenaceName">{{maintenance.name}}</span></strong>
+        <br>
+        <small id="scheduledTime" ng-show="maintenance.type !== 'Completed'">Scheduled for: {{maintenance.startTime | date: 'medium'}}</small>
+        <small id="scheduledTime" ng-show="maintenance.type === 'Completed'">Completed on: {{maintenance.startTime | date: 'fullDate'}}</small>
+        <div id="maintenanceEdit">
+          <a ng-href="/incidents/maintenance/{{maintenance.id}}" id="maintenanceUpdate" ng-show="maintenance.type !== 'Completed'">Update</a>
+          <a ng-href="/incidents/maintenance/{{maintenance.id}}/details" id="maintenanceDetails" ng-show="maintenance.type !== 'Completed'">Edit Details</a>
+          <a ng-click="deleteMaintenanceReq(maintenance.id)" id="maintenanceDelete">Delete</a>
+          <a ng-href="/incidents/maintenance/{{maintenance.id}}/postmortem" id="maintenancePostmortem" ng-show="maintenance.type === 'Completed'">Write Postmortem</a>
+        </div>
+      </div>
     </div>
 </div>

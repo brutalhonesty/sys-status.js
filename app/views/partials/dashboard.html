@@ -20,10 +20,10 @@
                 This incident has been open for <strong>{{incident.time}}</strong> and was last updated <strong>{{incident.updated}}</strong>.
             </div>
             <hr>
-            <div id="incidentContent">
-                {{incident.type}} - {{incident.message}}
+            <div id="incidentContent" ng-repeat="event in incident.events | orderBy: 'date':true | limitTo:1">
+                {{event.type}} - {{event.message}}
                 <br>
-                <small>{{incident.date | date:'medium'}}</small>
+                <small>{{event.date | date:'medium'}}</small>
             </div>
         </div>
     </div>
@@ -38,7 +38,7 @@
     	{{componentError}}
 	</div>
     <form class="pure-form" ng-repeat="component in components" ng-init="componentValue=component.status">
-		<span class="{{component.status === 'Operational' ? 'operational' : ''}}{{component.status === 'Degraded Performance' ? 'degraded' : ''}}{{component.status === 'Partial Outage' ? 'partial' : ''}}{{component.status === 'Major Outage' ? 'major' : ''}}">{{component.name}}</span>
+		<span class="{{componentValue === 'Operational' ? 'operational' : ''}}{{componentValue === 'Degraded Performance' ? 'degraded' : ''}}{{componentValue === 'Partial Outage' ? 'partial' : ''}}{{componentValue === 'Major Outage' ? 'major' : ''}}">{{component.name}}</span>
 		<label for="operational" class="pure-radio">
         	<input id="operational" type="radio" name="optionsComponent" value="Operational" ng-model="componentValue" ng-change="updateComponent(component.id, componentValue)"> Operational
         </label>

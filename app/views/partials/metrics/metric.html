@@ -7,15 +7,20 @@
         <h1>{{error}}</h1>
     </div>
     <div ng-show="metric && !error">
-        <h1>{{metric.name}}</h1>
-        <div id="metrickey" ng-show="metrickey">
-            <h3>Your metric key is: {{metrickey}}.</h3>
+        <h1 id="metricName">{{metric.name}}</h1>
+        <a id="deleteMetric" ng-click="deleteMetricReq()" ng-show="metric.data.length === 0">Delete metric</a>
+        <div id="metrickey" ng-show="metric.metrickey">
+            <h3>Your metric key is: {{metric.metrickey}}.</h3>
         </div>
         <div id="dataMissing" ng-show="metric.data.length === 0">
             <h2>Waiting for data...</h2>
             <h4>Here is an example script to get data "flowing".</h4>
-            <div ace="javascript" ng-model="aceInput" class="ace-editor">
-                <textarea name="tutorial[contents]"></textarea>
+            <div ui-ace="{
+            useWrapMode : true,
+            showGutter: false,
+            mode: 'javascript',
+            onLoad: aceLoaded
+            }" ng-model="aceInput" readonly="true">
             </div>
         </div>
         <div ng-include="'partials/metrics/graph'"></div>

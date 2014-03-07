@@ -1,6 +1,6 @@
 {
-  "name": "status-pit",
-  "version": "0.0.0",
+  "name": "sysstatus",
+  "version": "0.0.1",
   "dependencies": {
     "angular": "1.2.6",
     "json3": "~3.2.6",
@@ -11,14 +11,15 @@
     "angular-route": "1.2.6",
     "pure": "~0.3.0",
     "bootstrap-sass": "~3.0.2",
-    "angular-strap": "~2.0.0",
-    "angular-animate": "~1.2.9",
     "angular-moment": "~0.6.0",
     "font-awesome": "~4.0.3",
     "d3": "~3.4.1",
     "angular-ace": "~1.0.0",
     "nvd3": "~1.1.15-beta",
-    "angularjs-nvd3-directives": "~0.0.5-beta"
+    "angularjs-nvd3-directives": "~0.0.5-beta",
+    "angular-motion": "~0.3.2",
+    "angular-ui-ace": "~0.1.0",
+    "angular-ui-bootstrap-bower": "~0.10.0"
   },
   "devDependencies": {
     "angular-mocks": "1.2.6",

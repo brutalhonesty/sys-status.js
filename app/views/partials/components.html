@@ -1,4 +1,7 @@
 <div ng-include="'partials/navbar'"></div>
+<aside class="aside-success" ng-show="asideSuccess">
+  {{asideSuccess}}
+</aside>
 <aside class="aside-error" ng-show="asideError">
 	{{asideError}}
 </aside>
@@ -16,8 +19,8 @@
 		Current Status: {{component.status}}
 	</small>
 	<div id="componentEdit">
-		<a class="componentEdit" ng-click="editComponent()">Edit</a>
-		<a class="componentEdit" ng-click="deleteComponent()">Delete</a>
+		<a class="componentEdit" ng-click="editComponent(component.id)">Edit</a>
+		<a class="componentEdit" ng-click="deleteComponentReq(component.id)">Delete</a>
 	</div>
 	<hr/>
 </form>

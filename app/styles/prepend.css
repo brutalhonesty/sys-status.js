@@ -1,0 +1,50 @@
+input#bodyBackground, input#fontColor, input#lightFontColor, input#greenColor, input#redColor, input#yellowColor, input#orangeColor, input#linkColor, input#borderColor, input#graphColor {
+  display: inline-block;
+  top: -1px;
+}
+
+.input-prepend small {
+  display: block;
+}
+
+.input-prepend .add-on:first-child {
+  -webkit-border-radius: 4px 0 0 4px;
+  -moz-border-radius: 4px 0 0 4px;
+  border-radius: 4px 0 0 4px;
+}
+.input-prepend .add-on {
+  vertical-align: top;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  display: inline-block;
+  width: auto;
+  min-width: 28px;
+  padding: 4px 5px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 20px;
+  text-align: center;
+  text-shadow: 0 1px 0 #ffffff;
+  background-color: #eeeeee;
+  border: 1px solid #ccc;
+  z-index: 999;
+  margin-right: -5px;
+  height: 33px;
+}
+.input-prepend #colorViewer {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  height: 30px;
+  width: 30px;
+  top: 5px;
+  right: 5px;
+  border: 1px solid grey;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  vertical-align: baseline;
+  display: inline-block;
+  background: transparent;
+}

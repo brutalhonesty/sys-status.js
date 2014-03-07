@@ -28,7 +28,7 @@ aside {
 
 div#metrickey {
     height: 20px;
-    background: $pureSuccess;   
+    background: $pureSuccess;
 }
 
 div#metrickeyMissing {
@@ -108,7 +108,7 @@ h2#componentTitle, div#componentError {
     width: 75%;
 }
 
-button#addComponent, button#addMetrmetricEdit, div#componentEdit, button#newIncident, button#addIncident, a#incidentEdit, a#incidentDelete {
+button#addComponent, button#addMetrmetricEdit, div#componentEdit, button#newIncident, button#addIncident, a#incidentEdit, a#incidentDelete, a#addMaintenance, div#maintenanceEdit, div#incidentEdit {
     float: right;
 }
 
@@ -132,8 +132,18 @@ button#addComponent, button#addMetrmetricEdit, div#componentEdit, button#newInci
     color: rgb(231, 76, 60);
 }
 
-a.componentEdit, a#deleteMetric, div#incidents a#incidentDelete {
+a.componentEdit, a#deleteMetric, div#incidents a#incidentDelete, a#maintenanceUpdate, a#maintenanceDetails, a#maintenancePostmortem, a#maintenanceDelete {
     cursor: pointer;
+}
+
+fieldset a#deleteMetric {
+    float: none;
+    margin-top: 0;
+}
+
+a#deleteMetric {
+    float: right;
+    margin-top: 2%;
 }
 
 div#incidentHeader {
@@ -169,6 +179,10 @@ a#statusPage {
 div#statusPageStatus {
     background-color: $pureSuccess;
     padding: 0.4em;
+}
+
+div#logoImage p.asideError {
+    color: $pureError;
 }
 
 div#statusPageStatus strong {
@@ -210,8 +224,29 @@ span#componentStatus {
     float: right;
 }
 
-input#userAutoSubscribe, input#userIndivComponents, input#userIndivIncidents, h2#subscriptionTypes, h2#notificationDeliveryTypes, input#allowEmailSubs, input#allowSMSSubs, input#allowWebSubs, input#yAxisMin, input#yAxisMax, input#hideYAxis, input#xAxisMin, input#xAxisMax, input#hideXAxis, div#metrics h4#metricName, h3#incidentName {
+ul#uploadOptions li > a {
+    cursor: pointer;
+}
+
+input#userAutoSubscribe, input#userIndivComponents, input#userIndivIncidents, h2#subscriptionTypes, h2#notificationDeliveryTypes, input#allowEmailSubs, input#allowSMSSubs, input#allowWebSubs, input#yAxisMin, input#yAxisMax, input#hideYAxis, input#xAxisMin, input#xAxisMax, input#hideXAxis, div#metrics h4#metricName, h3#incidentName, h1#metricName, form#editForm input, input#maintenanceStartDate, input#maintenanceStartTime, input#maintenanceEndDate, input#maintenanceEndTime, input#remindSubs, input#setProgress, input#basicLogo, input#coverLogo {
     display: inline-block;
+}
+
+div#maintenanceTimes label {
+    display: block;
+}
+
+div#maintenanceTimes {
+    margin-top: 12px;
+}
+
+div#maintenanceList {
+    margin-top: 2%;
+}
+
+div#maintenanceStart, div#maintenanceEnd {
+    display: inline-block;
+    margin-left: 10px;
 }
 
 form#metricForm > div > fieldset:nth-child(2) {
@@ -219,12 +254,38 @@ form#metricForm > div > fieldset:nth-child(2) {
     margin-left: 2%;
 }
 
-a#metricEdit, a#incidentEdit, a#incidentDelete {
-    margin-top: 1.5%;
+span#eventEdit {
+    display: none;
+    cursor: pointer;
 }
 
-div#incidents a#incidentEdit, div#incidents a#incidentDelete {
-    margin-left: 2%;
+form#editForm input:nth-child(1) {
+    top: -1px;
+}
+
+form#editForm button#updatePrevious {
+    margin-right: 8px;
+}
+
+div#logoImage small, div#faviconImage small, div#aboutPage small {
+    display: block;
+}
+
+div.fileUpload {
+    position: relative;
+    overflow: hidden;
+}
+
+div.fileUpload input#addLogo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
 }
 
 /*Modal*/

@@ -1,5 +1,14 @@
 <div ng-include="'partials/navbar'"></div>
 <div id="incidentContainer" class="container">
+    <aside class="aside-success" ng-show="asideSuccess">
+        {{asideSuccess}}
+    </aside>
+    <div ng-show="error">
+        <h1>{{error}}</h1>
+    </div>
+    <aside class="aside-error" ng-show="asideError">
+        {{asideError}}
+    </aside>
     <h1>Incidents</h1>
     <div class="pure-menu pure-menu-open pure-menu-horizontal">
         <ul>
@@ -9,16 +18,21 @@
         </ul>
     </div>
     <h2>Incidents</h2>
-    <button id="addIncident" class="pure-button pure-button-primary pure-button-xlarge" ng-click="addIncident()">Add Incident</button>
+    <button id="addIncident" class="pure-button pure-button-primary pure-button-xlarge" ng-click="newIncident()">Add Incident</button>
     <br />
     <div id="incidents">
         <div class="pure-u-1" ng-repeat="incident in incidents">
             <h3 id="incidentName">{{incident.name}}</h3>
-            <a ng-click="deleteIncidentReq()" id="incidentDelete">Delete</a>
-            <a ng-href="/incident/{{incident.id}}" id="incidentEdit" ng-show="incident.type !== 'Resolved'">Update</a>
-            <a ng-href="/incident/{{incident.id}}/view" id="incidentEdit" ng-show="incident.type === 'Resolved'">View Incident</a>
-            <a ng-href="/incident/{{incident.id}}/postmortem" id="incidentEdit" ng-show="incident.type === 'Resolved'">Write Postmortem</a>
-            <hr />
+            <br>
+            <small id="scheduledTime" ng-show="incident.type !== 'Completed'">Last Updated: {{incident.update | date: 'medium'}}</small>
+            <small id="scheduledTime" ng-show="incident.type === 'Completed'">Completed on: {{incident.completeTime | date: 'fullDate'}}</small>
+            <div id="incidentEdit">
+                <a ng-click="deleteIncidentReq(incident.id)" id="incidentDelete">Delete</a>
+                <a ng-href="/incident/{{incident.id}}" id="incidentEdit" ng-show="incident.type !== 'Resolved'">Update</a>
+                <a ng-href="/incident/{{incident.id}}/view" id="incidentEdit" ng-show="incident.type === 'Resolved'">View Incident</a>
+                <a ng-href="/incident/{{incident.id}}/postmortem" id="incidentEdit" ng-show="incident.type === 'Resolved'">Write Postmortem</a>
+                <hr />
+            </div>
         </div>
     </div>
 </div>

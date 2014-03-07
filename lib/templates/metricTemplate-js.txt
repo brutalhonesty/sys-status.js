@@ -2,8 +2,9 @@ var metricid = &metricid&;
 var metrickey = &metrickey&;
 var request = require('request');
 setInterval(function () {
+	// Your data object, make sure you include timeStamp and value as the keys.
 	var dhash = {
-		timeStamp: Date.now(),
+		timeStamp: Date.now(Date.UTC()),
 		value: (Math.random()*100)
 	};
 	request.post('http://mysys-status-site.com/api/inputMetricData', {form:{dhash: dhash, metrickey: metrickey, metricID: metricid}}, function (err, res, body) {
@@ -15,4 +16,4 @@ setInterval(function () {
 		}
 		console.log(body); // Expected {}
 	});
-}, 300000);
+}, 300000); // Every 5 minutes

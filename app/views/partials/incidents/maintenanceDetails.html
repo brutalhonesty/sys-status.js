@@ -1,0 +1,46 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="maintenanceContainer" class="container">
+    <aside class="aside-success" ng-show="asideSuccess">
+        {{asideSuccess}}
+    </aside>
+    <aside class="aside-error" ng-show="asideError">
+      {{asideError}}
+    </aside>
+    <h2>{{maintenance.name}}</h2>
+    <div class="pure-menu pure-menu-open pure-menu-horizontal">
+        <ul>
+            <li><a ng-href="/incidents/maintenance/{{maintenance.id}}">Maintenance Updates</a></li>
+            <li class="pure-menu-selected"><a ng-href="/incidents/maintenance/{{maintenance.id}}/details">Scheduled Details</a></li>
+        </ul>
+    </div>
+    <form id="maintenanceForm" class="pure-form">
+      <div class="pure-g-r">
+        <fieldset class="pure-group pure-u-1">
+          <label for="maintenanceName">Maintenance Name</label>
+          <input type="text" class="pure-input-1" ng-model="maintenance.name" placeholder="Maintenance Name" autofocus>
+          <div id="maintenanceTimes">
+            <div id="maintenanceStart">
+              <label>Maintenance Start Time (UTC)</label>
+              <input type="date" id="maintenanceStartDate" ng-model="maintenance.start.date" placeholder="yyyy-MM-dd">
+              <input type="time" id="maintenanceStartTime" ng-model="maintenance.start.time" placeholder="HH:mm">
+            </div>
+            <div id="maintenanceEnd">
+              <label>Maintenance End Time (UTC)</label>
+              <input type="date" id="maintenanceEndDate" ng-model="maintenance.end.date" placeholder="yyyy-MM-dd">
+              <input type="time" id="maintenanceEndTime" ng-model="maintenance.end.time" placeholder="HH:mm">
+            </div>
+          </div>
+          <label for="automation">Automation</label>
+          <div id="automation">
+            <label for="remindSubs" class="pure-radio">
+              <input type="checkbox" id="remindSubs" ng-model="maintenance.remindSubs">Automatically remind subscribers. <i class="fa fa-question-circle" bs-tooltip="remindSubsTool"></i>
+            </label>
+            <label for="setProgress" class="pure-radio">
+              <input type="checkbox" id="setProgress" ng-model="maintenance.setProgress">Automatically set status to 'In progress' at start of maintenance period.
+            </label>
+          </div>
+          <button type="button" id="addMaintenance" class="pure-button pure-button-xlarge pure-button-primary" ng-click="updateMaintenance()">Update Maintenance Details</button>
+        </fieldset>
+      </div>
+    </form>
+</div>

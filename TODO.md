@@ -21,3 +21,11 @@ TODO
     * History page link
 * History page
     * Incidents by month
+
+
+Check out ```grep -R --exclude-dir=./app/bower_components --exclude-dir=node_modules 'TODO' .``` for more up to date list.
+
+* Check to make sure when an event is added or updated in the incident's object, the update time is changed.
+* Maintenance.js:~94 Trigger closing of any maintenance stuff that's still open for this maintenance incident
+* Maintenance.js:~298 Trigger events if remindSubs and/or setProgress is enabled.
+* Maintenance.js:~176 Trigger events for boolean values and anything else we need to do to kick start the maintenance with new times.

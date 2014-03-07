@@ -1,6 +1,7 @@
 'use strict';
 
 var express = require('express');
+var path = require('path');
 
 /**
  * Main application file

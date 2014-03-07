@@ -3,6 +3,7 @@ public
 .tmp
 .sass-cache
 app/bower_components
+uploads/
 heroku
 /views
 dist

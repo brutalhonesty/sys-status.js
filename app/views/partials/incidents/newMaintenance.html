@@ -1,0 +1,52 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="incidentContainer" class="container">
+  <h2>Incidents</h2>
+  <div class="pure-menu pure-menu-open pure-menu-horizontal">
+    <ul>
+          <li><a ng-href="/incidents">Incidents</a></li>
+          <li class="pure-menu-selected"><a ng-href="/incidents/maintenance">Scheduled Maintenance</a></li>
+          <li><a ng-href="/incidents/templates">Incident Templates</a></li>
+      </ul>
+    </div>
+    <div id="maintenanceContainer" class="container">
+      <aside class="aside-error" ng-show="asideError">
+          {{asideError}}
+      </aside>
+      <h2>New Scheduled Maintenance</h2>
+      <form id="maintenanceForm" class="pure-form">
+        <div class="pure-g-r">
+          <fieldset class="pure-group pure-u-1" ng-init="maintenance = {}">
+            <label for="maintenanceName">Maintenance Name</label>
+            <input type="text" class="pure-input-1" ng-model="maintenance.name" placeholder="Maintenance Name" autofocus>
+            <label for="maintenanceDetails">Maintenance Details</label>
+            <textarea class="pure-input-1" ng-model="maintenance.details" placeholder="Maintenance Details" rows="5"></textarea>
+            <div id="maintenanceTimes">
+              <div id="maintenanceStart">
+                <label>Maintenance Start Time (UTC)</label>
+                <input type="date" id="maintenanceStartDate" ng-model="maintenance.start.date" ng-init="maintenance.start.date = (now | date: 'yyyy-MM-dd')" placeholder="yyyy-MM-dd">
+                <input type="time" id="maintenanceStartTime" ng-model="maintenance.start.time" ng-init="maintenance.start.time = (now | date: 'HH:mm')" placeholder="HH:mm">
+              </div>
+              <div id="maintenanceEnd">
+                <label>Maintenance End Time (UTC)</label>
+                <input type="date" id="maintenanceEndDate" ng-model="maintenance.end.date" ng-init="maintenance.end.date = (now | date: 'yyyy-MM-dd')" placeholder="yyyy-MM-dd">
+                <input type="time" id="maintenanceEndTime" ng-model="maintenance.end.time" ng-init="maintenance.end.time = (now | date: 'HH:mm')" placeholder="HH:mm">
+              </div>
+            </div>
+            <label for="automation">Automation</label>
+            <div id="automation">
+              <label for="remindSubs" class="pure-radio">
+                <input type="checkbox" id="remindSubs" ng-model="maintenance.remindSubs" ng-init="maintenance.remindSubs = maintenance.remindSubs || false">Automatically remind subscribers. <i class="fa fa-question-circle" bs-tooltip="remindSubsTool"></i>
+              </label>
+              <label for="setProgress" class="pure-radio">
+                <input type="checkbox" id="setProgress" ng-model="maintenance.setProgress" ng-init="maintenance.setProgress = maintenance.setProgress || false">Automatically set status to 'In progress' at start of maintenance period.
+              </label>
+            </div>
+            <label for="notifications">User notifications</label>
+            <p id="notifications">Users subscribed to all incidents will be notified of this scheduled maintenance immediately.</p>
+            <br>
+            <button type="button" id="addMaintenance" class="pure-button pure-button-xlarge pure-button-primary" ng-click="scheduleMaintenance()">Schedule Maintenance</button>
+          </fieldset>
+        </div>
+      </form>
+    </div>
+</div>
