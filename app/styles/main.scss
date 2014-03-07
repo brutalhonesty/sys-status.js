@@ -181,7 +181,7 @@ div#statusPageStatus {
     padding: 0.4em;
 }
 
-div#logoImage p.asideError {
+div#logoImage p.asideError, div#faviconImage p.asideError {
     color: $pureError;
 }
 

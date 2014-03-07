@@ -1,18 +1,13 @@
-/*global statusPitApp */
+/* global statusPitApp, $ */
 'use strict';
 
-statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
+statusPitApp.service('API', ['$http', function ($http) {
   return {
-    register: function(siteName, email, password) {
-      var registerData = {
-        siteName: siteName,
-        email: email,
-        password: password
-      };
+    register: function(registerData) {
       return $http({
         url: '/api/register',
         method: 'POST',
-        data: $window.$.param(registerData),
+        data: $.param(registerData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
@@ -24,7 +19,7 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
       return $http({
         url: '/api/login',
         method: 'POST',
-        data: $window.$.param(loginData),
+        data: $.param(loginData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
@@ -35,7 +30,7 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
       return $http({
         url: '/api/setComponent',
         method: 'POST',
-        data: $window.$.param(component),
+        data: $.param(component),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
@@ -43,7 +38,7 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
       return $http({
         url: '/api/updateComponent',
         method: 'POST',
-        data: $window.$.param(updateData),
+        data: $.param(updateData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
@@ -51,7 +46,7 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
       return $http({
         url: '/api/deleteComponent',
         method: 'POST',
-        data: $window.$.param(componentData),
+        data: $.param(componentData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
@@ -59,7 +54,7 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
       return $http({
         url: '/api/createIncident',
         method: 'POST',
-        data: $window.$.param(incidentData),
+        data: $.param(incidentData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
@@ -73,7 +68,7 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
       return $http({
         url: '/api/updateIncident',
         method: 'POST',
-        data: $window.$.param(incidentData),
+        data: $.param(incidentData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
@@ -93,7 +88,7 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
       return $http({
         url: '/api/createMetric',
         method: 'POST',
-        data: $window.$.param(metricData),
+        data: $.param(metricData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
@@ -101,7 +96,7 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
       return $http({
         url: '/api/deleteMetric',
         method: 'POST',
-        data: $window.$.param(metricData),
+        data: $.param(metricData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
@@ -109,7 +104,7 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
       return $http({
         url: '/api/updateMetric',
         method: 'POST',
-        data: $window.$.param(metricData),
+        data: $.param(metricData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
@@ -117,7 +112,7 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
       return $http({
         url: '/api/updateMetricVisibility',
         method: 'POST',
-        data: $window.$.param(metricData),
+        data: $.param(metricData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
@@ -125,7 +120,7 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
       return $http({
         url: '/api/deleteIncident',
         method: 'POST',
-        data: $window.$.param(incidentData),
+        data: $.param(incidentData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
@@ -133,7 +128,7 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
       return $http({
         url: '/api/updatePrevIncident',
         method: 'POST',
-        data: $window.$.param(incidentData),
+        data: $.param(incidentData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
@@ -145,7 +140,7 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
       return $http({
         url: '/api/addMaintenance',
         method: 'POST',
-        data: $window.$.param(maintenanceData),
+        data: $.param(maintenanceData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
@@ -156,7 +151,7 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
       return $http({
         url: '/api/deleteMaintenance',
         method: 'POST',
-        data: $window.$.param(maintenanceData),
+        data: $.param(maintenanceData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
@@ -164,7 +159,7 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
       return $http({
         url: '/api/updateMaintenanceEvent',
         method: 'POST',
-        data: $window.$.param(maintenanceData),
+        data: $.param(maintenanceData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
@@ -176,7 +171,7 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
       return $http({
         url: '/api/updateMaintenance',
         method: 'POST',
-        data: $window.$.param(maintenanceData),
+        data: $.param(maintenanceData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
@@ -184,7 +179,7 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
       return $http({
         url: '/api/updatePrevMaintenance',
         method: 'POST',
-        data: $window.$.param(maintenanceData),
+        data: $.param(maintenanceData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
@@ -204,6 +199,14 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
     getCustomData: function() {
       return $http.get('/api/getCustomData');
     },
+    setCustomData: function(customData) {
+      return $http({
+        url: '/api/setCustomData',
+        method: 'POST',
+        data: $.param(customData),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      });
+    },
     uploadFavicon: function(favData) {
       var formData = new FormData();
       formData.append('file', favData.file || null);
@@ -211,6 +214,26 @@ statusPitApp.service('API', ['$http', '$window', function ($http, $window) {
       return $http.post('/api/upload/favicon', formData, {
         headers: {'Content-Type': undefined},
         transformRequest: angular.identity
+      });
+    },
+    uploadCover: function(coverData) {
+      var formData = new FormData();
+      formData.append('file', coverData.file || null);
+      formData.append('url', coverData.url || null);
+      return $http.post('/api/upload/cover', formData, {
+        headers: {'Content-Type': undefined},
+        transformRequest: angular.identity
+      });
+    },
+    getDomain: function() {
+      return $http.get('/api/getDomain');
+    },
+    updateDomain: function(domainData) {
+      return $http({
+        url: '/api/updateDomain',
+        method: 'POST',
+        data: $.param(domainData),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     }
   };

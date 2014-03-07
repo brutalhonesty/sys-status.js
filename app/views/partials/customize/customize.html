@@ -1,5 +1,5 @@
 <div ng-include="'partials/navbar'"></div>
-<div id="customizeContainer">
+<div id="customizeContainer" class="container">
   <aside class="aside-success" ng-show="asideSuccess">
     {{asideSuccess}}
   </aside>
@@ -11,7 +11,7 @@
     <ul>
       <li class="pure-menu-selected"><a ng-href="/customize">Layout &amp; Design</a></li>
       <li><a ng-href="/customize/url">URL</a></li>
-      <li><a ng-href="/customize/customCode">Custom Code</a></li>
+      <li><a ng-href="/customize/code">Custom Code</a></li>
     </ul>
   </div>
   <form class="pure-form pure-form-aligned">
@@ -24,7 +24,7 @@
       </div>
       <div class="pure-group pure-u-1-2">
         <img src="//placehold.it/540x400" alt="Placeholder" ng-show="!customData.cover">
-        <img ng-src="{{customData.cover}}" alt="Cover Image" ng-show="cover">
+        <img ng-src="{{customData.cover}}" alt="Cover Image" ng-show="customData.cover">
         <label for="coverLogo" class="pure-radio"><input type="radio" name="layoutType" ng-model="customData.layoutType" id="coverLogo" value="cover">Cover Image</label>
         <small>Nice big cover image.</small>
       </div>
@@ -101,25 +101,25 @@
       </div>
     </fieldset>
     <fieldset class="pure-group pure-u-1-2">
-      <div class="pure-u-1" ng-show="layoutType">
+      <div class="pure-u-1" ng-show="customData.layoutType === 'basic'">
         <div id="logoImage">
           <h4>Logo images add branding to the status page.</h4>
           <div class="pure-button pure-input-1-3 pure-button-primary" ng-click="addLogoModal()"><span>Add Logo Image</span></div>
           <small>Rectangular images work best.</small>
         </div>
       </div>
-      <div class="pure-u-1" ng-show="!layoutType">
-        <div id="logoImage">
-          <h4>Logo images add branding to the status page.</h4>
-          <p ng-show="logoError" class="asideError">{{logoError}}</p>
-          <div class="pure-button pure-input-1-3 pure-button-primary" ng-click="addLogoModal()"><span>Add Logo Image</span></div>
+      <div class="pure-u-1" ng-show="customData.layoutType === 'cover'">
+        <div id="coverImage">
+          <h4>Cover images are super stylish!</h4>
+          <p ng-show="coverError" class="asideError customize-error">{{coverError}}</p>
+          <div class="pure-button pure-input-1-3 pure-button-primary" ng-click="addCoverModal()"><span>Add Cover Image</span></div>
           <small>Rectangular images work best.</small>
         </div>
       </div>
       <div class="pure-u-1">
         <div id="faviconImage">
           <h4>Upload a favicon image that will be used on the status page.</h4>
-          <p ng-show="favError" class="asideError">{{favError}}</p>
+          <p ng-show="favError" class="asideError customize-error">{{favError}}</p>
           <span class="pure-button pure-input-1-3 pure-button-primary" ng-click="addFavModal()">Add Favicon Image</span>
           <small>Favicons usually should be 32x32 pixels.</small>
         </div>
@@ -132,8 +132,8 @@
         <textarea type="text" ng-model="customData.aboutPage" id="aboutPage" placeholder="Welcome to {{siteName}}'s status page..." class="pure-u-1" rows="5"></textarea>
         <small>Optional text that is shown at the top of the status page.</small>
       </div>
+      <button type="submit" class="pure-button pure-input-1-2 pure-button-primary pure-button-xlarge" ng-click="saveDesign()">Save All Changes</button>
     </fieldset>
     </div>
-    <button type="submit" class="pure-button pure-input-1-4 pure-button-primary" ng-click="saveDesign()">Save Changes</button>
   </form>
 </div>

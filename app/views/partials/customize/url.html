@@ -1,0 +1,26 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="customizeURLContainer" class="container">
+  <aside class="aside-success" ng-show="asideSuccess">
+    {{asideSuccess}}
+  </aside>
+  <aside class="aside-error" ng-show="asideError">
+    {{asideError}}
+  </aside>
+  <h2>Customize Page</h2>
+  <div class="pure-menu pure-menu-open pure-menu-horizontal">
+    <ul>
+      <li><a ng-href="/customize">Layout &amp; Design</a></li>
+      <li class="pure-menu-selected"><a ng-href="/customize/url">URL</a></li>
+      <li><a ng-href="/customize/code">Custom Code</a></li>
+    </ul>
+  </div>
+  <form class="pure-form pure-form-aligned" ng-submit="updateDomain()">
+    <label for="customDomain">Custom Domain</label>
+    <br />
+    <input type="url" id="url" ng-model="customDomain" class="pure-input-1-4" placeholder="http://example.com" autofocus required autocomplete="off">
+    <br />
+    <small>This is the domain that you want your customer's to hit to view the status page.</small>
+    <br />
+    <button type="submit" class="pure-button pure-input-1-4 pure-button-primary">Save All Changes</button>
+  </form>
+</div>

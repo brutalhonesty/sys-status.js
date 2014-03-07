@@ -4,7 +4,7 @@ TODO
 
 * Admin page for status page
     * Dashboard - Incident creater, Component status changer
-    * Incidents - Incident creater, scheduled maintenance creater, incidient template creater
+    * Incidents - Incident creater, scheduled maintenance creater, incident template creater
     * Components - Component creater, 3rd party component creater (Github)
     * Metrics - Metric creater, 3rd party data source, video walkthroughs
     * Customize page - Layout & Design, Url, Custom CSS/HTML, Privacy
@@ -29,3 +29,7 @@ Check out ```grep -R --exclude-dir=./app/bower_components --exclude-dir=node_mod
 * Maintenance.js:~94 Trigger closing of any maintenance stuff that's still open for this maintenance incident
 * Maintenance.js:~298 Trigger events if remindSubs and/or setProgress is enabled.
 * Maintenance.js:~176 Trigger events for boolean values and anything else we need to do to kick start the maintenance with new times.
+
+
+* We can generalize all get requests to one function which checks the parameters and returns what is request within them. We can add checks to make sure requests for sensitive information will fail validation.
+    * Example: ```/api/getData?request=customize,domain``` , returns an object with ```customize:{}``` and ```domain: ''```

@@ -1,7 +1,7 @@
 /* jshint unused: false */
 'use strict';
 
-var statusPitApp = angular.module('statusPitApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute', 'nvd3ChartDirectives', 'ui.ace', 'angularMoment', 'ui.bootstrap']).config(function ($routeProvider, $locationProvider) {
+var statusPitApp = angular.module('statusPitApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute', 'ngAnimate', 'nvd3ChartDirectives', 'ui.ace', 'angularMoment', 'ui.bootstrap']).config(function ($routeProvider, $locationProvider) {
   $routeProvider.when('/', {
     templateUrl: 'partials/main',
     controller: 'MainCtrl'
@@ -64,6 +64,12 @@ var statusPitApp = angular.module('statusPitApp', ['ngCookies', 'ngResource', 'n
   }).when('/customize', {
     templateUrl: 'partials/customize/customize',
     controller: 'CustomizeCtrl'
+  }).when('/customize/url', {
+    templateUrl: 'partials/customize/url',
+    controller: 'CustomizeURLCtrl'
+  }).when('/customize/code', {
+    templateUrl: 'partials/customize/code',
+    controller: 'CustomizeCodeCtrl'
   }).otherwise({
     redirectTo: '/'
   });

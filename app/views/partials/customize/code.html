@@ -1,0 +1,18 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="customizeURLContainer" class="container">
+  <aside class="aside-success" ng-show="asideSuccess">
+    {{asideSuccess}}
+  </aside>
+  <aside class="aside-error" ng-show="asideError">
+    {{asideError}}
+  </aside>
+  <h2>Customize Page</h2>
+  <div class="pure-menu pure-menu-open pure-menu-horizontal">
+    <ul>
+      <li><a ng-href="/customize">Layout &amp; Design</a></li>
+      <li><a ng-href="/customize/url">URL</a></li>
+      <li class="pure-menu-selected"><a ng-href="/customize/code">Custom Code</a></li>
+    </ul>
+  </div>
+  <h2>Coming Soon.</h2>
+</div>

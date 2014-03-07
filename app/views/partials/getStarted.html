@@ -6,17 +6,22 @@
     <form class="pure-form pure-form-stacked">
         <fieldset class="pure-group">
             <label for="site">Site</label>
-            <input type="text" id="site" class="pure-input-1-2" placeholder="Site Name" ng-model="site" autofocus>
+            <input type="text" id="site" class="pure-input-1-2" placeholder="Site Name" ng-model="site" autofocus required>
+        </fieldset>
+
+        <fieldset class="pure-group">
+            <label for="domain">Site</label>
+            <input type="url" id="domain" class="pure-input-1-2" placeholder="http://example.com" ng-model="domain" required autocomplete="off">
         </fieldset>
 
         <fieldset class="pure-group">
             <label for="email">Email</label>
-            <input type="email" class="pure-input-1-2" placeholder="Email Address" ng-model="email">
+            <input type="email" class="pure-input-1-2" placeholder="Email Address" ng-model="email" required>
         </fieldset>
 
         <fieldset class="pure-group">
             <label for="password">Password</label>
-            <input type="password" class="pure-input-1-2" placeholder="Password" ng-model="password">
+            <input type="password" class="pure-input-1-2" placeholder="Password" ng-model="password" required>
         </fieldset>
 
         <button type="submit" class="pure-button pure-input-1-2 pure-button-primary" ng-click="register()">Register</button>

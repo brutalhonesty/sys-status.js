@@ -147,7 +147,13 @@ statusPitApp.controller('LoginCtrl', ['$scope', 'API', '$location', '$window', f
 
 statusPitApp.controller('GetStartedCtrl', ['$scope', 'API', '$location', function ($scope, api, $location) {
   $scope.register = function () {
-    api.register($scope.site, $scope.email, $scope.password).success(function () {
+    var registerData = {
+      siteName: $scope.site,
+      email: $scope.email,
+      domain: $scope.domain,
+      password: $scope.password
+    };
+    api.register(registerData).success(function () {
       $location.path('/dashboard').search({'registered': 1});
     }).error(function (error) {
       $scope.aside = error.message;
@@ -600,7 +606,7 @@ statusPitApp.controller('MetricCtrl', ['$scope', '$window', 'API', '$route', '$m
 
 statusPitApp.controller('MetricSourceCtrl', [function () {}]);
 
-statusPitApp.controller('CustomizeCtrl', ['$scope', '$window', 'API', '$modal', '$location', function ($scope, $window, api, $modal, $location) {
+statusPitApp.controller('CustomizeCtrl', ['$scope', '$window', 'API', '$modal', '$location', '$anchorScroll', function ($scope, $window, api, $modal, $location, $anchorScroll) {
   $scope.siteName = $window.localStorage.getItem('name') || null;
   api.getCustomData().success(function (customData) {
     $scope.customData = customData;
@@ -626,6 +632,22 @@ statusPitApp.controller('CustomizeCtrl', ['$scope', '$window', 'API', '$modal', 
       });
     });
   };
+  $scope.addCoverModal = function() {
+    var addCoverModal = $modal.open({
+      controller: AddImageModalCtrl,
+      templateUrl: 'views/partials/customize/addCoverModal.html'
+    });
+    addCoverModal.result.then(function (coverObj) {
+      api.uploadCover(coverObj).success(function (uploadResponse) {
+        $scope.asideSuccess = uploadResponse.message;
+      }).error(function (error, statusCode) {
+        if(statusCode === 401) {
+          $location.path('/login');
+        }
+        $scope.coverError = error.message;
+      });
+    });
+  };
   $scope.addFavModal = function() {
     var addFavModal = $modal.open({
       controller: AddFavModalCtrl,
@@ -643,6 +665,42 @@ statusPitApp.controller('CustomizeCtrl', ['$scope', '$window', 'API', '$modal', 
     });
   };
   $scope.saveDesign = function() {
-    console.log($scope.customData);
+    // Scroll to top
+    $anchorScroll();
+    var customData = angular.copy($scope.customData);
+    delete customData.favicon;
+    delete customData.logo;
+    delete customData.cover;
+    api.setCustomData(customData).success(function (customResponse) {
+      $scope.asideSuccess = customResponse.message;
+    }).error(function (error) {
+      $scope.error = error.message;
+    });
   };
 }]);
+
+statusPitApp.controller('CustomizeURLCtrl', ['$scope', 'API', '$location', function ($scope, api, $location) {
+  api.getDomain().success(function (domainResponse) {
+    $scope.customDomain = domainResponse.domain;
+  }).error(function (error, statusCode) {
+    if(statusCode === 401) {
+      $location.path('/login');
+    }
+    $scope.asideError = error.message;
+  });
+  $scope.updateDomain = function() {
+    var domainData = {
+      domain: $scope.customDomain
+    };
+    api.updateDomain(domainData).success(function (domainResponse) {
+      $scope.asideSuccess = domainResponse.message;
+    }).error(function (error, statusCode) {
+      if(statusCode === 401) {
+        $location.path('/login');
+      }
+      $scope.asideError = error.message;
+    });
+  };
+}]);
+
+statusPitApp.controller('CustomizeCodeCtrl', [function () {}]);
