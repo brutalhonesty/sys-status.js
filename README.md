@@ -44,6 +44,6 @@ bower install
 # Development
 grunt serve
 # Production
-grunt build
+grunt
 mv ./dist /path/to/production/location
 ```

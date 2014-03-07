@@ -1,3 +1,4 @@
+'use strict';
 var metricid = '5ddbeb81-b1d1-4ba8-a18b-f8001b326c57';
 var metrickey = '438c7b32138d501b766b948842cf25762ca7eacaaef7997a56f6be51351f3103';
 var request = require('request');
