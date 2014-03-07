@@ -45,4 +45,5 @@ bower install
 grunt serve
 # Production
 grunt build
+mv ./dist /path/to/production/location
 ```
