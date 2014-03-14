@@ -1,13 +1,17 @@
 /* jshint undef: false, unused: false */
-/*global statusPitApp */
+/* global sysStatusApp, d3, moment */
 'use strict';
 
 /* API calls for some of the controllers */
 function getComponents($scope, $location, api) {
+  // Get components from the server
   api.getComponents().success(function (data) {
+    // No components so display "Error"
+    // TODO we could load some markup to say "Create a component now"
     if(data.components.length === 0) {
       $scope.componentError = 'No components found.';
     } else {
+      // Show components on page
       $scope.components = data.components;
     }
   }).error(function (error, statusCode) {
@@ -19,9 +23,21 @@ function getComponents($scope, $location, api) {
 }
 
 function getIncidents($scope, $location, api) {
+  // Get Incidents from the server
   api.getIncidents().success(function (data) {
+    // Initialize boolean check for open incidents
+    $scope.openIncidents = false;
+    // If we have incidents
     if(data.incidents.length > 0) {
+      // Set incidents to scope
       $scope.incidents = data.incidents;
+      // If we have an incident that is not resolve, we have an open incident
+      for(var incidentCounter = 0; incidentCounter < $scope.incidents.length; incidentCounter++) {
+        var incident = $scope.incidents[incidentCounter];
+        if(incident.events[incident.events.length - 1].type !== 'Resolved') {
+          $scope.openIncidents = true;
+        }
+      }
     }
   }).error(function (error, statusCode) {
     if(statusCode === 401) {
@@ -31,9 +47,43 @@ function getIncidents($scope, $location, api) {
   });
 }
 
+/**
+ * Gets the current day and creates an array of the last 10 days in milliseconds
+ * @return {Array} timeArray The array of times
+ */
+function pastTenDays() {
+  var today = moment().startOf('day').valueOf();
+  var timeArray = [today];
+  for(var timeCounter = 1; timeCounter <= 10; timeCounter++) {
+    timeArray.push(today - (86400000 * timeCounter));
+  }
+  return timeArray;
+}
+
 function getPrivateCompany($scope, $location, api) {
+  // Get the company object from the server
   api.getPrivateCompany().success(function (companyData) {
     $scope.company = companyData.company;
+    $scope.incidentDates = pastTenDays();
+    // Used for graphs
+    $scope.xAxisTickFormatFunction = function(){
+      return function(d) {
+        return d3.time.format('%H:%M')(moment(d).toDate());
+        // TODO figure out how this changes when the data is repainted
+        /*$scope.$watch('interval', function (newValue, oldValue) {
+          switch(newValue) {
+            case 'day':
+              return d3.time.format('%H:%M')(moment(d).toDate());
+            case 'week':
+              return d3.time.format('%a %b %e %X')(moment(d).toDate());
+            case 'month':
+              return d3.time.format('%b %e %X')(moment(d).toDate());
+            default:
+              return d3.time.format('%H:%M')(moment(d).toDate());
+          }
+        });*/
+      };
+    };
   }).error(function (error, statusCode) {
     if(statusCode === 401) {
       $location.path('/login');
@@ -43,6 +93,7 @@ function getPrivateCompany($scope, $location, api) {
 }
 
 function getMetrics($scope, $location, api) {
+  // Get metrics from the server
   api.getMetrics().success(function (metricsData) {
     $scope.metrics = metricsData;
   }).error(function (error, statusCode) {
@@ -53,27 +104,23 @@ function getMetrics($scope, $location, api) {
   });
 }
 
-function getMetric($scope, $location, api, metricID, $window) {
+function getMetric($scope, $location, api, metricID) {
+  // Get single metric from the server
   api.getMetric(metricID).success(function (metricData) {
     $scope.metric = metricData.metric;
+    // Load HTML template of the ace-ui text editor
+    $scope.aceInput = metricData.template;
     if($scope.metric.data.length === 0) {
     // TODO figure out a way to poll new metric data.
     } else {
       // Sort timestamps even though we expect the values to be in numerical order from the server because we expect the user to send them in sequencial order
       $scope.metric.data.sort(function (a, b) { return a[0] - b[0]; });
-      /*
-      var graphData = [];
-      // Create multi-dimensional array of values [[time, value], [time, value], etc..]
-      for(var metricCounter = 0; metricCounter < $scope.metric.data.length; metricCounter++) {
-          var graphInnerData = [];
-          graphInnerData.push(parseInt($scope.metric.data[metricCounter][0], 10), parseFloat(parseFloat($scope.metric.data[metricCounter][1], 10).toFixed($scope.metric.decimalPlaces), 10));
-          graphData.push(graphInnerData);
-      }
-      */
+      // Prepare data for graph
       $scope.metricData = [{
         'key': $scope.metric.name,
         'values': $scope.metric.data
       }];
+      // Graph related functions
       $scope.yAxisLabel = function() {
         return $scope.metric.suffix;
       };
@@ -88,11 +135,23 @@ function getMetric($scope, $location, api, metricID, $window) {
       };
       $scope.xAxisTickFormatFunction = function(){
         return function(d) {
-          return $window.d3.time.format('%H:%M')($window.moment(d).toDate());
+          return d3.time.format('%H:%M')(moment(d).toDate());
+          // TODO figure out how this changes when the data is repainted
+          /*$scope.$watch('interval', function (newValue, oldValue) {
+            switch(newValue) {
+              case 'day':
+                return d3.time.format('%H:%M')(moment(d).toDate());
+              case 'week':
+                return d3.time.format('%a %b %e %X')(moment(d).toDate());
+              case 'month':
+                return d3.time.format('%b %e %X')(moment(d).toDate());
+              default:
+                return d3.time.format('%H:%M')(moment(d).toDate());
+            }
+          });*/
         };
       };
     }
-    $scope.aceInput = metricData.template;
   }).error(function (error, statusCode) {
     if(statusCode === 401) {
       $location.path('/login');
@@ -101,7 +160,19 @@ function getMetric($scope, $location, api, metricID, $window) {
   });
 }
 
+function createIncident(incidentData, $scope, api) {
+  api.createIncident(incidentData).success(function (data) {
+    $scope.asideSuccess = data.message;
+    $scope.incident = '';
+    $scope.message = '';
+    $scope.incidentValue = 'Investigating';
+  }).error(function (error) {
+    $scope.asideError = error.message;
+  });
+}
+
 function getMaintenances($scope, $location, api) {
+  // Get maintenance list from the server
   api.getMaintenances().success(function (maintenanceResponse) {
     $scope.maintenances = maintenanceResponse;
   }).error(function (error, statusCode) {
@@ -116,9 +187,9 @@ function getMaintenances($scope, $location, api) {
  * Controllers start here
  */
 
-statusPitApp.controller('MainCtrl', [function () {}]);
+sysStatusApp.controller('MainCtrl', [function () {}]);
 
-statusPitApp.controller('NavbarCtrl', ['$scope', '$location', function ($scope, $location) {
+sysStatusApp.controller('NavbarCtrl', ['$scope', '$location', function ($scope, $location) {
   $scope.menu = [
     {title: 'Dashboard', link: '/dashboard'},
     {title: 'Incidents', link: '/incidents'},
@@ -129,14 +200,16 @@ statusPitApp.controller('NavbarCtrl', ['$scope', '$location', function ($scope, 
     {title: 'Team Members', link: '/team'},
     {title: 'Integrations', link: '/integration'}
   ];
+  // If we are on the link that is passed to the function, set the class as active
   $scope.isActive = function(route) {
     return route === $location.path();
   };
 }]);
 
-statusPitApp.controller('LoginCtrl', ['$scope', 'API', '$location', '$window', function ($scope, api, $location, $window) {
+sysStatusApp.controller('LoginCtrl', ['$scope', 'API', '$location', '$window', function ($scope, api, $location, $window) {
   $scope.login = function() {
     api.login($scope.email, $scope.password).success(function (data) {
+      // Get site name to local storage
       $window.localStorage.setItem('name', data.name);
       $location.path('/dashboard');
     }).error(function (error) {
@@ -145,7 +218,7 @@ statusPitApp.controller('LoginCtrl', ['$scope', 'API', '$location', '$window', f
   };
 }]);
 
-statusPitApp.controller('GetStartedCtrl', ['$scope', 'API', '$location', function ($scope, api, $location) {
+sysStatusApp.controller('GetStartedCtrl', ['$scope', 'API', '$location', function ($scope, api, $location) {
   $scope.register = function () {
     var registerData = {
       siteName: $scope.site,
@@ -156,12 +229,12 @@ statusPitApp.controller('GetStartedCtrl', ['$scope', 'API', '$location', functio
     api.register(registerData).success(function () {
       $location.path('/dashboard').search({'registered': 1});
     }).error(function (error) {
-      $scope.aside = error.message;
+      $scope.asideError = error.message;
     });
   };
 }]);
 
-statusPitApp.controller('DashboardCtrl', ['$scope', '$location', 'API', '$modal', '$route', function ($scope, $location, api, $modal, $route) {
+sysStatusApp.controller('DashboardCtrl', ['$scope', '$location', 'API', '$modal', '$route', function ($scope, $location, api, $modal, $route) {
   if(parseInt($route.current.params.registered, 10) === 1) {
     $scope.asideSuccess = 'Successfully registered.';
   }
@@ -173,34 +246,21 @@ statusPitApp.controller('DashboardCtrl', ['$scope', '$location', 'API', '$modal'
       controller: NewIncidentModalCtrl,
       templateUrl: 'views/partials/newIncidentModal.html'
     });
+    // Upon successful closing of modal, create incident on the server
     createIncidentModal.result.then(function (incidentData) {
-      api.createIncident(incidentData).success(function (data) {
-        $scope.asideSuccess = data.message;
-        $scope.incident = '';
-        $scope.message = '';
-        $scope.incidentValue = 'Investigating';
-      }).error(function (error) {
-        $scope.asideError = error.message;
-      });
+      createIncident(incidentData, $scope, api);
     });
   };
-  // TODO figure out how to get rid of the duplicate code from here and in the above modal calls
   $scope.createIncident = function(incident, incidentValue, message) {
     var incidentData = {
       name: incident,
       type: incidentValue,
       message: message
     };
-    api.createIncident(incidentData).success(function (data) {
-      $scope.asideSuccess = data.message;
-      $scope.incident = '';
-      $scope.message = '';
-      $scope.incidentValue = 'Investigating';
-    }).error(function (error) {
-      $scope.asideError = error.message;
-    });
+    createIncident(incidentData, $scope, api);
   };
   $scope.updateComponent = function(componentID, status) {
+    console.log(status);
     var updateData = {
       id: componentID,
       status: status
@@ -216,7 +276,7 @@ statusPitApp.controller('DashboardCtrl', ['$scope', '$location', 'API', '$modal'
   };
 }]);
 
-statusPitApp.controller('IncidentsCtrl', ['$scope', '$window', 'API', '$modal', '$route', '$location', function ($scope, $window, api, $modal, $route, $location) {
+sysStatusApp.controller('IncidentsCtrl', ['$scope', '$window', 'API', '$modal', '$route', '$location', function ($scope, $window, api, $modal, $route, $location) {
   if(parseInt($route.current.params.deleted, 10) === 1) {
     $scope.asideSuccess = 'Incident deleted.';
   } else if(parseInt($route.current.params.updated, 10) === 1) {
@@ -232,6 +292,7 @@ statusPitApp.controller('IncidentsCtrl', ['$scope', '$window', 'API', '$modal', 
         templateUrl: 'views/partials/newIncidentModal.html'
       });
     createIncidentModal.result.then(function (incidentData) {
+      // This call has to be separate than createIncident() because we switch locations afterward, though we could TODO and setup the function to do it as well
       api.createIncident(incidentData).success(function (data) {
         $scope.asideSuccess = data.message;
         $scope.incident = '';
@@ -243,21 +304,13 @@ statusPitApp.controller('IncidentsCtrl', ['$scope', '$window', 'API', '$modal', 
       });
     });
   };
-  // TODO figure out how to get rid of the duplicates from here and the above modal
   $scope.createIncident = function(incident, incidentValue, message) {
     var incidentData = {
       name: incident,
       type: incidentValue,
       message: message
     };
-    api.createIncident(incidentData).success(function (data) {
-      $scope.asideSuccess = data.message;
-      $scope.incident = '';
-      $scope.message = '';
-      $scope.incidentValue = 'Investigating';
-    }).error(function (error) {
-      $scope.asideError = error.message;
-    });
+    createIncident(incidentData, $scope, api);
   };
   $scope.deleteIncidentReq = function(incidentID) {
     var incidentDeleteReqModal = $modal.open({
@@ -279,7 +332,7 @@ statusPitApp.controller('IncidentsCtrl', ['$scope', '$window', 'API', '$modal', 
   };
 }]);
 
-statusPitApp.controller('MaintenancesCtrl', ['$scope', '$window', '$location', 'API', '$route', '$modal', function ($scope, $window, $location, api, $route, $modal) {
+sysStatusApp.controller('MaintenancesCtrl', ['$scope', '$window', '$location', 'API', '$route', '$modal', function ($scope, $window, $location, api, $route, $modal) {
   if(parseInt($route.current.params.added, 10) === 1) {
     $scope.asideSuccess = 'Maintenance added.';
   } else if(parseInt($route.current.params.deleted, 10) === 1) {
@@ -324,7 +377,7 @@ statusPitApp.controller('MaintenancesCtrl', ['$scope', '$window', '$location', '
   };
 }]);
 
-statusPitApp.controller('MaintenanceCtrl', ['$scope', '$window', '$location', 'API', '$route', '$filter', function ($scope, $window, $location, api, $route, $filter) {
+sysStatusApp.controller('MaintenanceCtrl', ['$scope', '$window', '$location', 'API', '$route', '$filter', function ($scope, $window, $location, api, $route, $filter) {
   var maintenanceID = $route.current.params.id;
   api.getMaintenance(maintenanceID).success(function (maintenanceResponse) {
     $scope.maintenance = maintenanceResponse;
@@ -375,9 +428,9 @@ statusPitApp.controller('MaintenanceCtrl', ['$scope', '$window', '$location', 'A
   };
 }]);
 
-statusPitApp.controller('TemplatesCtrl', [function () {}]);
+sysStatusApp.controller('TemplatesCtrl', [function () {}]);
 
-statusPitApp.controller('IncidentCtrl', ['$scope', '$route', '$window', 'API', '$location', function ($scope, $route, $window, api, $location) {
+sysStatusApp.controller('IncidentCtrl', ['$scope', '$route', '$window', 'API', '$location', function ($scope, $route, $window, api, $location) {
   var incidentID = $route.current.params.id;
   api.getIncident(incidentID).success(function (incidentResponse) {
     $scope.incident = incidentResponse.incident;
@@ -413,7 +466,7 @@ statusPitApp.controller('IncidentCtrl', ['$scope', '$route', '$window', 'API', '
   };
 }]);
 
-statusPitApp.controller('ComponentsCtrl', ['$scope', '$location', 'API', '$modal', '$route', function ($scope, $location, api, $modal, $route) {
+sysStatusApp.controller('ComponentsCtrl', ['$scope', '$location', 'API', '$modal', '$route', function ($scope, $location, api, $modal, $route) {
   if(parseInt($route.current.params.deleted, 10) === 1) { // Use '==' instead of '===' for datatypes (string vs int)
     $scope.asideSuccess = 'Component deleted.';
   }
@@ -461,12 +514,12 @@ statusPitApp.controller('ComponentsCtrl', ['$scope', '$location', 'API', '$modal
   };
 }]);
 
-statusPitApp.controller('StatusPageCtrl', ['$scope', '$window', 'API', '$location', function ($scope, $window, api, $location) {
+sysStatusApp.controller('StatusPageCtrl', ['$scope', '$window', 'API', '$location', function ($scope, $window, api, $location) {
   getPrivateCompany($scope, $location, api);
   $scope.lastUpdate = $window.localStorage.getItem('lastUpdate') || Date.now();
 }]);
 
-statusPitApp.controller('NotificationsCtrl', ['$scope', '$window', 'API', function ($scope, $window, api) {
+sysStatusApp.controller('NotificationsCtrl', ['$scope', '$window', 'API', function ($scope, $window, api) {
   api.getSubscriptions().success(function (data) {
     $scope.allowAutoSubscribe = data.subscribers.types.autoIncident;
     $scope.userIndivComponents = data.subscribers.types.individComponent;
@@ -480,43 +533,43 @@ statusPitApp.controller('NotificationsCtrl', ['$scope', '$window', 'API', functi
   });
   $scope.allowAutoIncidentTool = {
     'title': 'Users can choose to be auto-subscribed to any incident that is posted.',
-    'animation': 'animation-fade',
+    'animation': true,
     'placement': 'top',
-    'trigger': 'hover click'
+    'trigger': 'mouseenter'
   };
   $scope.allowIndivCompTool = {
     'title': 'Users can subscribe to components that interest them.<br />They will only receive notifications for incidents and scheduled maintainence for that component.',
-    'animation': 'animation-fade',
+    'animation': true,
     'placement': 'top',
-    'trigger': 'hover click'
+    'trigger': 'mouseenter'
   };
   $scope.allowIndivIncidentsTool = {
     'title': 'Users can subscribe to a specific incident after it has been created.',
-    'animation': 'animation-fade',
+    'animation': true,
     'placement': 'top',
-    'trigger': 'hover click'
+    'trigger': 'mouseenter'
   };
   $scope.allowEmailSubsTool = {
     'title': 'Users can get updates sent to them via email.',
-    'animation': 'animation-fade',
+    'animation': true,
     'placement': 'top',
-    'trigger': 'hover click'
+    'trigger': 'mouseenter'
   };
   $scope.allowSMSSubsTools = {
     'title': 'Users can get updates sent to them via SMS.',
-    'animation': 'animation-fade',
+    'animation': true,
     'placement': 'top',
-    'trigger': 'hover click'
+    'trigger': 'mouseenter'
   };
   $scope.allowWebSubsTools = {
     'title': 'Users can get updates sent to them via webhook.<br />All incident and component status changes will be sent.',
-    'animation': 'animation-fade',
+    'animation': true,
     'placement': 'top',
-    'trigger': 'hover click'
+    'trigger': 'mouseenter'
   };
 }]);
 
-statusPitApp.controller('MetricsCtrl', ['$scope', '$modal', 'API', '$window', '$route', '$location', function ($scope, $modal, api, $window, $route, $location) {
+sysStatusApp.controller('MetricsCtrl', ['$scope', '$modal', 'API', '$window', '$route', '$location', function ($scope, $modal, api, $window, $route, $location) {
   if(parseInt($route.current.params.deleted, 10) === 1) {
     $scope.asideSuccess = 'Metric deleted.';
   }
@@ -553,14 +606,14 @@ statusPitApp.controller('MetricsCtrl', ['$scope', '$modal', 'API', '$window', '$
   };
 }]);
 
-statusPitApp.controller('MetricCtrl', ['$scope', '$window', 'API', '$route', '$modal', '$location', function ($scope, $window, api, $route, $modal, $location) {
+sysStatusApp.controller('MetricCtrl', ['$scope', '$window', 'API', '$route', '$modal', '$location', '$filter', function ($scope, $window, api, $route, $modal, $location, $filter) {
   var metricID = $route.current.params.id || null;
   if(parseInt($route.current.params.added, 10) === 1) {
     $scope.asideSuccess = 'Metric added.';
   } else if(parseInt($route.current.params.updated, 10) === 1) {
     $scope.asideSuccess = 'Metric updated.';
   }
-  getMetric($scope, $location, api, metricID, $window);
+  getMetric($scope, $location, api, metricID);
   // TODO figure out why these are here
   //$scope.fn = {};
   //$scope.lineData = {};
@@ -570,6 +623,23 @@ statusPitApp.controller('MetricCtrl', ['$scope', '$window', 'API', '$route', '$m
     {value: 2, displayName: 2},
     {value: 3, displayName: 3}
   ];
+  $scope.updateInterval = function(newValue) {
+    $scope.interval = newValue;
+    // TODO repaint the graph with new changes
+    switch($scope.interval) {
+      case 'day':
+        $scope.metric.data = $filter('dailyData')($scope.metric.data);
+        break;
+      case 'week':
+        $scope.metric.data = $filter('weeklyData')($scope.metric.data);
+        break;
+      case 'month':
+        $scope.metric.data = $filter('monthlyData')($scope.metric.data);
+        break;
+      default:
+        break;
+    }
+  };
   $scope.deleteMetricReq = function() {
     var metricDeleteReqModal = $modal.open({
       controller: MetricDeleteModalCtrl,
@@ -604,9 +674,9 @@ statusPitApp.controller('MetricCtrl', ['$scope', '$window', 'API', '$route', '$m
   };
 }]);
 
-statusPitApp.controller('MetricSourceCtrl', [function () {}]);
+sysStatusApp.controller('MetricSourceCtrl', [function () {}]);
 
-statusPitApp.controller('CustomizeCtrl', ['$scope', '$window', 'API', '$modal', '$location', '$anchorScroll', function ($scope, $window, api, $modal, $location, $anchorScroll) {
+sysStatusApp.controller('CustomizeCtrl', ['$scope', '$window', 'API', '$modal', '$location', '$anchorScroll', function ($scope, $window, api, $modal, $location, $anchorScroll) {
   $scope.siteName = $window.localStorage.getItem('name') || null;
   api.getCustomData().success(function (customData) {
     $scope.customData = customData;
@@ -679,7 +749,7 @@ statusPitApp.controller('CustomizeCtrl', ['$scope', '$window', 'API', '$modal', 
   };
 }]);
 
-statusPitApp.controller('CustomizeURLCtrl', ['$scope', 'API', '$location', function ($scope, api, $location) {
+sysStatusApp.controller('CustomizeURLCtrl', ['$scope', 'API', '$location', function ($scope, api, $location) {
   api.getDomain().success(function (domainResponse) {
     $scope.customDomain = domainResponse.domain;
   }).error(function (error, statusCode) {
@@ -703,4 +773,6 @@ statusPitApp.controller('CustomizeURLCtrl', ['$scope', 'API', '$location', funct
   };
 }]);
 
-statusPitApp.controller('CustomizeCodeCtrl', [function () {}]);
+sysStatusApp.controller('CustomizeCodeCtrl', [function () {}]);
+
+sysStatusApp.controller('TeamMembersCtrl', [function() {}]);

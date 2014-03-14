@@ -1,7 +1,7 @@
-/*global statusPitApp, jQuery */
+/*global sysStatusApp, jQuery */
 'use strict';
 
-statusPitApp.animation('.customize-error', function() {
+sysStatusApp.animation('.customize-error', function() {
   return {
     beforeAddClass : function(element, className, done) {
       if(className === 'ng-hide') {

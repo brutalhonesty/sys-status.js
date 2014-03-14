@@ -1,7 +1,7 @@
 /* jshint unused: false */
 'use strict';
 
-var statusPitApp = angular.module('statusPitApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute', 'ngAnimate', 'nvd3ChartDirectives', 'ui.ace', 'angularMoment', 'ui.bootstrap']).config(function ($routeProvider, $locationProvider) {
+var sysStatusApp = angular.module('sysStatusApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute', 'ngAnimate', 'nvd3ChartDirectives', 'ui.ace', 'angularMoment', 'ui.bootstrap']).config(function ($routeProvider, $locationProvider) {
   $routeProvider.when('/', {
     templateUrl: 'partials/main',
     controller: 'MainCtrl'

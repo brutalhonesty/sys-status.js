@@ -31,6 +31,10 @@ div#metrickey {
     background: $pureSuccess;
 }
 
+div#statusPageContainer img#companyImage {
+    width: 100%;
+}
+
 div#metrickeyMissing {
     background: $pureError;
 }
@@ -132,8 +136,13 @@ button#addComponent, button#addMetrmetricEdit, div#componentEdit, button#newInci
     color: rgb(231, 76, 60);
 }
 
-a.componentEdit, a#deleteMetric, div#incidents a#incidentDelete, a#maintenanceUpdate, a#maintenanceDetails, a#maintenancePostmortem, a#maintenanceDelete {
+a.componentEdit, a#deleteMetric, div#incidents a#incidentDelete, a#maintenanceUpdate, a#maintenanceDetails, a#maintenancePostmortem, a#maintenanceDelete, div#intervalContainer a {
     cursor: pointer;
+}
+
+div#intervalContainer {
+    float: right;
+    font-size: 15pt;
 }
 
 fieldset a#deleteMetric {
@@ -151,6 +160,19 @@ div#incidentHeader {
     color: white;
     height: 50px;
     padding-left: 2em;
+}
+
+div#aboutPage {
+    color: white;
+    position: relative;
+    top: -100px;
+    padding: 0 0 0 10px;
+    font-size: 24px;
+}
+
+h3#metricAverage {
+    color: grey;
+    float: right;
 }
 
 div.incident {
@@ -228,7 +250,7 @@ ul#uploadOptions li > a {
     cursor: pointer;
 }
 
-input#userAutoSubscribe, input#userIndivComponents, input#userIndivIncidents, h2#subscriptionTypes, h2#notificationDeliveryTypes, input#allowEmailSubs, input#allowSMSSubs, input#allowWebSubs, input#yAxisMin, input#yAxisMax, input#hideYAxis, input#xAxisMin, input#xAxisMax, input#hideXAxis, div#metrics h4#metricName, h3#incidentName, h1#metricName, form#editForm input, input#maintenanceStartDate, input#maintenanceStartTime, input#maintenanceEndDate, input#maintenanceEndTime, input#remindSubs, input#setProgress, input#basicLogo, input#coverLogo {
+input#userAutoSubscribe, input#userIndivComponents, input#userIndivIncidents, h2#subscriptionTypes, h2#notificationDeliveryTypes, input#allowEmailSubs, input#allowSMSSubs, input#allowWebSubs, input#yAxisMin, input#yAxisMax, input#hideYAxis, input#xAxisMin, input#xAxisMax, input#hideXAxis, div#metrics h4#metricName, h3#incidentName, h1#metricName, form#editForm input, input#maintenanceStartDate, input#maintenanceStartTime, input#maintenanceEndDate, input#maintenanceEndTime, input#remindSubs, input#setProgress, input#basicLogo, input#coverLogo, div#intervalContainer, h2#systemMetricsTitle {
     display: inline-block;
 }
 

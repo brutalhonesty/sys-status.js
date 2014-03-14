@@ -19,17 +19,17 @@
         <div class="pure-g-r">
             <fieldset class="pure-group pure-u-1-2">
                 <label for="userAutoSubscribe" class="pure-radio">
-                    <input id="userAutoSubscribe" type="checkbox" name="subscriptionTypes1" ng-model="allowAutoSubscribe"> Allow users to be auto-subscribed to every incident <i class="fa fa-question-circle" bs-tooltip="allowAutoIncidentTool"></i>
+                    <input id="userAutoSubscribe" type="checkbox" name="subscriptionTypes1" ng-model="allowAutoSubscribe"> Allow users to be auto-subscribed to every incident <i class="fa fa-question-circle" tooltip-html-unsafe="{{allowAutoIncidentTool.title}}" tooltip-trigger="{{allowAutoIncidentTool.trigger}}" tooltip-placement="{{allowAutoIncidentTool.placement}}" tooltip-animation="{{allowAutoIncidentTool.animation}}"></i>
                 </label>
             </fieldset>
             <fieldset class="pure-group pure-u-1-2">
                 <label for="userIndivComponents" class="pure-radio">
-                    <input id="userIndivComponents" type="checkbox" name="subscriptionTypes2" ng-model="userIndivComponents"> Allow users to subscribe to individual components <i class="fa fa-question-circle" bs-tooltip="allowIndivCompTool"></i>
+                    <input id="userIndivComponents" type="checkbox" name="subscriptionTypes2" ng-model="userIndivComponents"> Allow users to subscribe to individual components <i class="fa fa-question-circle" tooltip-html-unsafe="{{allowIndivCompTool.title}}" tooltip-trigger="{{allowIndivCompTool.trigger}}" tooltip-placement="{{allowIndivCompTool.placement}}" tooltip-animation="{{allowIndivCompTool.animation}}"></i>
                 </label>
             </fieldset>
             <fieldset class="pure-group pure-u-1-2">
                 <label for="userIndivIncidents" class="pure-radio">
-                    <input id="userIndivIncidents" type="checkbox" name="subscriptionTypes3" ng-model="userIndivIncidents"> Allow users to subscribe to individual incidents <i class="fa fa-question-circle" bs-tooltip="allowIndivIncidentsTool"></i>
+                    <input id="userIndivIncidents" type="checkbox" name="subscriptionTypes3" ng-model="userIndivIncidents"> Allow users to subscribe to individual incidents <i class="fa fa-question-circle" tooltip-html-unsafe="{{allowIndivIncidentsTool.title}}" tooltip-trigger="{{allowIndivIncidentsTool.trigger}}" tooltip-placement="{{allowIndivIncidentsTool.placement}}" tooltip-animation="{{allowIndivIncidentsTool.animation}}"></i>
                 </label>
             </fieldset>
         </div>
@@ -37,17 +37,17 @@
         <div class="pure-g-r">
             <fieldset class="pure-group pure-u-1-2">
                 <label for="allowEmailSubs" class="pure-radio">
-                    <input id="allowEmailSubs" type="checkbox" name="notificationsTypes1" ng-model="allowEmailSubs"> Allow email subscribers <i class="fa fa-question-circle" bs-tooltip="allowEmailSubsTool"></i>
+                    <input id="allowEmailSubs" type="checkbox" name="notificationsTypes1" ng-model="allowEmailSubs"> Allow email subscribers <i class="fa fa-question-circle" tooltip-html-unsafe="{{allowEmailSubsTool.title}}" tooltip-trigger="{{allowEmailSubsTool.trigger}}" tooltip-placement="{{allowEmailSubsTool.placement}}" tooltip-animation="{{allowEmailSubsTool.animation}}"></i>
                 </label>
             </fieldset>
             <fieldset class="pure-group pure-u-1-2">
                 <label for="allowSMSSubs" class="pure-radio">
-                    <input id="allowSMSSubs" type="checkbox" name="notificationsTypes2" ng-model="allowSMSSubs"> Allow SMS subscribers <i class="fa fa-question-circle" bs-tooltip="allowSMSSubsTool"></i>
+                    <input id="allowSMSSubs" type="checkbox" name="notificationsTypes2" ng-model="allowSMSSubs"> Allow SMS subscribers <i class="fa fa-question-circle" tooltip-html-unsafe="{{allowSMSSubsTools.title}}" tooltip-trigger="{{allowSMSSubsTools.trigger}}" tooltip-placement="{{allowSMSSubsTools.placement}}" tooltip-animation="{{allowSMSSubsTools.animation}}"></i>
                 </label>
             </fieldset>
             <fieldset class="pure-group pure-u-1-2">
                 <label for="allowWebSubs" class="pure-radio">
-                    <input id="allowWebSubs" type="checkbox" name="notificationsTypes3" ng-model="allowWebSubs"> Allow webhook subscribers <i class="fa fa-question-circle" bs-tooltip="allowWebSubsTool"></i>
+                    <input id="allowWebSubs" type="checkbox" name="notificationsTypes3" ng-model="allowWebSubs"> Allow webhook subscribers <i class="fa fa-question-circle" tooltip-html-unsafe="{{allowWebSubsTools.title}}" tooltip-trigger="{{allowWebSubsTools.trigger}}" tooltip-placement="{{allowWebSubsTools.placement}}" tooltip-animation="{{allowWebSubsTools.animation}}"></i>
                 </label>
             </fieldset>
         </div>

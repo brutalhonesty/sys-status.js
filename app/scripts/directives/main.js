@@ -1,8 +1,8 @@
-/*global statusPitApp */
+/*global sysStatusApp */
 'use strict';
 
 // TODO we can make this more generalized
-statusPitApp.directive('aside', function () {
+sysStatusApp.directive('aside', function () {
   return {
     restrict: 'E',
     link: function ($scope, element) {
@@ -20,7 +20,7 @@ statusPitApp.directive('aside', function () {
   };
 });
 
-statusPitApp.directive('hoverEdit', function () {
+sysStatusApp.directive('hoverEdit', function () {
   return {
     restrict: 'A',
     link: function ($scope, element) {
@@ -33,7 +33,7 @@ statusPitApp.directive('hoverEdit', function () {
   };
 });
 
-statusPitApp.directive('clickEdit', ['$compile', function ($compile) {
+sysStatusApp.directive('clickEdit', ['$compile', function ($compile) {
   return {
     restrict: 'A',
     scope: true,
@@ -50,7 +50,7 @@ statusPitApp.directive('clickEdit', ['$compile', function ($compile) {
   };
 }]);
 
-statusPitApp.directive('cancelEdit', function() {
+sysStatusApp.directive('cancelEdit', function() {
   return {
     restrict: 'A',
     link: function (scope, element) {
@@ -64,7 +64,7 @@ statusPitApp.directive('cancelEdit', function() {
 });
 
 /*http://jsfiddle.net/JeJenny/ZG9re/*/
-statusPitApp.directive('fileModel', ['$parse', function ($parse) {
+sysStatusApp.directive('fileModel', ['$parse', function ($parse) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {

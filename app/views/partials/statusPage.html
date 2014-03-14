@@ -1,28 +1,75 @@
 <div id="statusPageContainer" class="container">
-	<h1>{{company.siteName}}</h1>
-	<div id="statusPageStatus" ng-show="company.incidents.length === 0">
-		<strong><h2>All Systems Operational</h2></strong>
-		<div id="refreshed">
-			<span>Refreshed</span>
-			<span am-time-ago="lastUpdate"></span>
-		</div>
-	</div>
-	<div class="pure-g-r" ng-show="company.incidents">
-		<div id="incident{{$index + 1}}" class="pure-u-1 l-box" ng-repeat="incident in company.incidents">
-      <div id="incidentHeader">
-        {{incident.name}}
+    <img id="companyImage" ng-src="{{company.customize.layoutType === 'cover' ? company.customize.cover : company.customize.logo}}" alt="Company Logo or Cover">
+    <div id="aboutPage" ng-show="company.customize.aboutPage">{{company.customize.aboutPage}}</div>
+  	<div id="statusPageStatus" ng-show="company.incidents.length === 0" class="pure-u-1 l-box">
+  		<strong><h2>All Systems Operational</h2></strong>
+  		<div id="refreshed">
+  			<span>Refreshed</span>
+  			<span am-time-ago="lastUpdate"></span>
+  		</div>
+  	</div>
+    <br>
+  	<div class="pure-g-r" ng-show="company.incidents">
+      <!-- TODO If incident is resolved, don't show here -->
+  		<div id="incident{{$index + 1}}" class="pure-u-1 l-box" ng-repeat="incident in company.incidents">
+        <div id="incidentHeader">
+          {{incident.name}}
+        </div>
+        <div id="incidentContent">
+          {{incident.events[incident.events.length - 1].type}} - {{incident.events[incident.events.length - 1].message}}
+          <br>
+          <small>{{incident.events[incident.events.length - 1].date | date:'medium'}}</small>
+        </div>
       </div>
-      <div id="incidentContent">
-        {{incident.events[0].type}} - {{incident.events[0].message}}
-        <br>
-        <small>{{incident.events[0].date | date:'medium'}}</small>
+  	</div>
+  	<br>
+  	<div class="pure-g-r" ng-show="company.components">
+  		<div id="component{{$index + 1}}" class="pure-u-1 l-box component" ng-repeat="component in company.components">
+  			{{component.name}} <i class="fa fa-question-circle" tooltip-html-unsafe="{{component.description}}"></i> <span id="componentStatus" class="{{component.status === 'Operational' ? 'operational' : ''}}{{component.status === 'Degraded Performance' ? 'degraded' : ''}}{{component.status === 'Partial Outage' ? 'partial' : ''}}{{component.status === 'Major Outage' ? 'major' : ''}}">{{component.status}}</span>
+  		</div>
+  	</div>
+    <h2 id="systemMetricsTitle">System Metrics</h2>
+    <div id="intervalContainer">
+      <a ng-click="updateInterval('day')">Day</a> <span>| <a ng-click="updateInterval('week')">Week</a> | <a ng-click="updateInterval('month')">Month</a></span>
+    </div>
+    <div class="pure-g-r">
+      <div id="{{metric.id}}" ng-repeat="metric in company.metrics" class="pure-u-1 l-box component">
+        <h3>{{metric.name}}</h3>
+        <h3 id="metricAverage">{{metric.average.toFixed(metric.decimalPlaces) || 'N/A'}} {{metric.suffix}}</h3>
+        <!-- TODO make sure we don't slice the values in production. Only good for testing. -->
+        <!-- TODO if we want to add the y axis label again, use yAxisLabel="{{metric.suffix}}" -->
+        <nvd3-line-chart
+          data="[{'key': metric.name, 'values': metric.data.slice(0,50)}]"
+          width="800"
+          height="300"
+          showXAxis="{{!metric.axis.x.hide}}"
+          showYAxis="{{!metric.axis.y.hide}}"
+          tooltips="true"
+          interactive="true"
+          xAxisTickFormat="xAxisTickFormatFunction()"
+          xAxisLabel="Date"
+          margin="{left:150,top:50,bottom:0,right:0}"
+          forcey="{{[metric.axis.y.min, metric.axis.y.max]}}"
+          ng-show="metric.data && metric.data.length > 0">
+        </nvd3-line-chart>
       </div>
     </div>
-	</div>
-	<br>
-	<div class="pure-g-r" ng-show="company.components">
-		<div id="component{{$index + 1}}" class="pure-u-1 l-box component" ng-repeat="component in company.components">
-			{{component.name}}<i class="fa fa-question-circle"></i>{{component.description}} <span id="componentStatus" class="{{component.status === 'Operational' ? 'operational' : ''}}{{component.status === 'Degraded Performance' ? 'degraded' : ''}}{{component.status === 'Partial Outage' ? 'partial' : ''}}{{component.status === 'Major Outage' ? 'major' : ''}}">{{component.status}}</span>
-		</div>
-	</div>
+    <h2>Past Incidents</h2>
+    <div ng-repeat="incident in incidentDates" ng-show="company.incidents.length === 0">
+      <h3>{{incident | date: 'mediumDate'}}</h3>
+      <hr />
+      <p>No incidents reported.</p>
+    </div>
+    <div ng-repeat="incident in company.incidents" ng-show="company.incidents.length > 0">
+    <h3>{{incident.events[0].date | date: 'mediumDate'}}</h3>
+    <hr>
+    <div class="pure-u-1">
+      <h3>{{incident.name}}</h3>
+      <div ng-repeat="event in incident.events | orderBy: 'date':true | limitTo:1">
+        <b>{{event.type}}</b> - {{event.message}}
+        <br>
+        <small>{{event.date | date: 'medium'}}</small>
+        <hr>
+      </div>
+    </div>
 </div>

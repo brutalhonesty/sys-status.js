@@ -22,7 +22,8 @@ module.exports = function (grunt) {
     yeoman: {
       // configurable paths
       app: require('./bower.json').appPath || 'app',
-      dist: 'dist'
+      dist: 'dist',
+      lib: 'lib',
     },
     express: {
       options: {
@@ -344,6 +345,22 @@ module.exports = function (grunt) {
         'htmlmin'
       ]
     },
+    todo: {
+      options: {
+        marks: [{
+          name: "TODO",
+          pattern: /TODO/,
+          color: "yellow"
+        }]
+      },
+      src: [
+        '<%= yeoman.app %>/scripts/**/*.js',
+        '<%= yeoman.app %>/styles/**/*.css',
+        '<%= yeoman.app %>/styles/**/*.scss',
+        '<%= yeoman.lib %>/**/*.js',
+        '<%= yeoman.app %>/views/**/*.html',
+      ],
+    },
 
     // By default, your `index.html`'s <!-- Usemin block --> will take care of
     // minification. These next options are pre-configured if you do not wish
@@ -425,7 +442,8 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'rev',
-    'usemin'
+    'usemin',
+    'todo'
   ]);
 
   grunt.registerTask('heroku', function () {

@@ -1,7 +1,7 @@
-/* global statusPitApp, $ */
+/* global sysStatusApp, $ */
 'use strict';
 
-statusPitApp.service('API', ['$http', function ($http) {
+sysStatusApp.service('API', ['$http', function ($http) {
   return {
     register: function(registerData) {
       return $http({

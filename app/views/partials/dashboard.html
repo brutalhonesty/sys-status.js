@@ -6,12 +6,12 @@
 	<aside class="aside-error" ng-show="asideError">
     	{{asideError}}
 	</aside>
-    <div id="openIncidentContainer" ng-show="incidents">
+    <div id="openIncidentContainer" ng-show="openIncidents">
         <div class="page-header">
             <h1>Open Incidents</h1>
             <button type="button" id="newIncident" class="pure-button pure-button-xlarge pure-button-primary" ng-click="newIncident()">New Incident</button>
         </div>
-        <div id="incident{{$index + 1}}" class="incident jumbotron" ng-repeat="incident in incidents">
+        <div id="incident{{$index + 1}}" class="incident jumbotron" ng-repeat="incident in incidents" ng-show="incident.events[incident.events.length - 1].type !== 'Resolved'">
             <div id="incidentHeader">
                 {{incident.name}}
                 <button type="button" class="pure-button pure-button-xsmall pure-button-primary" ng-click="updateIncident(incident.id)">Update Incident</button>
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-	<div id="createIncidentContainer" ng-show="!incidents || incidents.length === 0">
+	<div id="createIncidentContainer" ng-show="!openIncidents">
         <div ng-include="'partials/newIncident'"></div>
     </div>
     <hr />
