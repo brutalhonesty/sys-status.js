@@ -60,16 +60,24 @@ function pastTenDays() {
   return timeArray;
 }
 
-function getPrivateCompany($scope, $location, api) {
+function getPrivateCompany($scope, $location, api, favicoService) {
   // Get the company object from the server
   api.getPrivateCompany().success(function (companyData) {
     $scope.company = companyData.company;
+    var badgeCtr = 0;
+    for(var cmpCtr = 0; cmpCtr < $scope.company.components.length; cmpCtr++) {
+      if($scope.company.components[cmpCtr].status !== 'Operational') {
+        badgeCtr++;
+      }
+    }
+    // TODO We would change this check to a for-loop and check for 'not completion' incase we flagged an incident instead of actually deleting it
+    favicoService.badge($scope.company.incidents.length + badgeCtr);
     $scope.incidentDates = pastTenDays();
     // Used for graphs
     $scope.xAxisTickFormatFunction = function(){
       return function(d) {
         return d3.time.format('%H:%M')(moment(d).toDate());
-        // TODO figure out how this changes when the data is repainted
+        // TODO Figure out how this changes when the data is repainted
         /*$scope.$watch('interval', function (newValue, oldValue) {
           switch(newValue) {
             case 'day':
@@ -111,7 +119,7 @@ function getMetric($scope, $location, api, metricID) {
     // Load HTML template of the ace-ui text editor
     $scope.aceInput = metricData.template;
     if($scope.metric.data.length === 0) {
-    // TODO figure out a way to poll new metric data.
+    // TODO Figure out a way to poll new metric data.
     } else {
       // Sort timestamps even though we expect the values to be in numerical order from the server because we expect the user to send them in sequencial order
       $scope.metric.data.sort(function (a, b) { return a[0] - b[0]; });
@@ -565,8 +573,8 @@ sysStatusApp.controller('ComponentsCtrl', ['$scope', '$location', 'API', '$modal
   };
 }]);
 
-sysStatusApp.controller('StatusPageCtrl', ['$scope', '$window', 'API', '$location', function ($scope, $window, api, $location) {
-  getPrivateCompany($scope, $location, api);
+sysStatusApp.controller('StatusPageCtrl', ['$scope', '$window', 'API', '$location', 'favicoService', function ($scope, $window, api, $location, favicoService) {
+  getPrivateCompany($scope, $location, api, favicoService);
   $scope.lastUpdate = $window.localStorage.getItem('lastUpdate') || Date.now();
 }]);
 
