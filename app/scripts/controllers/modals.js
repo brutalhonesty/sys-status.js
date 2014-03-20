@@ -1,7 +1,6 @@
 /*jshint unused:false */
-// If more modals are added, make sure to add them to .jshintrc file for js hint to ignore them as globals
 'use strict';
-function NewIncidentModalCtrl($scope, $modalInstance) {
+sysStatusApp.controller('NewIncidentModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
   $scope.createIncident = function(incident, incidentValue, message) {
     var incidentData = {
       name: incident,
@@ -13,9 +12,9 @@ function NewIncidentModalCtrl($scope, $modalInstance) {
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
-}
+}]);
 
-function DeleteIncidentModalCtrl($scope, $modalInstance, incidentID) {
+sysStatusApp.controller('DeleteIncidentModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance, incidentID) {
   $scope.incidentID = incidentID;
   $scope.deleteIncident = function(incidentID) {
     var delIncidentData = {
@@ -26,9 +25,9 @@ function DeleteIncidentModalCtrl($scope, $modalInstance, incidentID) {
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
-}
+}]);
 
-function DeleteMaintenanceModalCtrl($scope, $modalInstance, maintainenceID) {
+sysStatusApp.controller('DeleteMaintenanceModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance, maintainenceID) {
   $scope.maintainenceID = maintainenceID;
   $scope.deleteMaintenance = function(maintainenceID) {
     var maintenanceObj = {
@@ -39,9 +38,9 @@ function DeleteMaintenanceModalCtrl($scope, $modalInstance, maintainenceID) {
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
-}
+}]);
 
-function ComponentModalCtrl($scope, $modalInstance) {
+sysStatusApp.controller('ComponentModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
   $scope.createComponent = function(componentName, description) {
     var component = {
       name: componentName,
@@ -52,9 +51,9 @@ function ComponentModalCtrl($scope, $modalInstance) {
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');
   };
-}
+}]);
 
-function DeleteComponentModalCtrl($scope, $modalInstance, componentID) {
+sysStatusApp.controller('DeleteComponentModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance, componentID) {
   $scope.componentID = componentID;
   $scope.deleteComponent = function(componentID) {
     var component = {
@@ -65,9 +64,9 @@ function DeleteComponentModalCtrl($scope, $modalInstance, componentID) {
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');
   };
-}
+}]);
 
-function MetricModalCtrl($scope, $modalInstance, dataSources) {
+sysStatusApp.controller('MetricModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance, dataSources) {
   $scope.dataSources = dataSources;
   $scope.storeMetric = function(dataSource, displayName, displaySuffix) {
     var metric = {
@@ -80,9 +79,9 @@ function MetricModalCtrl($scope, $modalInstance, dataSources) {
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');
   };
-}
+}]);
 
-function MetricDeleteModalCtrl($scope, $modalInstance, metricID) {
+sysStatusApp.controller('MetricDeleteModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance, metricID) {
   $scope.metricID = metricID;
   $scope.deleteMetric = function(metricID) {
     var metricDeleteData = {
@@ -93,9 +92,9 @@ function MetricDeleteModalCtrl($scope, $modalInstance, metricID) {
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');
   };
-}
+}]);
 
-function AddImageModalCtrl($scope, $modalInstance) {
+sysStatusApp.controller('AddImageModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
   $scope.isCompVisible = true;
   $scope.uploadLogo = function(imageForm, urlForm, imageFile, imageURL) {
     var imageObj = {};
@@ -124,9 +123,9 @@ function AddImageModalCtrl($scope, $modalInstance) {
     $scope.isLinkVisible = true;
     $scope.isCompVisible = false;
   };
-}
+}]);
 
-function AddFavModalCtrl($scope, $modalInstance) {
+sysStatusApp.controller('AddFavModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
   $scope.isCompVisible = true;
   $scope.uploadLogo = function(imageForm, urlForm, imageFile, imageURL) {
     var imageObj = {};
@@ -155,4 +154,4 @@ function AddFavModalCtrl($scope, $modalInstance) {
     $scope.isLinkVisible = true;
     $scope.isCompVisible = false;
   };
-}
+}]);

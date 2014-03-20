@@ -351,7 +351,8 @@ module.exports = function (grunt) {
           name: "TODO",
           pattern: /TODO/,
           color: "yellow"
-        }]
+        }],
+        file: 'grunt-TODO.md'
       },
       src: [
         '<%= yeoman.app %>/scripts/**/*.js',

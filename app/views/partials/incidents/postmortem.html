@@ -1,0 +1,43 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="postmortemContainer" class="container">
+  <aside class="aside-success" ng-show="asideSuccess">
+    {{asideSuccess}}
+  </aside>
+  <aside class="aside-error" ng-show="asideError">
+    {{asideError}}
+  </aside>
+  <h2>{{incident.name}}</h2>
+  <div class="pure-menu pure-menu-open pure-menu-horizontal">
+    <ul>
+      <li><a ng-href="/incident/{{incident.id}}">Incident</a></li>
+      <li class="pure-menu-selected"><a ng-href="/incident/{{incident.id}}/postmortem">Post Mortem</a></li>
+    </ul>
+  </div>
+  <div class="pure-u-1" id="postMortemPreview" ng-show="incident.postmortem.completed">
+    <h3>Report</h3>
+    <button id="editReport" class="pure-button pure-button-xlarge" ng-click="editReport()">Edit Postmortem</button>
+    <div id="postMortemMarkdown">
+      <markdown ng-model="incident.postmortem.data" extensions="github"></markdown>
+    </div>
+  </div>
+  {{incident.postmortem}}
+  <form class="pure-form" ng-show="!incident.postmortem || !incident.postmortem.completed">
+    <fieldset>
+      <div class="pure-u-1-3" id="postMortemCreate">
+        <h3>Create</h3>
+        <textarea ng-model="incident.postmortem.data" rows="15" placeholder="Github Style Markdown here...">
+        </textarea>
+      </div>
+      <div class="pure-u-1-2" id="postMortemPreview">
+        <h3>Preview</h3>
+        <div id="postMortemMarkdown">
+          <markdown ng-model="incident.postmortem.data" extensions="github"></markdown>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <button id="submitReport" class="pure-button pure-button-primary pure-button-xlarge" ng-click="submitReport()">Submit report</button>
+      <button id="saveDraft" class="pure-button pure-button-xlarge" ng-click="saveDraft()">Save as draft</button>
+    </fieldset>
+  </form>
+</div>

@@ -1,7 +1,7 @@
 /* jshint unused: false */
 'use strict';
 
-var sysStatusApp = angular.module('sysStatusApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute', 'ngAnimate', 'nvd3ChartDirectives', 'ui.ace', 'angularMoment', 'ui.bootstrap']).config(function ($routeProvider, $locationProvider) {
+var sysStatusApp = angular.module('sysStatusApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute', 'ngAnimate', 'nvd3ChartDirectives', 'ui.ace', 'angularMoment', 'ui.bootstrap', 'angular-markdown']).config(function ($routeProvider, $locationProvider) {
   $routeProvider.when('/', {
     templateUrl: 'partials/main',
     controller: 'MainCtrl'
@@ -41,6 +41,9 @@ var sysStatusApp = angular.module('sysStatusApp', ['ngCookies', 'ngResource', 'n
   }).when('/incident/:id', {
     templateUrl: 'partials/incidents/incident',
     controller: 'IncidentCtrl'
+  }).when('/incident/:id/postmortem', {
+    templateUrl: 'partials/incidents/postmortem',
+    controller: 'IncidentPostmortemCtrl'
   }).when('/notifications', {
     templateUrl: 'partials/notifications/notifications',
     controller: 'NotificationsCtrl'

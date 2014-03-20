@@ -72,6 +72,14 @@ sysStatusApp.service('API', ['$http', function ($http) {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
+    savePostMortem: function(reportData) {
+      return $http({
+        url: '/api/savePostMortem',
+        method: 'POST',
+        data: $.param(reportData),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      });
+    },
     getPrivateCompany: function() {
       return $http.get('/api/getPrivateCompany');
     },

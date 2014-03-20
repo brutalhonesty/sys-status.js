@@ -7,7 +7,13 @@
     	{{asideError}}
 	</aside>
 	<h2>{{incident.name}}</h2>
-    <form class="pure-form" ng-init="incidentValue='Investigating'">
+    <div class="pure-menu pure-menu-open pure-menu-horizontal">
+        <ul>
+            <li class="pure-menu-selected"><a ng-href="/incident/{{incident.id}}">Incident</a></li>
+            <li ng-show="incident.completedTime"><a ng-href="/incident/{{incident.id}}/postmortem">Post Mortem</a></li>
+        </ul>
+    </div>
+    <form class="pure-form" ng-init="incidentValue='Investigating'" ng-show="!incident.completedTime">
             <label for="incidentStatus">Incident Status</label>
             <div id="incidentStatus">
                 <label for="investigating" class="pure-radio">

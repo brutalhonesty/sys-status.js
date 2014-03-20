@@ -14,7 +14,7 @@
         <div id="incident{{$index + 1}}" class="incident jumbotron" ng-repeat="incident in incidents" ng-show="incident.events[incident.events.length - 1].type !== 'Resolved'">
             <div id="incidentHeader">
                 {{incident.name}}
-                <button type="button" class="pure-button pure-button-xsmall pure-button-primary" ng-click="updateIncident(incident.id)">Update Incident</button>
+                <a type="button" class="pure-button pure-button-xsmall pure-button-primary" ng-href="/incident/{{incident.id}}">Update Incident</a>
             </div>
             <div id="incidentDate">
                 This incident has been open for <strong>{{incident.time}}</strong> and was last updated <strong>{{incident.updated}}</strong>.

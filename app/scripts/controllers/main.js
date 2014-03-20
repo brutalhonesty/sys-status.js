@@ -243,7 +243,7 @@ sysStatusApp.controller('DashboardCtrl', ['$scope', '$location', 'API', '$modal'
   $scope.newIncident = function() {
     var createIncidentModal = $modal.open({
       // Find controller in modals.js
-      controller: NewIncidentModalCtrl,
+      controller: 'NewIncidentModalCtrl',
       templateUrl: 'views/partials/newIncidentModal.html'
     });
     // Upon successful closing of modal, create incident on the server
@@ -288,7 +288,7 @@ sysStatusApp.controller('IncidentsCtrl', ['$scope', '$window', 'API', '$modal', 
   $scope.newIncident = function() {
     var createIncidentModal = $modal.open({
         // Find controller in modals.js
-        controller: NewIncidentModalCtrl,
+        controller: 'NewIncidentModalCtrl',
         templateUrl: 'views/partials/newIncidentModal.html'
       });
     createIncidentModal.result.then(function (incidentData) {
@@ -314,7 +314,7 @@ sysStatusApp.controller('IncidentsCtrl', ['$scope', '$window', 'API', '$modal', 
   };
   $scope.deleteIncidentReq = function(incidentID) {
     var incidentDeleteReqModal = $modal.open({
-      controller: DeleteIncidentModalCtrl,
+      controller: 'DeleteIncidentModalCtrl',
       resolve: {
         incidentID: function() {
           return incidentID;
@@ -359,7 +359,7 @@ sysStatusApp.controller('MaintenancesCtrl', ['$scope', '$window', '$location', '
   };
   $scope.deleteMaintenanceReq = function(maintainenceID) {
     var maintenanceDeleteReqModal = $modal.open({
-      controller: DeleteMaintenanceModalCtrl,
+      controller: 'DeleteMaintenanceModalCtrl',
       resolve: {
         maintainenceID: function() {
           return maintainenceID;
@@ -431,6 +431,11 @@ sysStatusApp.controller('MaintenanceCtrl', ['$scope', '$window', '$location', 'A
 sysStatusApp.controller('TemplatesCtrl', [function () {}]);
 
 sysStatusApp.controller('IncidentCtrl', ['$scope', '$route', '$window', 'API', '$location', function ($scope, $route, $window, api, $location) {
+  if(parseInt($route.current.params.saved, 10) === 1) {
+    $scope.asideSuccess = 'Postmortem saved.';
+  } else if(parseInt($route.current.params.reported, 10) === 1) {
+    $scope.asideSuccess = 'Postmortem reported.';
+  }
   var incidentID = $route.current.params.id;
   api.getIncident(incidentID).success(function (incidentResponse) {
     $scope.incident = incidentResponse.incident;
@@ -466,6 +471,52 @@ sysStatusApp.controller('IncidentCtrl', ['$scope', '$route', '$window', 'API', '
   };
 }]);
 
+sysStatusApp.controller('IncidentPostmortemCtrl', ['$scope', 'API', '$route', '$location', function ($scope, api, $route, $location) {
+  var incidentID = $route.current.params.id;
+  api.getIncident(incidentID).success(function (incidentResponse) {
+    $scope.incident = incidentResponse.incident;
+  }).error(function (error, statusCode) {
+    if(statusCode === 401) {
+      $location.path('/login');
+    }
+    $scope.asideError = error.message;
+  });
+  $scope.submitReport = function() {
+    var reportReq = {
+      id: incidentID,
+      data: $scope.incident.postmortem.data,
+      completed: true
+    };
+    api.savePostMortem(reportReq).success(function () {
+      $location.path('/incident/' + incidentID).search({'reported': 1});
+    }).error(function (error, statusCode) {
+      if(statusCode === 401) {
+        $location.path('/login');
+      }
+      $scope.asideError = error.message;
+    });
+  };
+  $scope.saveDraft = function() {
+    var reportReq = {
+      id: incidentID,
+      data: $scope.incident.postmortem.data,
+      completed: false
+    };
+    api.savePostMortem(reportReq).success(function () {
+      $location.path('/incident/' + incidentID).search({'saved': 1});
+    }).error(function (error, statusCode) {
+      if(statusCode === 401) {
+        $location.path('/login');
+      }
+      $scope.asideError = error.message;
+    });
+  };
+  $scope.editReport = function() {
+    $scope.incident.postmortem.completed = !$scope.incident.postmortem.completed;
+    $scope.report = $scope.incident.postmortem.data;
+  };
+}]);
+
 sysStatusApp.controller('ComponentsCtrl', ['$scope', '$location', 'API', '$modal', '$route', function ($scope, $location, api, $modal, $route) {
   if(parseInt($route.current.params.deleted, 10) === 1) { // Use '==' instead of '===' for datatypes (string vs int)
     $scope.asideSuccess = 'Component deleted.';
@@ -473,7 +524,7 @@ sysStatusApp.controller('ComponentsCtrl', ['$scope', '$location', 'API', '$modal
   getComponents($scope, $location, api);
   $scope.addComponent = function() {
     var componentModal = $modal.open({
-      controller: ComponentModalCtrl,
+      controller: 'ComponentModalCtrl',
       templateUrl: 'views/partials/componentModal.html'
     });
     componentModal.result.then(function (component) {
@@ -493,7 +544,7 @@ sysStatusApp.controller('ComponentsCtrl', ['$scope', '$location', 'API', '$modal
   };
   $scope.deleteComponentReq = function(componentID) {
     var deleteComponentReqModal = $modal.open({
-      controller: DeleteComponentModalCtrl,
+      controller: 'DeleteComponentModalCtrl',
       resolve: {
         componentID: function() {
           return componentID;
@@ -577,7 +628,7 @@ sysStatusApp.controller('MetricsCtrl', ['$scope', '$modal', 'API', '$window', '$
   $scope.dataSources = [{value: 'selfData', displayName: 'I\'ll submit my own data for this metric.'}];
   $scope.addMetricReq = function() {
     var metricModal = $modal.open({
-      controller: MetricModalCtrl,
+      controller: 'MetricModalCtrl',
       resolve: {
         dataSources: function() {
           return $scope.dataSources;
@@ -642,7 +693,7 @@ sysStatusApp.controller('MetricCtrl', ['$scope', '$window', 'API', '$route', '$m
   };
   $scope.deleteMetricReq = function() {
     var metricDeleteReqModal = $modal.open({
-      controller: MetricDeleteModalCtrl,
+      controller: 'MetricDeleteModalCtrl',
       resolve: {
         metricID: function() {
           return metricID;
@@ -688,7 +739,7 @@ sysStatusApp.controller('CustomizeCtrl', ['$scope', '$window', 'API', '$modal', 
   });
   $scope.addLogoModal = function() {
     var addLogoModal = $modal.open({
-      controller: AddImageModalCtrl,
+      controller: 'AddImageModalCtrl',
       templateUrl: 'views/partials/customize/addLogoModal.html'
     });
     addLogoModal.result.then(function (logoObj) {
@@ -704,7 +755,7 @@ sysStatusApp.controller('CustomizeCtrl', ['$scope', '$window', 'API', '$modal', 
   };
   $scope.addCoverModal = function() {
     var addCoverModal = $modal.open({
-      controller: AddImageModalCtrl,
+      controller: 'AddImageModalCtrl',
       templateUrl: 'views/partials/customize/addCoverModal.html'
     });
     addCoverModal.result.then(function (coverObj) {
@@ -720,7 +771,7 @@ sysStatusApp.controller('CustomizeCtrl', ['$scope', '$window', 'API', '$modal', 
   };
   $scope.addFavModal = function() {
     var addFavModal = $modal.open({
-      controller: AddFavModalCtrl,
+      controller: 'AddFavModalCtrl',
       templateUrl: 'views/partials/customize/addFaviconModal.html'
     });
     addFavModal.result.then(function (favObj) {

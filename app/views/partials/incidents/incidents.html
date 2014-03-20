@@ -24,13 +24,13 @@
         <div class="pure-u-1" ng-repeat="incident in incidents">
             <h3 id="incidentName">{{incident.name}}</h3>
             <br>
-            <small id="scheduledTime" ng-show="incident.type !== 'Completed'">Last Updated: {{incident.update | date: 'medium'}}</small>
-            <small id="scheduledTime" ng-show="incident.type === 'Completed'">Completed on: {{incident.completeTime | date: 'fullDate'}}</small>
+            <small id="scheduledTime" ng-show="!incident.completedTime">Last Updated: {{incident.update | date: 'medium'}}</small>
+            <small id="scheduledTime" ng-show="incident.completedTime">Completed on: {{incident.completedTime | date: 'fullDate'}}</small>
             <div id="incidentEdit">
                 <a ng-click="deleteIncidentReq(incident.id)" id="incidentDelete">Delete</a>
-                <a ng-href="/incident/{{incident.id}}" id="incidentEdit" ng-show="incident.type !== 'Resolved'">Update</a>
-                <a ng-href="/incident/{{incident.id}}/view" id="incidentEdit" ng-show="incident.type === 'Resolved'">View Incident</a>
-                <a ng-href="/incident/{{incident.id}}/postmortem" id="incidentEdit" ng-show="incident.type === 'Resolved'">Write Postmortem</a>
+                <a ng-href="/incident/{{incident.id}}" id="incidentEdit" ng-show="!incident.completedTime">Update</a>
+                <a ng-href="/incident/{{incident.id}}" id="incidentEdit" ng-show="incident.completedTime">View Incident</a>
+                <a ng-href="/incident/{{incident.id}}/postmortem" id="incidentEdit" ng-show="incident.completedTime">Write Postmortem</a>
                 <hr />
             </div>
         </div>
