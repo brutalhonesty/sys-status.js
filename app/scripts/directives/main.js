@@ -1,4 +1,4 @@
-/*global sysStatusApp */
+/* global sysStatusApp, Offline, $ */
 'use strict';
 
 // TODO we can make this more generalized
@@ -79,3 +79,35 @@ sysStatusApp.directive('fileModel', ['$parse', function ($parse) {
     }
   };
 }]);
+
+sysStatusApp.directive('offlineFade', function () {
+  return {
+    restrict: 'A',
+    link: function(scope, element) {
+      Offline.on('confirmed-down', function () {
+        element.fadeOut('fast', function () {
+          $('.offline').fadeIn('fast');
+        });
+      });
+      Offline.on('confirmed-up', function () {
+        $('.offline').fadeOut('fast', function () {
+          element.fadeIn('fast');
+        });
+      });
+    }
+  };
+});
+
+sysStatusApp.directive('offlineDisabled', function () {
+  return {
+    restrict: 'A',
+    link: function(scope, element) {
+      Offline.on('confirmed-down', function () {
+        element.prop('disabled', true);
+      });
+      Offline.on('confirmed-up', function () {
+        element.prop('disabled', false);
+      });
+    }
+  };
+});

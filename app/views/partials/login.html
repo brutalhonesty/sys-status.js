@@ -3,17 +3,18 @@
     {{asideError}}
 </aside>
 <div id="loginTron" class="jumbotron">
-    <form class="pure-form">
+    <form class="pure-form" offline-fade>
         <fieldset class="pure-group">
             <label for="email">Email</label>
             <input type="email" class="pure-input-1-2" placeholder="Email Address" ng-model="email" required>
         </fieldset>
-
         <fieldset class="pure-group">
             <label for="password">Password</label>
             <input type="password" class="pure-input-1-2" placeholder="Password" ng-model="password" required>
         </fieldset>
-
         <button type="submit" class="pure-button pure-input-1-2 pure-button-primary" ng-click="login()">Login</button>
     </form>
+    <div class="offline">
+        You can only sign in when you have an active internet connection.
+    </div>
 </div>

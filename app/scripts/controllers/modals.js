@@ -1,4 +1,5 @@
 /*jshint unused:false */
+/* global sysStatusApp */
 'use strict';
 sysStatusApp.controller('NewIncidentModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
   $scope.createIncident = function(incident, incidentValue, message) {
@@ -14,7 +15,7 @@ sysStatusApp.controller('NewIncidentModalCtrl', ['$scope', '$modalInstance', fun
   };
 }]);
 
-sysStatusApp.controller('DeleteIncidentModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance, incidentID) {
+sysStatusApp.controller('DeleteIncidentModalCtrl', ['$scope', '$modalInstance', 'incidentID', function ($scope, $modalInstance, incidentID) {
   $scope.incidentID = incidentID;
   $scope.deleteIncident = function(incidentID) {
     var delIncidentData = {
@@ -27,7 +28,7 @@ sysStatusApp.controller('DeleteIncidentModalCtrl', ['$scope', '$modalInstance', 
   };
 }]);
 
-sysStatusApp.controller('DeleteMaintenanceModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance, maintainenceID) {
+sysStatusApp.controller('DeleteMaintenanceModalCtrl', ['$scope', '$modalInstance', 'maintainenceID', function ($scope, $modalInstance, maintainenceID) {
   $scope.maintainenceID = maintainenceID;
   $scope.deleteMaintenance = function(maintainenceID) {
     var maintenanceObj = {
@@ -53,7 +54,7 @@ sysStatusApp.controller('ComponentModalCtrl', ['$scope', '$modalInstance', funct
   };
 }]);
 
-sysStatusApp.controller('DeleteComponentModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance, componentID) {
+sysStatusApp.controller('DeleteComponentModalCtrl', ['$scope', '$modalInstance', 'componentID', function ($scope, $modalInstance, componentID) {
   $scope.componentID = componentID;
   $scope.deleteComponent = function(componentID) {
     var component = {
@@ -66,7 +67,7 @@ sysStatusApp.controller('DeleteComponentModalCtrl', ['$scope', '$modalInstance',
   };
 }]);
 
-sysStatusApp.controller('MetricModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance, dataSources) {
+sysStatusApp.controller('MetricModalCtrl', ['$scope', '$modalInstance', 'dataSources', function ($scope, $modalInstance, dataSources) {
   $scope.dataSources = dataSources;
   $scope.storeMetric = function(dataSource, displayName, displaySuffix) {
     var metric = {
@@ -81,7 +82,7 @@ sysStatusApp.controller('MetricModalCtrl', ['$scope', '$modalInstance', function
   };
 }]);
 
-sysStatusApp.controller('MetricDeleteModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance, metricID) {
+sysStatusApp.controller('MetricDeleteModalCtrl', ['$scope', '$modalInstance', 'metricID', function ($scope, $modalInstance, metricID) {
   $scope.metricID = metricID;
   $scope.deleteMetric = function(metricID) {
     var metricDeleteData = {

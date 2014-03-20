@@ -40,16 +40,16 @@
     <form class="pure-form" ng-repeat="component in components" ng-init="componentValue=component.status">
 		<span class="{{componentValue === 'Operational' ? 'operational' : ''}}{{componentValue === 'Degraded Performance' ? 'degraded' : ''}}{{componentValue === 'Partial Outage' ? 'partial' : ''}}{{componentValue === 'Major Outage' ? 'major' : ''}}">{{component.name}}</span>
 		<label for="operational" class="pure-radio">
-        	<input id="operational" type="radio" name="optionsComponent" value="Operational" ng-model="componentValue" ng-change="updateComponent(component.id, componentValue)"> Operational
+        	<input id="operational" type="radio" name="optionsComponent" value="Operational" ng-model="componentValue" ng-change="updateComponent(component.id, componentValue)" offline-disabled> Operational
         </label>
         <label for="degradedPerformance" class="pure-radio">
-        	<input id="degradedPerformance" type="radio" name="optionsComponent" value="Degraded Performance" ng-model="componentValue" ng-change="updateComponent(component.id, componentValue)"> Degraded Performance
+        	<input id="degradedPerformance" type="radio" name="optionsComponent" value="Degraded Performance" ng-model="componentValue" ng-change="updateComponent(component.id, componentValue)" offline-disabled> Degraded Performance
         </label>
         <label for="partialOutage" class="pure-radio">
-        	<input id="partialOutage" type="radio" name="optionsComponent" value="Partial Outage" ng-model="componentValue" ng-change="updateComponent(component.id, componentValue)"> Partial Outage
+        	<input id="partialOutage" type="radio" name="optionsComponent" value="Partial Outage" ng-model="componentValue" ng-change="updateComponent(component.id, componentValue)" offline-disabled> Partial Outage
         </label>
         <label for="majorOutage" class="pure-radio">
-        	<input id="majorOutage" type="radio" name="optionsComponent" value="Major Outage" ng-model="componentValue" ng-change="updateComponent(component.id, componentValue)"> Major Outage
+        	<input id="majorOutage" type="radio" name="optionsComponent" value="Major Outage" ng-model="componentValue" ng-change="updateComponent(component.id, componentValue)" offline-disabled> Major Outage
         </label>
         <hr />
     </form>

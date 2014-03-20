@@ -104,6 +104,7 @@
       <div class="pure-u-1" ng-show="customData.layoutType === 'basic'">
         <div id="logoImage">
           <h4>Logo images add branding to the status page.</h4>
+          <p ng-show="logoError" class="asideError customize-error">{{logoError}}</p>
           <div class="pure-button pure-input-1-3 pure-button-primary" ng-click="addLogoModal()"><span>Add Logo Image</span></div>
           <small>Rectangular images work best.</small>
         </div>
@@ -126,13 +127,13 @@
       </div>
       <div class="pure-u-1" id="headline">
         <input type="text" ng-model="customData.headline" id="headline" placeholder="{{siteName}}" class="pure-u-1-2">
-        <small>Text that shows at the top of the status page.</small>
+        <small>Headline: Text that shows at the top of the status page.</small>
       </div>
-      <div class="pure-u-1" id="aboutPage">
-        <textarea type="text" ng-model="customData.aboutPage" id="aboutPage" placeholder="Welcome to {{siteName}}'s status page..." class="pure-u-1" rows="5"></textarea>
-        <small>Optional text that is shown at the top of the status page.</small>
+      <div class="pure-u-1" id="aboutPageInfo">
+        <textarea type="text" ng-model="customData.aboutPage" id="aboutPageInfo" placeholder="Welcome to {{siteName}}'s status page..." class="pure-u-1" rows="5"></textarea>
+        <small>About Page: Optional text that is shown at the top of the status page.</small>
       </div>
-      <button type="submit" class="pure-button pure-input-1-2 pure-button-primary pure-button-xlarge" ng-click="saveDesign()">Save All Changes</button>
+      <button type="submit" class="pure-button pure-input-1-2 pure-button-primary pure-button-xlarge" ng-click="saveDesign()" offline-disabled>Save All Changes</button>
     </fieldset>
     </div>
   </form>

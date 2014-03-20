@@ -1,5 +1,7 @@
 <div id="statusPageContainer" class="container">
-    <img id="companyImage" ng-src="{{company.customize.layoutType === 'cover' ? company.customize.cover : company.customize.logo}}" alt="Company Logo or Cover">
+    <img id="companyImage" ng-src="{{company.customize.cover}}" ng-show="company.customize.layoutType === 'cover'"alt="Company Cover">
+    <img id="companyLogo" ng-src="{{company.customize.logo}}" ng-show="company.customize.layoutType === 'basic'"alt="Company Logo">
+    <!-- TODO The data in the customize page needs to be confined to the specifications of the /customize changes. -->
     <div id="aboutPage" ng-show="company.customize.aboutPage">{{company.customize.aboutPage}}</div>
   	<div id="statusPageStatus" ng-show="company.incidents.length === 0" class="pure-u-1 l-box">
   		<strong><h2>All Systems Operational</h2></strong>

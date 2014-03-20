@@ -744,6 +744,7 @@ sysStatusApp.controller('CustomizeCtrl', ['$scope', '$window', 'API', '$modal', 
     });
     addLogoModal.result.then(function (logoObj) {
       api.uploadLogo(logoObj).success(function (uploadResponse) {
+        $anchorScroll();
         $scope.asideSuccess = uploadResponse.message;
       }).error(function (error, statusCode) {
         if(statusCode === 401) {
@@ -760,6 +761,7 @@ sysStatusApp.controller('CustomizeCtrl', ['$scope', '$window', 'API', '$modal', 
     });
     addCoverModal.result.then(function (coverObj) {
       api.uploadCover(coverObj).success(function (uploadResponse) {
+        $anchorScroll();
         $scope.asideSuccess = uploadResponse.message;
       }).error(function (error, statusCode) {
         if(statusCode === 401) {
@@ -776,6 +778,7 @@ sysStatusApp.controller('CustomizeCtrl', ['$scope', '$window', 'API', '$modal', 
     });
     addFavModal.result.then(function (favObj) {
       api.uploadFavicon(favObj).success(function (uploadResponse) {
+        $anchorScroll();
         $scope.asideSuccess = uploadResponse.message;
       }).error(function (error, statusCode) {
         if(statusCode === 401) {

@@ -1,6 +1,6 @@
 'use strict';
-var metricid = '5ddbeb81-b1d1-4ba8-a18b-f8001b326c57';
-var metrickey = '438c7b32138d501b766b948842cf25762ca7eacaaef7997a56f6be51351f3103';
+var metricid = '002493d1-291f-4415-aa53-4fca580f0e1c';
+var metrickey = '6155bf50a09b2f049fb93c0559c46ef890909c9c663b56ae7d17c533ec512282';
 var request = require('request');
 setInterval(function () {
 	// Your data object, make sure you include timeStamp and value as the keys.
