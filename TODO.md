@@ -22,6 +22,10 @@ TODO
 * History page
     * Incidents by month
 
+* Migrate DB to CouchDB
+
+* ~~Migrate DB structure from user-centric to site-centric~~
+
 * Check to make sure when an event is added or updated in the incident's object, the update time is changed.
 * We can generalize all get requests to one function which checks the parameters and returns what is request within them. We can add checks to make sure requests for sensitive information will fail validation.
     * Example: ```/api/getData?request=customize,domain``` , returns an object with ```customize:{}``` and ```domain: ''```
