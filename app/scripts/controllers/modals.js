@@ -156,3 +156,15 @@ sysStatusApp.controller('AddFavModalCtrl', ['$scope', '$modalInstance', function
     $scope.isCompVisible = false;
   };
 }]);
+
+sysStatusApp.controller('AddMemberModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+  $scope.cancel = function() {
+    $modalInstance.dismiss('cancel');
+  };
+  $scope.addMember = function(memberEmail) {
+    var member = {
+      email: memberEmail
+    };
+    $modalInstance.close(member);
+  };
+}]);

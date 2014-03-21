@@ -1,0 +1,16 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="teamMemberContainer" class="container">
+  <aside class="aside-success" ng-show="asideSuccess">
+      {{asideSuccess}}
+  </aside>
+  <aside class="aside-error" ng-show="asideError">
+      {{asideError}}
+  </aside>
+  <h2>Team Members</h2>
+  <button id="addMember" class="pure-button pure-button-primary pure-button-xlarge" ng-click="addMember()">Add Team Member</button>
+  <hr/>
+  <div ng-repeat="member in members">
+    {{member}}
+    <hr />
+  </div>
+</div>

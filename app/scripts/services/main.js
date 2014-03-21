@@ -243,6 +243,17 @@ sysStatusApp.service('API', ['$http', function ($http) {
         data: $.param(domainData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
+    },
+    getMembers: function() {
+      return $http.get('/api/getMembers');
+    }
+    addMember: function(memberData) {
+      return $http({
+        url: '/api/addMember',
+        method: 'POST',
+        data: $.param(memberData),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      });
     }
   };
 }]);

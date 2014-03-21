@@ -73,6 +73,9 @@ var sysStatusApp = angular.module('sysStatusApp', ['ngCookies', 'ngResource', 'n
   }).when('/customize/code', {
     templateUrl: 'partials/customize/code',
     controller: 'CustomizeCodeCtrl'
+  }).when('/team', {
+    templateUrl: 'partials/team/team',
+    controller: 'TeamMembersCtrl'
   }).otherwise({
     redirectTo: '/'
   });

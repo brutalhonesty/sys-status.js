@@ -837,4 +837,23 @@ sysStatusApp.controller('CustomizeURLCtrl', ['$scope', 'API', '$location', funct
 
 sysStatusApp.controller('CustomizeCodeCtrl', [function () {}]);
 
-sysStatusApp.controller('TeamMembersCtrl', [function() {}]);
+sysStatusApp.controller('TeamMembersCtrl', ['$scope', '$modal', 'API', function ($scope, $modal, api) {
+  api.getMembers().success(function (membersResponse) {
+    $scope.members = membersResponse;
+  }).error(function (error) {
+    $scope.asideError = error.message;
+  });
+  $scope.addMember = function() {
+    var memberModal = $modal.open({
+      controller: 'AddMemberModalCtrl',
+      templateUrl: 'views/partials/team/addMemberModal.html'
+    });
+    memberModal.result.then(function (memberObj) {
+      api.addMember(memberObj).success(function (memberResponse) {
+        $scope.asideSuccess = memberResponse.message;
+      }).error(function (error) {
+        $scope.asideError = error.message;
+      });
+    });
+  };
+}]);

@@ -13,7 +13,8 @@
     "node-uuid": "~1.4.1",
     "request": "~2.33.0",
     "crypto": "0.0.3",
-    "mime": "~1.2.11"
+    "mime": "~1.2.11",
+    "password-generator": "^0.2.2"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
