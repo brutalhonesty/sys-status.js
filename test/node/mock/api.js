@@ -2,11 +2,35 @@
 var request = require('supertest');
 var assert = require('assert');
 var colors = require('colors');
+var fs = require('fs');
 var config = require('../../../lib/config/config');
 var settings = require('../../../lib/controllers/settings');
 var nano = require('nano')(settings.couchdb.url);
 
 var app = require('../../../server');
+
+/**
+ * Deletes the uploads pictures after the API calls are done testing
+ * @param  {Function} done The done() function from mocha
+ */
+function _deleteUploads(paths, done) {
+  fs.unlink(paths.cover, function (err) {
+    if(err) {
+      return done(err);
+    }
+    fs.unlink(paths.favicon, function (err) {
+      if(err) {
+        return done(err);
+      }
+      fs.unlink(paths.logo, function (err) {
+        if(err) {
+          return done(err);
+        }
+        done();
+      });
+    });
+  });
+}
 
 describe('SysStatus API', function () {
 
@@ -391,24 +415,223 @@ describe('SysStatus API', function () {
         });
       })
     });
-    /*describe('POST /api/updateMaintenance')
-    describe('POST /api/updateMaintenanceEvent')
-    describe('POST /api/updatePrevMaintenance')*/
+    describe('POST /api/updateMaintenance', function () {
+      describe('when updating a maintenance request', function () {
+        it('should successfully update the maintenance request', function (done) {
+          request(app)
+          .post('/api/updateMaintenance')
+          .send({
+            id: maintenanceid,
+            name: 'MyMockMaintenance',
+            details: 'MyMockDetails',
+            start: {
+              dateTime: Date.now(Date.UTC()) + 3600 // Add a minute to the start time
+            },
+            end: {
+              dateTime: Date.now(Date.UTC()) + 86400 // Add 24 hours to the end time
+            },
+            remindSubs: false,
+            setProgress: false
+          })
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.error(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Maintenance request updated.');
+            done();
+          });
+        });
+      });
+    });
+    describe('POST /api/updateMaintenanceEvent', function () {
+      describe('when updating a maintenance event', function () {
+        it('should successfully update a maintenance event', function (done) {
+          request(app)
+          .post('/api/updateMaintenanceEvent')
+          .send({id: maintenanceid, type: 'Completed', details: 'MyMockEventDetails'})
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.error(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Maintenance request updated.');
+            done();
+          });
+        });
+      });
+    });
+    describe('POST /api/updatePrevMaintenance', function () {
+      describe('when updating a previous maintenance event', function () {
+        it('should successfully update a previous maintenance event', function (done) {
+          request(app)
+          .post('/api/updatePrevMaintenance')
+          .send({id: eventid, type: 'In Progress', date: Date.now(Date.UTC()), maintenanceID: maintenanceid, details: 'MyMockEventDetails'})
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.error(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Maintenance event updated.');
+            done();
+          });
+        });
+      });
+    });
+  });
+  describe('Company API', function () {
+    describe('GET /api/getPrivateCompany', function () {
+      describe('when getting the company', function () {
+        it('should successfully return the whole site', function (done) {
+          request(app)
+          .get('/api/getPrivateCompany')
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.error(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.company.siteName, site.siteName);
+            done();
+          });
+        });
+      });
+    });
+    describe('GET /api/getCompany', function () {
+      describe('when getting the company', function () {
+        it('should successfully return the whole site', function (done) {
+          // TODO We should mock this API call when it's completed.
+          done();
+        });
+      });
+    });
+  });
+  describe('Upload API', function () {
+    var logoPath, faviconPath, coverPath;
+    var logoName, faviconName, coverName;
+    describe('POST /api/upload/logo', function () {
+      describe('when uploading a logo', function () {
+        it('should successfully upload the image', function (done) {
+          request(app)
+          .post('/api/upload/logo')
+          .attach('file', 'logo.png')
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Image registered.');
+            logoPath = res.body.path;
+            var logoPathArr = logoPath.split('/');
+            logoName = logoPathArr[logoPathArr.length - 1];
+            done();
+          });
+        });
+      });
+    });
+    describe('POST /api/upload/favicon', function () {
+      describe('when uploading a favicon', function () {
+        it('should successfully upload the image', function (done) {
+          request(app)
+          .post('/api/upload/favicon')
+          .attach('file', 'favicon.ico')
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Image registered.');
+            faviconPath = res.body.path;
+            var faviconPathArr = faviconPath.split('/');
+            faviconName = faviconPathArr[faviconPathArr.length - 1];
+            done();
+          });
+        });
+      });
+    });
+    describe('POST /api/upload/cover', function () {
+      describe('when uploading a cover image', function () {
+        it('should successfully upload the image', function (done) {
+          request(app)
+          .post('/api/upload/cover')
+          .attach('file', 'cover.png')
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Image registered.');
+            coverPath = res.body.path;
+            var coverPathArr = coverPath.split('/');
+            coverName = coverPathArr[coverPathArr.length - 1];
+            done();
+          });
+        });
+      });
+    });
+    describe('GET /uploads/logo/:fileName', function () {
+      describe('when getting a logo', function () {
+        it('should successfully return an image', function (done) {
+          request(app)
+          .get('/uploads/logo/' + logoName)
+          .expect('Content-Type', 'image/png')
+          .expect(200, done);
+        });
+      });
+    });
+    describe('GET /uploads/favicon/:fileName', function () {
+      describe('when getting a favicon', function () {
+        it('should successfully return an image', function (done) {
+          request(app)
+          .get('/uploads/favicon/' + faviconName)
+          .expect('Content-Type', 'image/x-icon')
+          .expect(200, done);
+        });
+      });
+    });
+    describe('GET /uploads/cover/:fileName', function () {
+      describe('when getting a cover', function () {
+        it('should successfully return an image', function (done) {
+          request(app)
+          .get('/uploads/cover/' + coverName)
+          .expect('Content-Type', 'image/png')
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              return done(err);
+            }
+            var paths = {
+              logo: logoPath,
+              favicon: faviconPath,
+              cover: coverPath
+            };
+            _deleteUploads(paths, done);
+          });
+        });
+      });
+    });
   });
 });
 /*
-
-mock.get('/api/getPrivateCompany')
-mock.get('/api/getCompany')
-
-mock.get('/uploads/logo/:fileName')
-mock.get('/uploads/favicon/:fileName')
-mock.get('/uploads/cover/:fileName')
 mock.get('/api/getCustomData')
 mock.post('/api/setCustomData')
-mock.post('/api/upload/logo')
-mock.post('/api/upload/favicon')
-mock.post('/api/upload/cover')
 mock.post('/api/updateDomain')
 mock.get('/api/getDomain')
 
