@@ -61,7 +61,7 @@ mv ./dist /path/to/production/location
 # Use Node to run
 PORT=9000 node server.js
 # Use forever
-PORT=9000 forever server.js
+PORT=9000 forever start server.js
 ```
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/brutalhonesty/sys-status.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
