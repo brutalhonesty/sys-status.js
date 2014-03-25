@@ -22,17 +22,19 @@ TODO
 * History page
     * Incidents by month
 
-* Migrate DB to CouchDB
+Migrate DB to CouchDB
+----------------------
 
 * ~~Integrate Offline.JS~~
 * ~~Integrate Favicon.JS~~
 
+* Add mail service for sending out registration info to users
+
 * ~~Migrate DB structure from user-centric to site-centric~~
 
-* Edit the user DB object to have a key of the user's ID instead of their email, then update all the API calls to use the ID instead of the email
-
 * Check to make sure when an event is added or updated in the incident's object, the update time is changed.
-* We can generalize all get requests to one function which checks the parameters and returns what is request within them. We can add checks to make sure requests for sensitive information will fail validation.
+
+* We can generalize all get requests to one function which checks the parameters to check what logic to execute. We can add checks to make sure requests for sensitive information will fail validation.
     * Example: ```/api/getData?request=customize,domain``` , returns an object with ```customize:{}``` and ```domain: ''```
 
 * Fix issue with modal not being displayed in production.

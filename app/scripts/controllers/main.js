@@ -226,7 +226,7 @@ sysStatusApp.controller('LoginCtrl', ['$scope', 'API', '$location', '$window', f
   };
 }]);
 
-sysStatusApp.controller('GetStartedCtrl', ['$scope', 'API', '$location', function ($scope, api, $location) {
+sysStatusApp.controller('GetStartedCtrl', ['$scope', 'API', '$location', '$window', function ($scope, api, $location, $window) {
   $scope.register = function () {
     var registerData = {
       siteName: $scope.site,
@@ -234,8 +234,9 @@ sysStatusApp.controller('GetStartedCtrl', ['$scope', 'API', '$location', functio
       domain: $scope.domain,
       password: $scope.password
     };
-    api.register(registerData).success(function () {
+    api.register(registerData).success(function (registerResponse) {
       $location.path('/dashboard').search({'registered': 1});
+      $window.localStorage.setItem('name', registerResponse.name);
     }).error(function (error) {
       $scope.asideError = error.message;
     });
@@ -340,7 +341,7 @@ sysStatusApp.controller('IncidentsCtrl', ['$scope', '$window', 'API', '$modal', 
   };
 }]);
 
-sysStatusApp.controller('MaintenancesCtrl', ['$scope', '$window', '$location', 'API', '$route', '$modal', function ($scope, $window, $location, api, $route, $modal) {
+sysStatusApp.controller('MaintenancesCtrl', ['$scope', '$location', 'API', '$route', '$modal', function ($scope, $location, api, $route, $modal) {
   if(parseInt($route.current.params.added, 10) === 1) {
     $scope.asideSuccess = 'Maintenance added.';
   } else if(parseInt($route.current.params.deleted, 10) === 1) {
@@ -357,8 +358,8 @@ sysStatusApp.controller('MaintenancesCtrl', ['$scope', '$window', '$location', '
     'trigger': 'hover click'
   };
   $scope.scheduleMaintenance = function() {
-    $scope.maintenance.start.dateTime = $window.moment($scope.maintenance.start.date + ' ' + $scope.maintenance.start.time).valueOf();
-    $scope.maintenance.end.dateTime = $window.moment($scope.maintenance.end.date + ' ' + $scope.maintenance.end.time).valueOf();
+    $scope.maintenance.start.dateTime = moment($scope.maintenance.start.date + ' ' + $scope.maintenance.start.time).valueOf();
+    $scope.maintenance.end.dateTime = moment($scope.maintenance.end.date + ' ' + $scope.maintenance.end.time).valueOf();
     api.addMaintenance($scope.maintenance).success(function () {
       $location.path('/incidents/maintenance/').search({'added': 1});
     }).error(function (error) {

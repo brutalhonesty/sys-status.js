@@ -43,6 +43,9 @@ npm install
 bower install
 # Development
 grunt serve
+# Edit settings and config
+vim lib/controllers/settings.js
+vim lib/config/config.js
 # Production
 grunt
 mv ./dist /path/to/production/location

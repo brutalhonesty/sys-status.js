@@ -1,6 +1,10 @@
 {
   "name": "sys-status",
-  "version": "0.4.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brutalhonesty/sys-status.js.git"
+  },
+  "version": "0.5.0",
   "dependencies": {
     "express": "~3.4.3",
     "lodash": "~2.4.1",
@@ -14,7 +18,9 @@
     "request": "~2.33.0",
     "crypto": "0.0.3",
     "mime": "~1.2.11",
-    "password-generator": "^0.2.2"
+    "password-generator": "^0.2.2",
+    "nano": "^5.7.1",
+    "colors": "^0.6.2"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -58,12 +64,15 @@
     "karma-phantomjs-launcher": "~0.1.1",
     "karma": "~0.10.9",
     "karma-ng-html2js-preprocessor": "~0.1.0",
-    "grunt-todo": "^0.2.0"
+    "grunt-todo": "^0.2.0",
+    "supertest": "^0.10.0",
+    "mocha": "^1.18.2"
   },
   "engines": {
     "node": ">=0.8.0"
   },
   "scripts": {
+    "install": "node db/install.js",
     "test": "grunt test"
   }
 }

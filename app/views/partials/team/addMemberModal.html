@@ -1,12 +1,12 @@
 <div class="modal-header">
     <button type="button" class="close" ng-click="cancel()">&times;</button>
     <h3>Add a User</h3>
-  <div class="modal-body">
+<div class="modal-body">
     <form class="pure-form">
       <fieldset class="pure-group">
         <p>Create an account for anyone in your team to help build and update your status page.</p>
         <label for="description">Description</label>
-        <input type="text" class="pure-input-1" ng-model="memberEmail" placeholder="Email Address">
+        <input type="email" class="pure-input-1" ng-model="memberEmail" placeholder="Email Address" required>
         <small>There will be a temporary password created for them so they can login.</small>
       </fieldset>
     </form>

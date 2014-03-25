@@ -246,7 +246,7 @@ sysStatusApp.service('API', ['$http', function ($http) {
     },
     getMembers: function() {
       return $http.get('/api/getMembers');
-    }
+    },
     addMember: function(memberData) {
       return $http({
         url: '/api/addMember',
