@@ -6,6 +6,7 @@ before_script:
   - node db/install.js
 services:
   - couchdb
+  - redis-server
 env:
   global:
     - NODE_ENV='development'
