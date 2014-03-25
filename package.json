@@ -66,11 +66,12 @@
     "karma-ng-html2js-preprocessor": "~0.1.0",
     "grunt-todo": "^0.2.0",
     "supertest": "^0.10.0",
-    "mocha": "^1.18.2"
+    "mocha": "^1.18.2",
+    "mkdirp": "^0.3.5"
   },
   "engines": {
     "node": ">=0.10.0",
-    "npm" : "~1.4.3"
+    "npm": "~1.4.3"
   },
   "scripts": {
     "install": "node db/install.js && node install.js",
