@@ -7,4 +7,4 @@ before_script:
 services:
   - couchdb
 env:
-  - NODE_ENV='test'
+  - NODE_ENV='development'
