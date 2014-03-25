@@ -69,7 +69,8 @@
     "mocha": "^1.18.2"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.10.0",
+    "npm" : "~1.4.3"
   },
   "scripts": {
     "install": "node db/install.js",
