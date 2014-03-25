@@ -30,22 +30,38 @@ TODO
 ----
 Check out the markdown TODO [list](TODO.md)
 
+Test
+----
+```bash
+# Server-Side Testing
+npm test
+# Client-Side Testing (Still work in progress)
+grunt build
+```
+
 Installation
 ------------
 
 ```bash
 git clone <repo url>
 cd /path/to/repo
+# Install dependencies, database structure and upload folders
 npm install
 bower install
 # Development
 grunt serve
+
 # Edit settings and config
 vim lib/controllers/settings.js
 vim lib/config/config.js
+
 # Production
 grunt
 mv ./dist /path/to/production/location
+# Use Node to run
+PORT=9000 node server.js
+# Use forever
+PORT=9000 forever server.js
 ```
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/brutalhonesty/sys-status.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
