@@ -73,6 +73,6 @@
   },
   "scripts": {
     "install": "node db/install.js",
-    "test": "grunt test"
+    "test": "mocha test/node/mock/api.js"
   }
 }

@@ -525,7 +525,7 @@ describe('SysStatus API', function () {
         it('should successfully upload the image', function (done) {
           request(app)
           .post('/api/upload/logo')
-          .attach('file', 'logo.png')
+          .attach('file', __dirname + '/logo.png')
           .expect('Content-Type', /json/)
           .set('cookie', cookie)
           .expect(200)
@@ -547,7 +547,7 @@ describe('SysStatus API', function () {
         it('should successfully upload the image', function (done) {
           request(app)
           .post('/api/upload/favicon')
-          .attach('file', 'favicon.ico')
+          .attach('file', __dirname + '/favicon.ico')
           .expect('Content-Type', /json/)
           .set('cookie', cookie)
           .expect(200)
@@ -569,7 +569,7 @@ describe('SysStatus API', function () {
         it('should successfully upload the image', function (done) {
           request(app)
           .post('/api/upload/cover')
-          .attach('file', 'cover.png')
+          .attach('file', __dirname + '/cover.png')
           .expect('Content-Type', /json/)
           .set('cookie', cookie)
           .expect(200)
