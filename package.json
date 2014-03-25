@@ -73,7 +73,7 @@
     "npm" : "~1.4.3"
   },
   "scripts": {
-    "install": "node db/install.js",
+    "install": "node db/install.js && node install.js",
     "test": "mocha test/node/mock/api.js"
   }
 }
