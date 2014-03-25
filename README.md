@@ -3,8 +3,7 @@ Sys-Status
 
 An Open-Source Status Page Server/Interface
 
-[![Coverage Status](https://coveralls.io/repos/brutalhonesty/sys-status.js/badge.png)](https://coveralls.io/r/brutalhonesty/sys-status.js)
-
+[![Build Status](https://travis-ci.org/brutalhonesty/sys-status.js.svg?branch=master)](https://travis-ci.org/brutalhonesty/sys-status.js)
 Version
 -------
 0.5
