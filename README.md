@@ -48,3 +48,6 @@ vim lib/config/config.js
 grunt
 mv ./dist /path/to/production/location
 ```
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/brutalhonesty/sys-status.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
