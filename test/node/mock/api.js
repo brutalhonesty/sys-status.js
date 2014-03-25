@@ -531,6 +531,7 @@ describe('SysStatus API', function () {
           .expect(200)
           .end(function (err, res) {
             if(err) {
+              console.error(res.body.message.red);
               return done(err);
             }
             assert.equal(res.body.message, 'Image registered.');
@@ -553,6 +554,7 @@ describe('SysStatus API', function () {
           .expect(200)
           .end(function (err, res) {
             if(err) {
+              console.error(res.body.message.red);
               return done(err);
             }
             assert.equal(res.body.message, 'Image registered.');
@@ -575,6 +577,7 @@ describe('SysStatus API', function () {
           .expect(200)
           .end(function (err, res) {
             if(err) {
+              console.error(res.body.message.red);
               return done(err);
             }
             assert.equal(res.body.message, 'Image registered.');
@@ -615,6 +618,7 @@ describe('SysStatus API', function () {
           .expect(200)
           .end(function (err, res) {
             if(err) {
+              console.error(res.body.message.red);
               return done(err);
             }
             var paths = {
@@ -628,16 +632,178 @@ describe('SysStatus API', function () {
       });
     });
   });
+  describe('Cusomtize API', function () {
+    var customData = {
+      bodyBackground: 'ffffff',
+      fontColor: '000000',
+      lightFontColor: 'AAAAAA',
+      greenColor: '1CB841',
+      yellowColor: 'F1C40F',
+      orangeColor: 'E67E22',
+      redColor: 'E74C3C',
+      linkColor: '0078E7',
+      borderColor: 'E0E0E0',
+      graphColor: '0078E7',
+      headline: 'My Mock Headline',
+      aboutPage: 'My Mock About Details',
+      layoutType: 'basic'
+    };
+    describe('GET /api/getCustomData', function () {
+      describe('when requesting customized data', function () {
+        it('should successfully return the customized data', function (done) {
+          request(app)
+          .get('/api/getCustomData')
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.error(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.bodyBackground, site.customize.bodyBackground);
+            done();
+          });
+        });
+      });
+    });
+    describe('POST /api/setCustomData', function () {
+      describe('when updating customized data', function () {
+        it('should successfully set the customized data', function (done) {
+          request(app)
+          .post('/api/setCustomData')
+          .send(customData)
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.error(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Settings updated.');
+            done();
+          });
+        });
+      });
+    });
+    describe('GET /api/getDomain', function () {
+      describe('when requesting the domain information', function () {
+        it('should successfully return the domain information', function (done) {
+          request(app)
+          .get('/api/getDomain')
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.error(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.domain, site.domain);
+            done();
+          });
+        });
+      });
+    });
+    describe('POST /api/updateDomain', function () {
+      describe('when updating the domain information', function () {
+        it('should successfully update the domain information', function (done) {
+          request(app)
+          .post('/api/updateDomain')
+          .send({domain: 'http://mockexample.com'})
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.error(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Domain Updated.');
+            done();
+          });
+        });
+      });
+    });
+  });
+  describe('Subscribers API', function () {
+    describe('GET /api/getSubscribers', function () {
+      describe('when requesting subscribers data', function () {
+        it('should successfully return the subscribers data', function (done) {
+          request(app)
+          .get('/api/getSubscribers')
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.error(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.subscribers.email.count, site.subscribers.email.count);
+            assert.equal(res.body.subscribers.sms.count, site.subscribers.sms.count);
+            assert.equal(res.body.subscribers.webhook.count, site.subscribers.webhook.count);
+            done();
+          });
+        });
+      });
+    });
+    describe('POST /api/createSubscriber', function () {
+      describe('when creating a subscriber', function () {
+        it('should successfully create a subscriber via email', function (done) {
+          request(app)
+          .post('/api/createSubscriber')
+          .send({type: 'email', data: {email: 'johnsmith@gmail.com'}})
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.error(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Subscription added.');
+            done();
+          });
+        });
+        it('should successfully create a subscriber via sms', function (done) {
+          request(app)
+          .post('/api/createSubscriber')
+          .send({type: 'sms', data: {phone: '555-555-5555'}})
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.error(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Subscription added.');
+            done();
+          });
+        });
+        it('should successfully create a subscriber via a webhook', function (done) {
+          request(app)
+          .post('/api/createSubscriber')
+          .send({type: 'webhook', data: {webhook: 'http://mymockwebhook.com/'}})
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.error(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Subscription added.');
+            done();
+          });
+        });
+      });
+    });
+  });
 });
 /*
-mock.get('/api/getCustomData')
-mock.post('/api/setCustomData')
-mock.post('/api/updateDomain')
-mock.get('/api/getDomain')
-
-mock.get('/api/getSubscribers')
-mock.get('/api/createSubscriber')
-
 mock.get('/api/getMetrics')
 mock.get('/api/getMetric')
 mock.post('/api/createMetric')
