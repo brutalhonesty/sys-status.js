@@ -3,13 +3,9 @@ Sys-Status
 
 An Open-Source Status Page Server/Interface
 
-Author
------
-Adam Schodde
-
 Version
 -------
-0.4
+0.5
 
 License
 -------
