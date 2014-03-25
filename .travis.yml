@@ -4,6 +4,7 @@ node_js:
 before_script:
   - npm install -g bower grunt-cli
   - node db/install.js
+  - node install.js
 services:
   - couchdb
   - redis-server
