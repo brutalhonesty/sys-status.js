@@ -5,3 +5,8 @@ node_js:
 before_script:
   - 'npm install -g bower grunt-cli'
   - 'bower install'
+  - 'node db/install.js'
+services:
+  - couchdb
+env:
+  - NODE_ENV='test'
