@@ -802,21 +802,256 @@ describe('SysStatus API', function () {
       });
     });
   });
+  describe('Metrics API', function () {
+    var metricid, metrickey;
+    describe('GET /api/getMetrics', function () {
+      describe('when requesting the metrics', function () {
+        it('should successfully return the metrics', function (done) {
+          request(app)
+          .get('/api/getMetrics')
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.error(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body[0].id, metric.id);
+            assert.equal(res.body[0].metrickey, metric.metrickey);
+            metricid = res.body[0].id;
+            metrickey = res.body[0].metrickey;
+            done();
+          });
+        });
+      });
+    });
+    describe('GET /api/getMetric', function () {
+      describe('when requesting a metric', function () {
+        it('should successfully return the metric', function (done) {
+          request(app)
+          .get('/api/getMetric?id=' + metricid)
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.log(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.metric.id, metric.id);
+            done();
+          });
+        });
+      });
+    });
+    describe('POST /api/createMetric', function () {
+      describe('when creating a metric', function () {
+        it('should successfully create a metric', function (done) {
+          request(app)
+          .post('/api/createMetric')
+          .send({name: 'MyMockMetric', suffix: 'reqs/min'})
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.log(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Metric added.');
+            done();
+          });
+        });
+      });
+    });
+    describe('POST /api/updateMetric', function () {
+      describe('when updating a metric', function () {
+        it('should successfully update a metric', function (done) {
+          request(app)
+          .post('/api/updateMetric')
+          .send({
+            id: metricid,
+            decimalPlaces: 0,
+            name: 'MyMockMetric',
+            axis: {
+              x: {
+                min: 0,
+                max: 100,
+                hide: false
+              },
+              y: {
+                min: 0,
+                max: 100,
+                hide: false
+              }
+            },
+            suffix: 'reqs/min',
+            description: 'MyMockDescription'
+          })
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.log(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Metric updated.');
+            done();
+          });
+        });
+      });
+    });
+    describe('POST /api/updateMetricVisibility', function () {
+      describe('when updating the metric visibility', function () {
+        it('should successfully update the metric visibility', function (done) {
+          request(app)
+          .post('/api/updateMetricVisibility')
+          .send({
+            id: metricid,
+            visibility: true
+          })
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.log(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Metric updated.');
+            done();
+          });
+        });
+      });
+    });
+    describe('POST /api/deleteMetric', function () {
+      describe('when deleting a metric', function () {
+        it('should successfully delete the metric', function (done) {
+          request(app)
+          .post('/api/deleteMetric')
+          .send({id: metricid})
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.log(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Metric deleted.');
+            done();
+          });
+        });
+      });
+    });
+    describe('POST /api/inputMetricData', function () {
+      describe('when inserting metric data', function () {
+        it('should successfully insert metric data', function (done) {
+          request(app)
+          .post('/api/inputMetricData')
+          .send({
+            dhash: {
+              timeStamp: Date.now(Date.UTC()),
+              value: 123.92839
+            },
+            metrickey: metrickey,
+            id: metricid
+          })
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.log(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(typeof(res.body), 'object');
+            assert.equal(Object.keys(res.body).length, 0);
+            done();
+          });
+        });
+      });
+    });
+  });
+  describe('Team Members API', function () {
+    describe('GET /api/getMembers', function () {
+      describe('when getting the team members', function () {
+        it('should successfully return the members', function (done) {
+          request(app)
+          .get('/api/getMembers')
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.log(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.members[0]._id, userid);
+            done();
+          });
+        });
+      })
+    })
+    describe('POST /api/addMember', function () {
+      describe('when adding a new team member', function () {
+        it('should successfully add the team member', function (done) {
+          request(app)
+          .post('/api/addMember')
+          .send({email: 'mymockmember@gmail.com'})
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.log(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Team member added.');
+            done();
+          });
+        });
+      });
+    });
+  });
+  describe('USER API', function () {
+    describe('GET /api/logout', function () {
+      describe('when logging out a user',function () {
+        it('should successfully log the user out', function (done) {
+          request(app)
+          .get('/api/logout')
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.log(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Logged out.');
+            done();
+          });
+        });
+      });
+    });
+    describe('POST /api/register', function () {
+      var site = {
+        name: 'MyMockSite',
+        domain: 'http://mymocksite.com',
+        email: 'mymockmember@gmail.com',
+        password: 'mymockpassword'
+      };
+      describe('when registering a site', function () {
+        it('should successfully register the site', function (done) {
+          request(app)
+          .post('/api/register')
+          .send(site)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.log(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Registered.');
+            assert.equal(res.body.name, site.name);
+            done();
+          });
+        });
+      });
+    });
+  });
 });
-/*
-mock.get('/api/getMetrics')
-mock.get('/api/getMetric')
-mock.post('/api/createMetric')
-mock.post('/api/updateMetric')
-mock.post('/api/updateMetricVisibility')
-mock.post('/api/deleteMetric')
-mock.post('/api/inputMetricData')
-
-mock.get('/api/getMembers')
-mock.post('/api/addMember')
-
-mock.post('/api/register')
-mock.post('/api/login')
-mock.get('/api/logout')
-
-mock.clean();*/

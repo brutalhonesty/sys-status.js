@@ -1,9 +1,10 @@
-var settings = require('../../lib/controllers/settings');
+var settings = require('../../../lib/controllers/settings');
 var nano = require('nano')(settings.couchdb.url);
 var colors = require('colors');
 
 var users = nano.db.use(settings.couchdb.users);
-users.view('users', 'by_email', {reduce: false, startkey: 'sparky1010@gmail.com', endkey: 'sparky1010@gmail.com\u9999'}, function (err, body) {
+var metrics = nano.db.use(settings.couchdb.metrics);
+metrics.fetch({keys: ['88ae5e88-7ce1-429e-bf37-e1886aa561d3']}, function (err, body) {
   if(err) {
     console.log(err);
     return;

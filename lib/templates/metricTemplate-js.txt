@@ -7,7 +7,7 @@ setInterval(function () {
 		timeStamp: Date.now(Date.UTC()),
 		value: (Math.random()*100)
 	};
-	request.post('http://mysys-status-site.com/api/inputMetricData', {form:{dhash: dhash, metrickey: metrickey, metricID: metricid}}, function (err, res, body) {
+	request.post('http://my-sysstatus-site.com/api/inputMetricData', {form:{dhash: dhash, metrickey: metrickey, id: metricid}}, function (err, res, body) {
 		if(err) {
 			// Handle error
 		}

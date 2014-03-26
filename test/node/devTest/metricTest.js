@@ -8,7 +8,7 @@ setInterval(function () {
 		timeStamp: Date.now(Date.UTC()),
 		value: (Math.random()*200)
 	};
-	request.post('http://localhost:9000/api/inputMetricData', {form:{dhash: dhash, metrickey: metrickey, metricID: metricid}}, function (err, res, body) {
+	request.post('http://localhost:9000/api/inputMetricData', {form:{dhash: dhash, metrickey: metrickey, id: metricid}}, function (err, res, body) {
 		if(err) {
 			// Handle error
 		}

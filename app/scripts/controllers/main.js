@@ -229,7 +229,7 @@ sysStatusApp.controller('LoginCtrl', ['$scope', 'API', '$location', '$window', f
 sysStatusApp.controller('GetStartedCtrl', ['$scope', 'API', '$location', '$window', function ($scope, api, $location, $window) {
   $scope.register = function () {
     var registerData = {
-      siteName: $scope.site,
+      name: $scope.site,
       email: $scope.email,
       domain: $scope.domain,
       password: $scope.password
