@@ -18,7 +18,8 @@
 
 ## lib/controllers/company.js
 
-* **TODO** `(line 50)`  Write getCompany() API call
+* **TODO** `(line 40)`  We might want to return this key because you have to be authenticated to hit this API
+* **TODO** `(line 51)`  Write getCompany() API call
 
 ## lib/controllers/components.js
 
@@ -39,9 +40,8 @@
 
 ## lib/controllers/metrics.js
 
-* **TODO** `(line 90)`  We might have to use a for-loop here to take out some extra metric data
-* **TODO** `(line 230)` : X-axis is disabled from changing right now so it should also not be updated in DB either.
-* **TODO** `(line 318)`  We might not want to truely delete a metric, we might just want to mark as deleted and continue to store for history purposes.
+* **TODO** `(line 235)` : X-axis is disabled from changing right now so it should also not be updated in DB either.
+* **TODO** `(line 323)`  We might not want to truely delete a metric, we might just want to mark as deleted and continue to store for history purposes.
 
 ## lib/controllers/register.js
 
@@ -49,9 +49,13 @@
 
 ## lib/controllers/team.js
 
-* **TODO** `(line 32)`  Finish getting members from DB.
-* **TODO** `(line 74)`  We might want to add an array of sites that a user is linked to
-* **TODO** `(line 100)` , send out email with clear-text temp password
+* **TODO** `(line 87)`  We might want to add an array of sites that a user is linked to
+* **TODO** `(line 113)` , send out email with clear-text temp password
+
+## test/node/mock/api.js
+
+* **TODO** `(line 47)`  We should fix the callback hell (http://callbackhell.com/) in the mock testings.
+* **TODO** `(line 514)`  We should mock this API call when it's completed.
 
 ## app/views/index.html
 

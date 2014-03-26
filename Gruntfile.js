@@ -24,6 +24,7 @@ module.exports = function (grunt) {
       app: require('./bower.json').appPath || 'app',
       dist: 'dist',
       lib: 'lib',
+      test: 'test'
     },
     express: {
       options: {
@@ -359,6 +360,7 @@ module.exports = function (grunt) {
         '<%= yeoman.app %>/styles/**/*.css',
         '<%= yeoman.app %>/styles/**/*.scss',
         '<%= yeoman.lib %>/**/*.js',
+        '<%= yeoman.test %>/**/*.js',
         '<%= yeoman.app %>/views/**/*.html',
       ],
     },
