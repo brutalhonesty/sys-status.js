@@ -32,6 +32,60 @@ function _deleteUploads(paths, done) {
   });
 }
 
+function _reCreateDB(userView, done) {
+  // Delete previous sites database
+  nano.db.destroy(settings.couchdb.sites, function (err) {
+    if(err) {
+      console.log('Error recreating database.'.red);
+      return done(err);
+    }
+    // Create sites database
+    nano.db.create(settings.couchdb.sites, function (err) {
+      if(err) {
+        console.log('Error recreating database.'.red);
+        return done(err);
+      }
+      // Delete previous users database
+      nano.db.destroy(settings.couchdb.users, function (err) {
+        if(err) {
+          console.log('Error recreating database.'.red);
+          return done(err);
+        }
+        // Create users database
+        nano.db.create(settings.couchdb.users, function (err) {
+          if(err) {
+            console.log('Error recreating database.'.red);
+            return done(err);
+          }
+          var users = nano.db.use(settings.couchdb.users);
+          // Insert views to make lookup calls with
+          users.insert(userView, '_design/users', function (err) {
+            if(err) {
+              console.log('Error recreating database.'.red);
+              return done(err);
+            }
+            // Delete previous metrics database
+            nano.db.destroy(settings.couchdb.metrics, function (err) {
+              if(err) {
+                console.log('Error recreating database.'.red);
+                return done(err);
+              }
+              // Create metrics database
+              nano.db.create(settings.couchdb.metrics, function (err) {
+                if(err) {
+                  console.log('Error recreating database.'.red);
+                  return done(err);
+                }
+                done();
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+}
+
 describe('SysStatus API', function () {
 
   // To checked out the expanded versions of these, check out http://jsoneditoronline.org/
@@ -49,14 +103,14 @@ describe('SysStatus API', function () {
     // Delete previous sites database
     nano.db.destroy(settings.couchdb.sites, function () {
       // Create sites database
-      nano.db.create(settings.couchdb.sites, function() {
+      nano.db.create(settings.couchdb.sites, function () {
         var sites = nano.db.use(settings.couchdb.sites);
         // Insert mock site
         sites.insert(site, siteid, function (err, body) {
           // Delete previous users database
           nano.db.destroy(settings.couchdb.users, function () {
             // Create users database
-            nano.db.create(settings.couchdb.users, function() {
+            nano.db.create(settings.couchdb.users, function () {
               var users = nano.db.use(settings.couchdb.users);
               // Insert mock user
               users.insert(user, userid, function (err, body) {
@@ -65,7 +119,7 @@ describe('SysStatus API', function () {
                   // Delete previous metrics database
                   nano.db.destroy(settings.couchdb.metrics, function () {
                     // Create metrics database
-                    nano.db.create(settings.couchdb.metrics, function() {
+                    nano.db.create(settings.couchdb.metrics, function () {
                       var metrics = nano.db.use(settings.couchdb.metrics);
                       // Inset mock metric
                       metrics.insert(metric, metricid, function (err,body) {
@@ -1048,7 +1102,7 @@ describe('SysStatus API', function () {
             }
             assert.equal(res.body.message, 'Registered.');
             assert.equal(res.body.name, site.name);
-            done();
+            _reCreateDB(userView, done);
           });
         });
       });
