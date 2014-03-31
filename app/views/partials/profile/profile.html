@@ -1,0 +1,28 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="profileContainer" class="container" ng-cloak>
+  <aside class="aside-success" ng-show="asideSuccess">
+      {{asideSuccess}}
+  </aside>
+  <aside class="aside-error" ng-show="asideError">
+      {{asideError}}
+  </aside>
+  <h2>Site name: {{siteName}}</h2>
+  <div>
+    <form class="pure-form" ng-submit="updateProfile(user)">
+      <div class="pure-g-r">
+          <fieldset class="pure-group pure-u-1-2">
+                <label for="firstName">First Name</label>
+                <input type="text" class="pure-input-1" id="firstName" ng-model="user.firstName" autofocus placeholder="John">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="pure-input-1" id="lastName" ng-model="user.lastName" placeholder="Smith">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="tel" class="pure-input-1" id="phoneNumber" ng-model="user.phone" placeholder="(XXX)-XXX-XXXX">
+                <label for="email">Email Address</label>
+                <input type="email" class="pure-input-1" id="email" ng-model="user.email" placeholder="john.smith@gmail.com" required>
+                <button class="pure-button pure-button-primary pure-button-xlarge" type="submit" offline-disabled>Update Account</button>
+                <p>You <a ng-click="changePassword()" id="changePassword">change your password</a> with this link.</p>
+          </fieldset>
+        </div>
+    </form>
+  </div>
+</div>

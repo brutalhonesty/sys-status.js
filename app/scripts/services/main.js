@@ -23,12 +23,23 @@ sysStatusApp.service('API', ['$http', function ($http) {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
+    checkCookie: function() {
+      return $http.get('/api/checkCookie');
+    },
     getComponents: function() {
       return $http.get('/api/getComponents');
     },
     setComponent: function(component) {
       return $http({
         url: '/api/setComponent',
+        method: 'POST',
+        data: $.param(component),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      });
+    },
+    editComponent: function(component) {
+      return $http({
+        url: '/api/editComponent',
         method: 'POST',
         data: $.param(component),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
@@ -252,6 +263,50 @@ sysStatusApp.service('API', ['$http', function ($http) {
         url: '/api/addMember',
         method: 'POST',
         data: $.param(memberData),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      });
+    },
+    getProfile: function() {
+      return $http.get('/api/getProfile');
+    },
+    updateProfile: function(profileData) {
+      return $http({
+        url: '/api/updateProfile',
+        method: 'POST',
+        data: $.param(profileData),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      });
+    },
+    logout: function() {
+      return $http.get('/api/logout');
+    },
+    changePassword: function(passwordData) {
+      return $http({
+        url: '/api/changePassword',
+        method: 'POST',
+        data: $.param(passwordData),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      });
+    },
+    getTwitter: function() {
+      return $http.get('/api/getTwitter');
+    },
+    removeTwitter: function() {
+      return $http.get('/api/removeTwitter');
+    },
+    storeTwitter: function (twitterData) {
+      return $http({
+        url: '/api/storeTwitter',
+        method: 'POST',
+        data: $.param(twitterData),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      });
+    },
+    updateTwitter: function (updateData) {
+      return $http({
+        url: '/api/updateTwitter',
+        method: 'POST',
+        data: $.param(updateData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     }

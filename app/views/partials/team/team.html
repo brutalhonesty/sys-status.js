@@ -1,5 +1,5 @@
 <div ng-include="'partials/navbar'"></div>
-<div id="teamMemberContainer" class="container">
+<div id="teamMemberContainer">
   <aside class="aside-success" ng-show="asideSuccess">
       {{asideSuccess}}
   </aside>
@@ -8,9 +8,14 @@
   </aside>
   <h2>Team Members</h2>
   <button id="addMember" class="pure-button pure-button-primary pure-button-xlarge" ng-click="addMember()">Add Team Member</button>
-  <hr/>
-  <div ng-repeat="member in members">
-    {{member}}
+  <br />
+  <div ng-repeat="member in members" id="memberList">
+    <p>
+      <span ng-show="member.firstName">{{member.firstName}}</span> <span ng-show="member.lastName">{{member.lastName}}</span> <span ng-show="member.firstName || member.lastName">-</span>
+      <b>{{member.email}}</b>
+      <span ng-show="member.isOwner" class="memberType">Site Owner</span>
+      <span ng-show="!member.isOwner" class="memberType">Site Member</span>
+    </p>
     <hr />
   </div>
 </div>

@@ -124,7 +124,7 @@ h2#componentTitle, div#componentError {
     width: 75%;
 }
 
-button#addComponent, button#addMetrmetricEdit, div#componentEdit, button#newIncident, button#addIncident, a#incidentEdit, a#incidentDelete, a#addMaintenance, div#maintenanceEdit, div#incidentEdit, button#addMember {
+button#addComponent, button#addMetrmetricEdit, div#componentEdit, button#newIncident, button#addIncident, a#incidentEdit, a#incidentDelete, a#addMaintenance, div#maintenanceEdit, div#incidentEdit, button#addMember, span.memberType {
     float: right;
 }
 
@@ -148,7 +148,7 @@ button#addComponent, button#addMetrmetricEdit, div#componentEdit, button#newInci
     color: rgb(231, 76, 60);
 }
 
-a.componentEdit, a#deleteMetric, div#incidents a#incidentDelete, a#maintenanceUpdate, a#maintenanceDetails, a#maintenancePostmortem, a#maintenanceDelete, div#intervalContainer a {
+a.componentEdit, a#deleteMetric, div#incidents a#incidentDelete, a#maintenanceUpdate, a#maintenanceDetails, a#maintenancePostmortem, a#maintenanceDelete, div#intervalContainer a, a#changePassword, img#twitterBtn, a#unauthorizeTwitter {
     cursor: pointer;
 }
 
@@ -207,7 +207,7 @@ div#incidentHeader a {
     margin: 0;
 }
 
-a#statusPage {
+a#statusPage, a#myProfile {
     float: right;
 }
 
@@ -251,6 +251,10 @@ div.pure-u-1.l-box {
     border: 1px solid #E0E0E0;
 }
 
+div#integrationContainer fieldset {
+    border: 0;
+}
+
 div.pure-u-1.l-box.component {
     padding: 1.5em;
 }
@@ -263,7 +267,7 @@ ul#uploadOptions li > a {
     cursor: pointer;
 }
 
-input#userAutoSubscribe, input#userIndivComponents, input#userIndivIncidents, h2#subscriptionTypes, h2#notificationDeliveryTypes, input#allowEmailSubs, input#allowSMSSubs, input#allowWebSubs, input#yAxisMin, input#yAxisMax, input#hideYAxis, input#xAxisMin, input#xAxisMax, input#hideXAxis, div#metrics h4#metricName, h3#incidentName, h1#metricName, form#editForm input, input#maintenanceStartDate, input#maintenanceStartTime, input#maintenanceEndDate, input#maintenanceEndTime, input#remindSubs, input#setProgress, input#basicLogo, input#coverLogo, div#intervalContainer, h2#systemMetricsTitle {
+input#userAutoSubscribe, input#userIndivComponents, input#userIndivIncidents, h2#subscriptionTypes, h2#notificationDeliveryTypes, input#allowEmailSubs, input#allowSMSSubs, input#allowWebSubs, input#yAxisMin, input#yAxisMax, input#hideYAxis, input#xAxisMin, input#xAxisMax, input#hideXAxis, div#metrics h4#metricName, h3#incidentName, h1#metricName, form#editForm input, input#maintenanceStartDate, input#maintenanceStartTime, input#maintenanceEndDate, input#maintenanceEndTime, input#remindSubs, input#setProgress, input#basicLogo, input#coverLogo, div#intervalContainer, h2#systemMetricsTitle, p.memberType, input#noDefault, input#useDefault {
     display: inline-block;
 }
 
@@ -292,6 +296,10 @@ form#metricForm > div > fieldset:nth-child(2) {
 span#eventEdit {
     display: none;
     cursor: pointer;
+}
+
+div#memberList {
+    margin-top: 55px;
 }
 
 form#editForm input:nth-child(1) {

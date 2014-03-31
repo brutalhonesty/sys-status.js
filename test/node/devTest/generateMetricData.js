@@ -5,7 +5,7 @@ var nano = require('nano')(settings.couchdb.url);
 
 var metrics = nano.db.use(settings.couchdb.metrics);
 
-var metricID = '88ae5e88-7ce1-429e-bf37-e1886aa561d3';
+var metricID = '376b9752-c853-4f46-a643-0537349d806b';
 
 /**
  * Compute the average for each metric

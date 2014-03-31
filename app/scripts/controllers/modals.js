@@ -54,6 +54,23 @@ sysStatusApp.controller('ComponentModalCtrl', ['$scope', '$modalInstance', funct
   };
 }]);
 
+sysStatusApp.controller('EditComponentModalCtrl', ['$scope', '$modalInstance', 'componentID', 'componentName', 'description', function ($scope, $modalInstance, componentID, componentName, description) {
+  $scope.componentName = componentName;
+  $scope.description = description;
+  $scope.componentID = componentID;
+  $scope.editComponent = function(componentID, componentName, description) {
+    var component = {
+      id: componentID,
+      name: componentName,
+      description: description
+    };
+    $modalInstance.close(component);
+  };
+  $scope.cancel = function() {
+    $modalInstance.dismiss('cancel');
+  };
+}]);
+
 sysStatusApp.controller('DeleteComponentModalCtrl', ['$scope', '$modalInstance', 'componentID', function ($scope, $modalInstance, componentID) {
   $scope.componentID = componentID;
   $scope.deleteComponent = function(componentID) {
@@ -166,5 +183,28 @@ sysStatusApp.controller('AddMemberModalCtrl', ['$scope', '$modalInstance', funct
       email: memberEmail
     };
     $modalInstance.close(member);
+  };
+}]);
+
+sysStatusApp.controller('ChangePasswordModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+  $scope.cancel = function() {
+    $modalInstance.dismiss('cancel');
+  };
+  $scope.chanegPassword = function(oldPassword, newPassword, confirmNewPass) {
+    var passwordData = {
+      oldPassword: oldPassword,
+      newPassword: newPassword,
+      confirmNewPass: confirmNewPass
+    };
+    $modalInstance.close(passwordData);
+  };
+}]);
+
+sysStatusApp.controller('DeauthorizeModalCtrl', ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+  $scope.cancel = function() {
+    $modalInstance.dismiss('cancel');
+  };
+  $scope.deauthorize = function() {
+    $modalInstance.close();
   };
 }]);

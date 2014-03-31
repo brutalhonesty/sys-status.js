@@ -1,0 +1,27 @@
+module.exports = {
+  redis: {
+    ip: '127.0.0.1',
+    port: 6379
+  },
+  couchdb: {
+    url: 'http://localhost:5984',
+    users: 'sysstatus-users',
+    metrics: 'sysstatus-metrics',
+    sites: 'sysstatus-sites',
+    test: {
+      users: 'sysstatus-test-users',
+      metrics: 'sysstatus-test-metrics',
+      sites: 'sysstatus-test-sites',
+    }
+  },
+  crypto: {
+    salt: '' // Some 64+ char string
+  },
+  cookie: {
+    secret: '' // Some 64+ char string
+  },
+  twitter: {
+    apiKey: '', // https://apps.twitter.com/, click on App (or create one), visit API Keys tab.
+    apiSecret: '' // Same as above line.
+  }
+};

@@ -7,9 +7,10 @@
 * **TODO** `(line 80)`  Figure out how this changes when the data is repainted
 * **TODO** `(line 122)`  Figure out a way to poll new metric data.
 * **TODO** `(line 147)`  figure out how this changes when the data is repainted
-* **TODO** `(line 304)`  and setup the function to do it as well
-* **TODO** `(line 677)`  figure out why these are here
-* **TODO** `(line 688)`  repaint the graph with new changes
+* **TODO** `(line 313)`  and setup the function to do it as well
+* **TODO** `(line 710)`  figure out why these are here
+* **TODO** `(line 721)`  repaint the graph with new changes
+* **TODO** `(line 959)`  We need to allow users to add their own public key into the OAuth.intialize() call.
 
 ## app/scripts/directives/main.js
 
@@ -23,7 +24,7 @@
 
 ## lib/controllers/components.js
 
-* **TODO** `(line 55)` , when we update the status, we need to create a new incident if the status is not operational
+* **TODO** `(line 99)` , when we update the status, we need to create a new incident if the status is not operational
 
 ## lib/controllers/customize.js
 
@@ -31,6 +32,10 @@
 * **TODO** `(line 111)`  We might want to improve this some how. For now, we want the path only for unlinking the file when we are doing testing
 * **TODO** `(line 205)`  We might want to improve this some how. For now, we want the path only for unlinking the file when we are doing testing
 * **TODO** `(line 243)`  add session checking if wanted
+
+## lib/controllers/incidents.js
+
+* **TODO** `(line 53)`  when we create an incident, we need to send out a tweet if we are allowed to.
 
 ## lib/controllers/maintenance.js
 
@@ -43,24 +48,24 @@
 * **TODO** `(line 235)` : X-axis is disabled from changing right now so it should also not be updated in DB either.
 * **TODO** `(line 323)`  We might not want to truely delete a metric, we might just want to mark as deleted and continue to store for history purposes.
 
-## lib/controllers/register.js
-
-* **TODO** `(line 84)`  We might want to add an array of sites that a user is linked to
-
 ## lib/controllers/team.js
 
-* **TODO** `(line 87)`  We might want to add an array of sites that a user is linked to
-* **TODO** `(line 113)` , send out email with clear-text temp password
+* **TODO** `(line 89)`  We might want to add an array of sites that a user is linked to
+* **TODO** `(line 115)` Send out email with clear-text temp password
+
+## lib/controllers/users.js
+
+* **TODO** `(line 89)`  We might want to add an array of sites that a user is linked to
 
 ## test/node/mock/api.js
 
-* **TODO** `(line 47)`  We should fix the callback hell (http://callbackhell.com/) in the mock testings.
-* **TODO** `(line 514)`  We should mock this API call when it's completed.
+* **TODO** `(line 72)`  We should fix the callback hell (http://callbackhell.com/) in the mock testings.
+* **TODO** `(line 574)`  We should mock this API call when it's completed.
 
 ## app/views/index.html
 
 * **TODO** `(line 23)`  need to add these files to bower-install grunt task somehow -->
-* **TODO** `(line 83)`  need to add these files to bower-install grunt task somehow -->
+* **TODO** `(line 85)`  need to add these files to bower-install grunt task somehow -->
 
 ## app/views/partials/metrics/metrics.html
 

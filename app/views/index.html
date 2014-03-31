@@ -2,12 +2,12 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" ng-app="sysStatusApp"> <!--<![endif]-->
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <base href="/">
-    <title>Sys Status</title>
+    <title ng-bind="meta.title"></title>
     <meta name="description" content="Realtime data on site activity.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="sysStatusApp">
+  <body>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -78,12 +78,16 @@
     <script src="bower_components/angular-markdown/angular.markdown.js"></script>
     <script src="bower_components/offline/offline.min.js"></script>
     <script src="bower_components/favico.js/favico.js"></script>
+    <script src="bower_components/angular-css-injector/angular-css-injector.js"></script>
+    <script src="bower_components/oauth.io/oauth.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- TODO need to add these files to bower-install grunt task somehow -->
     <script src="bower_components/showdown/src/showdown.js"></script>
     <script src="bower_components/showdown/src/extensions/github.js"></script>
     <script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+    <script src="bower_components/angular-meta/app/scripts/services/meta.js"></script>
+    <script src="bower_components/yui/build/yui/yui-min.js"></script>
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
@@ -93,6 +97,8 @@
         <script src="scripts/filters/main.js"></script>
         <script src="scripts/factories/main.js"></script>
         <script src="scripts/animations/main.js"></script>
+        <script src="scripts/yui-menu.js"></script>
+        <script src="scripts/navbar.js"></script>
         <!-- endbuild -->
 </body>
 </html>

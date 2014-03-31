@@ -1,5 +1,5 @@
-/* jshint undef: false, unused: false */
-/* global sysStatusApp, d3, moment */
+/* jshint undef: false, unused: false, camelcase: false */
+/* global sysStatusApp, d3, moment, OAuth */
 'use strict';
 
 /* API calls for some of the controllers */
@@ -195,7 +195,16 @@ function getMaintenances($scope, $location, api) {
  * Controllers start here
  */
 
-sysStatusApp.controller('MainCtrl', [function () {}]);
+sysStatusApp.controller('MainCtrl', ['API', '$location', function (api, $location) {
+  api.checkCookie().success(function () {
+    $location.path('/dashboard');
+  });
+}]);
+
+sysStatusApp.controller('NotFoundCtrl', ['cssInjector', function (cssInjector) {
+  cssInjector.add('../../styles/notfound.css');
+  cssInjector.setSinglePageMode(true);
+}]);
 
 sysStatusApp.controller('NavbarCtrl', ['$scope', '$location', function ($scope, $location) {
   $scope.menu = [
@@ -551,6 +560,30 @@ sysStatusApp.controller('ComponentsCtrl', ['$scope', '$location', 'API', '$modal
       });
     });
   };
+  $scope.editComponent = function(componentID, componentName, description) {
+    var editComponentModal = $modal.open({
+      controller: 'EditComponentModalCtrl',
+      templateUrl: 'views/partials/editComponentModal.html',
+      resolve: {
+        componentID: function() {
+          return componentID;
+        },
+        componentName: function() {
+          return componentName;
+        },
+        description: function() {
+          return description;
+        }
+      }
+    });
+    editComponentModal.result.then(function (component) {
+      api.editComponent(component).success(function (componentResponse) {
+        $scope.asideSuccess = componentResponse.message;
+      }).error(function (error) {
+        $scope.asideError = error.message;
+      });
+    });
+  };
   $scope.deleteComponentReq = function(componentID) {
     var deleteComponentReqModal = $modal.open({
       controller: 'DeleteComponentModalCtrl',
@@ -838,9 +871,9 @@ sysStatusApp.controller('CustomizeURLCtrl', ['$scope', 'API', '$location', funct
 
 sysStatusApp.controller('CustomizeCodeCtrl', [function () {}]);
 
-sysStatusApp.controller('TeamMembersCtrl', ['$scope', '$modal', 'API', function ($scope, $modal, api) {
+sysStatusApp.controller('TeamMembersCtrl', ['$scope', '$modal', 'API', '$location', function ($scope, $modal, api, $location) {
   api.getMembers().success(function (membersResponse) {
-    $scope.members = membersResponse;
+    $scope.members = membersResponse.members;
   }).error(function (error) {
     $scope.asideError = error.message;
   });
@@ -852,9 +885,122 @@ sysStatusApp.controller('TeamMembersCtrl', ['$scope', '$modal', 'API', function 
     memberModal.result.then(function (memberObj) {
       api.addMember(memberObj).success(function (memberResponse) {
         $scope.asideSuccess = memberResponse.message;
-      }).error(function (error) {
+      }).error(function (error, statusCode) {
+        if(statusCode === 401) {
+          $location.path('/login');
+        }
         $scope.asideError = error.message;
       });
     });
   };
 }]);
+
+sysStatusApp.controller('ProfileCtrl', ['$scope', 'API', '$window', '$location', '$modal', function ($scope, api, $window, $location, $modal) {
+  $scope.siteName = $window.localStorage.getItem('name');
+  api.getProfile().success(function (profileResponse) {
+    $scope.user = profileResponse.profile;
+  }).error(function (error, statusCode) {
+    if(statusCode === 401) {
+      $location.path('/login');
+    }
+    $scope.asideError = error.message;
+  });
+  $scope.updateProfile = function(user) {
+    api.updateProfile(user).success(function (updateResponse) {
+      $scope.asideSuccess = updateResponse.message;
+    }).error(function (error, statusCode) {
+      if(statusCode === 401) {
+        $location.path('/login');
+      }
+      $scope.asideError = error.message;
+    });
+  };
+  $scope.changePassword = function() {
+    var changePassModal = $modal.open({
+      controller: 'ChangePasswordModalCtrl',
+      templateUrl: 'views/partials/changePasswordModal.html'
+    });
+    changePassModal.result.then(function (passData) {
+      api.changePassword(passData).success(function(passwordResponse) {
+        $scope.asideSuccess = passwordResponse.message;
+      }).error(function (error, statusCode) {
+        if(statusCode === 401) {
+          $location.path('/login');
+        }
+        $scope.asideError = error.message;
+      });
+    });
+  };
+}]);
+
+sysStatusApp.controller('LogoutCtrl', ['$scope', 'API', '$location', function ($scope, api, $location) {
+  api.logout().success(function () {
+    $location.path('/');
+  }).error(function (error) {
+    $location.path('/');
+  });
+}]);
+
+sysStatusApp.controller('IntegrationCtrl', ['$scope', function ($scope) {}]);
+sysStatusApp.controller('TwitterCtrl', ['$scope', '$rootScope', '$location', '$route', 'API', '$modal', function ($scope, $rootScope, $location, $route, api, $modal) {
+  if(parseInt($route.current.params.success, 10) === 1) {
+    $scope.asideSuccess = 'Twitter Integration added successfully.';
+  }
+  api.getTwitter().success(function (twitterData) {
+    $scope.twitter = twitterData.twitter;
+  }).error(function (error, statusCode) {
+    if(statusCode === 401) {
+      $location.path('/login');
+    }
+    $scope.asideError = error.message;
+  });
+  $scope.connect = function() {
+    OAuth.clearCache('twitter');
+    // TODO We need to allow users to add their own public key into the OAuth.intialize() call.
+    OAuth.initialize('ZNZlK8viQrfv1XHS0oKElhe9lNw');
+    OAuth.popup('twitter', {authorize: {force_login: true}}, function (err, res) {
+      if(err) {
+        $scope.asideError = err.message;
+      } else {
+        api.storeTwitter(res).success(function () {
+          $location.path('/integration/twitter').search({'success': 1});
+        }).error(function (error, statusCode) {
+          if(statusCode === 401) {
+            $location.path('/login');
+          }
+          $scope.asideError = error.message;
+        });
+      }
+      $scope.$apply();
+    });
+  };
+  $scope.deauthorize = function() {
+    var deauthorizeModal = $modal.open({
+      controller: 'DeauthorizeModalCtrl',
+      templateUrl: 'partials/integration/deauthorizeModal.html'
+    });
+    deauthorizeModal.result.then(function () {
+      api.removeTwitter().success(function (removedData) {
+        $scope.asideSuccess = removedData.message;
+      }).error(function (error, statusCode) {
+        if(statusCode === 401) {
+          $location.path('/login');
+        }
+        $scope.asideError = error.message;
+      });
+    });
+  };
+  $scope.updateTwitter = function(twitter) {
+    api.updateTwitter(twitter).success(function (updateData) {
+      $scope.asideSuccess = updateData.message;
+    }).error(function (error, statusCode) {
+      if(statusCode === 401) {
+        $location.path('/login');
+      }
+      $scope.asideError = error.message;
+    });
+  };
+  $scope.prefixMessage = 'Tweets can get the status type or any string prefixed to them to differentiate them from other status tweets.<br><br>Example: &lt;status&gt;Issue with component, looking into it.';
+  $scope.suffixMessage = 'Tweets can get the url or any string suffixed to them.<br><br>Example: Issue with component, looking into it.&lt;siteurl&gt;';
+}]);
+sysStatusApp.controller('AutomateCtrl', ['$scope', function ($scope) {}]);

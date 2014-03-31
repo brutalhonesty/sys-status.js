@@ -20,7 +20,8 @@
     "mime": "~1.2.11",
     "password-generator": "^0.2.2",
     "nano": "^5.7.1",
-    "colors": "^0.6.2"
+    "colors": "^0.6.2",
+    "twit": "^1.1.12"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -74,7 +75,7 @@
     "npm": "~1.4.3"
   },
   "scripts": {
-    "install": "node db/install.js && node install.js",
+    "install": "node db/install.js && node install.js && cp lib/controllers/settings.js.template lib/controllers/settings.js",
     "test": "mocha test/node/mock/api.js"
   }
 }

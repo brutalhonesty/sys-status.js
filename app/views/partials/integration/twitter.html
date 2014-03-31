@@ -1,0 +1,48 @@
+<div ng-include="'partials/navbar'"></div>
+<div id="integrationContainer" ng-cloak>
+  <aside class="aside-success" ng-show="asideSuccess">
+      {{asideSuccess}}
+  </aside>
+  <aside class="aside-error" ng-show="asideError">
+      {{asideError}}
+  </aside>
+  <div class="pure-menu pure-menu-open pure-menu-horizontal">
+      <ul>
+          <li><a ng-href="/integration">Site Status Widget</a></li>
+          <li class="pure-menu-selected"><a ng-href="/integration/twitter">Twitter</a></li>
+          <li><a ng-href="/integration/automate">Automate Component Changes</a></li>
+      </ul>
+  </div>
+  <h2>Post Incidents to Twitter</h2>
+  <fieldset class="pure-u-1-2" ng-show="!twitter.username">
+    <h4>When you create a new incident or update one, you can post that information to Twitter.</h4>
+    <img id="twitterBtn" src="images/twitter.png" ng-click="connect()" offline-disabled/>
+  </fieldset>
+  <fieldset class="pure-u-1-2" ng-show="twitter.username">
+    <h4>Authenticated using account <a ng-href="//twitter.com/{{twitter.username}}" target="_blank">@{{twitter.username}}</a>.</h4><a id="unauthorizeTwitter" ng-click="deauthorize()">Unauthorize</a>
+    <strong><h3>Tweet Default</h3></strong>
+    <form class="pure-form" ng-submit="updateTwitter(twitter)">
+      <fieldset class="pure-group">
+        <label for="useDefault" class="pure-radio">
+          <input id="useDefault" type="radio" name="default" value="true" ng-model="twitter.allowTweets" ng-checked="twitter.allowTweets"> I <strong>want</strong> the tweets to be send with each incident.
+        </label>
+        <label for="noDefault" class="pure-radio">
+          <input id="noDefault" type="radio" name="default" value="false" ng-model="twitter.allowTweets" ng-checked="!twitter.allowTweets"> I <strong>don't want</strong> the tweets to be send with each incident.
+        </label>
+      </fieldset>
+      <fieldset class="pure-group">
+        <h3>Tweet Prefix</h3>
+        You can prefix your tweets with: <i class="fa fa-question-circle" tooltip-html-unsafe="{{prefixMessage}}"></i>
+        <input type="text" placeholder="&lt;status&gt;" ng-model="twitter.prefix" class="pure-input-1-2">
+        <h3>Tweet Suffix</h3>
+        You can suffix your tweets with: <i class="fa fa-question-circle" tooltip-html-unsafe="{{suffixMessage}}"></i>
+        <input type="text" placeholder="&lt;siteurl&gt;" ng-model="twitter.suffix" class="pure-input-1-2">
+      </fieldset>
+      <button class="pure-button pure-button-primary pure-button-xlarge" type="submit">Save Twitter Settings</button>
+    </form>
+  </fieldset>
+  <fieldset class="pure-u-1-3">
+    <h2>Example Tweet:</h2>
+    <img ng-src="images/tweet.png" alt="Tweet Example">
+  </fieldset>
+</div>

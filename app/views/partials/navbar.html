@@ -1,8 +1,21 @@
 <div class="pure-menu pure-menu-open pure-menu-horizontal" ng-controller="NavbarCtrl">
-    <a ng-href="/statusPage" id="statusPage">View Status Page</a>
+  <a ng-href="/statusPage" id="statusPage">View Status Page</a>
 	<a ng-href="#" class="pure-menu-heading"><h1 id="logo"><span id="sysTitle">Sys</span> <span id="statusTitle">Status</span></h1></a>
-    <ul>
-        <li ng-repeat="item in menu" ng-class="{'pure-menu-selected': isActive(item.link)}"><a ng-href="{{item.link}}">{{item.title}}</a></li>
+    <ul id="std-menu-items">
+        <li ng-repeat="item in menu" ng-class="{'pure-menu-selected': isActive(item.link)}">
+          <a ng-href="{{item.link}}">{{item.title}}</a>
+        </li>
     </ul>
+    <ul id="std-profile" yui-menu>
+    <li>
+      <a id="myProfile">My Profile</a>
+      <ul>
+        <li class="pure-menu-heading">{{username || 'Username'}}</li>
+        <li class="pure-menu-separator"></li>
+        <li><a ng-href="/profile">Profile</a></li>
+        <li><a ng-href="/logout">Logout</a></li>
+      </ul>
+    </li>
+  </ul>
 </div>
 <hr />
