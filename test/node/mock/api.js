@@ -46,6 +46,7 @@ function _reCreateDB(userView, sitesView, done) {
         console.log('Error recreating database.'.red);
         return done(err);
       }
+      var sites = nano.db.use(settings.couchdb.sites);
       sites.insert(sitesView, '_design/sites', function (err) {
         if(err) {
           console.log('Error recreating database.'.red);
