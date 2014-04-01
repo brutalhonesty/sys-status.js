@@ -33,7 +33,7 @@ function _deleteUploads(paths, done) {
   });
 }
 
-function _reCreateDB(userView, done) {
+function _reCreateDB(userView, sitesView, done) {
   // Delete previous sites database
   nano.db.destroy(settings.couchdb.sites, function (err) {
     if(err) {
@@ -46,38 +46,44 @@ function _reCreateDB(userView, done) {
         console.log('Error recreating database.'.red);
         return done(err);
       }
-      // Delete previous users database
-      nano.db.destroy(settings.couchdb.users, function (err) {
+      sites.insert(sitesView, '_design/sites', function (err) {
         if(err) {
           console.log('Error recreating database.'.red);
           return done(err);
         }
-        // Create users database
-        nano.db.create(settings.couchdb.users, function (err) {
+        // Delete previous users database
+        nano.db.destroy(settings.couchdb.users, function (err) {
           if(err) {
             console.log('Error recreating database.'.red);
             return done(err);
           }
-          var users = nano.db.use(settings.couchdb.users);
-          // Insert views to make lookup calls with
-          users.insert(userView, '_design/users', function (err) {
+          // Create users database
+          nano.db.create(settings.couchdb.users, function (err) {
             if(err) {
               console.log('Error recreating database.'.red);
               return done(err);
             }
-            // Delete previous metrics database
-            nano.db.destroy(settings.couchdb.metrics, function (err) {
+            var users = nano.db.use(settings.couchdb.users);
+            // Insert views to make lookup calls with
+            users.insert(userView, '_design/users', function (err) {
               if(err) {
                 console.log('Error recreating database.'.red);
                 return done(err);
               }
-              // Create metrics database
-              nano.db.create(settings.couchdb.metrics, function (err) {
+              // Delete previous metrics database
+              nano.db.destroy(settings.couchdb.metrics, function (err) {
                 if(err) {
                   console.log('Error recreating database.'.red);
                   return done(err);
                 }
-                done();
+                // Create metrics database
+                nano.db.create(settings.couchdb.metrics, function (err) {
+                  if(err) {
+                    console.log('Error recreating database.'.red);
+                    return done(err);
+                  }
+                  done();
+                });
               });
             });
           });
@@ -90,7 +96,8 @@ function _reCreateDB(userView, done) {
 describe('SysStatus API', function () {
 
   // To checked out the expanded versions of these, check out http://jsoneditoronline.org/
-  var userView = {views: {"all": {"map": "function(doc) {emit(null, doc) }","reduce": "_count"},"by_email": {"map": "function(doc) {emit(doc.email, doc) }","reduce": "_count"},"by_user": {"map": "function(doc) {emit(doc._id, doc) }","reduce": "_count"}}};
+  var userView = {"views": {"all": {"map": "function(doc) {emit(null, doc) }","reduce": "_count"},"by_email": {"map": "function(doc) {emit(doc.email, doc) }","reduce": "_count"},"by_user": {"map": "function(doc) {emit(doc._id, doc) }","reduce": "_count"}}};
+  var sitesView = {"views":{"all":{"map":"function(doc) {emit(null, doc) }","reduce":"_count"},"by_url":{"map":"function(doc) {emit(doc.domain, doc) }","reduce":"_count"},"by_id":{"map":"function(doc) {emit(doc._id, doc) }","reduce":"_count"}}};
   var site = {"siteName":"MySite","domain":"http://example.com","components":[{"id":"886ed7d3-d922-42de-b9f4-0dfb8d80e2d7","name":"MyComponent","description":"MyDescription","status":"Operational"}],"incidents":[{"id":"47e8ef9e-3758-401c-9223-a8a1b7e524a7","name":"MyIncident","events":[{"id":"d4b401c5-1949-4b70-9274-8c55281f6f61","type":"Investigating","message":"MyMessage","date":1395436865568}],"update":1395436865568,"completedTime":null,"postmortem":null}],"maintenance":[{"id":"aadedc7a-cb61-4a98-b668-54df0fd6e013","name":"MyMaintenance","type":"Scheduled","remindSubs":false,"setProgress":false,"startTime":1395719460000,"endTime":1395723060000,"events":[{"id":"48bd075c-3d3c-4b42-9739-5bdf607d46bd","type":"Scheduled","details":"MyMaintenanceDetails","date":1395719378881}],"completedTime":null,"postmortem":null}],"metrics":["88ae5e88-7ce1-429e-bf37-e1886aa561d3"],"members":["06b27b24-139f-4ea5-bf84-8632b0db4698"],"customize":{"logo":"","favicon":"","cover":"","bodyBackground":"ffffff","fontColor":"000000","lightFontColor":"AAAAAA","greenColor":"1CB841","yellowColor":"F1C40F","orangeColor":"E67E22","redColor":"E74C3C","linkColor":"0078E7","borderColor":"E0E0E0","graphColor":"0078E7","headline":"MySite","aboutPage":"My status page!","layoutType":"basic"},"subscribers":{"email":{"count":0,"data":[],"disabled":false},"sms":{"count":0,"data":[],"disabled":false},"webhook":{"count":0,"data":[],"disabled":false},"types":{"autoIncident":false,"indvidIncident":false,"individComponent":false}},"twitter":{"username":"joeshmo", "allowTweets": false, "prefix": "<status>", "suffix": "<siteurl>"}};
   var siteid = 'c9f6d4cc-bb9f-4093-b1ce-f0f7739de75e';
   var user = {"email":"joeshmo@gmail.com","firstName":"","lastName":"","phone":"","password":"","isOwner":true,"siteid":"c9f6d4cc-bb9f-4093-b1ce-f0f7739de75e"};
@@ -115,54 +122,57 @@ describe('SysStatus API', function () {
           if(err) return done(err);
           // console.log('Inserted Into Sites DB'.green);
           // Delete previous users database
-          nano.db.destroy(settings.couchdb.users, function (err) {
-            if(err && err.status_code !== 404) return done(err);
-            // console.log('Destroyed Users DB'.green);
-            // Create users database
-            nano.db.create(settings.couchdb.users, function (err) {
-              if(err) return done(err);
-              // console.log('Created Users DB'.green);
-              var users = nano.db.use(settings.couchdb.users);
-              bcrypt.hash('waffles', 10, function (error, hash) {
-                if(error) return done(error);
-                user.password = hash;
-                // Insert mock user
-                users.insert(user, userid, function (err) {
-                  if(err) return done(err);
-                  // console.log('Inserted Into Users DB'.green);
-                  // Insert views to make lookup calls with
-                  users.insert(userView, '_design/users', function (err) {
+          sites.insert(sitesView, '_design/sites', function (err) {
+            if(err) return done(err);
+            nano.db.destroy(settings.couchdb.users, function (err) {
+              if(err && err.status_code !== 404) return done(err);
+              // console.log('Destroyed Users DB'.green);
+              // Create users database
+              nano.db.create(settings.couchdb.users, function (err) {
+                if(err) return done(err);
+                // console.log('Created Users DB'.green);
+                var users = nano.db.use(settings.couchdb.users);
+                bcrypt.hash('waffles', 10, function (error, hash) {
+                  if(error) return done(error);
+                  user.password = hash;
+                  // Insert mock user
+                  users.insert(user, userid, function (err) {
                     if(err) return done(err);
-                    // console.log('Inserted View Into Users DB'.green);
-                    // Delete previous metrics database
-                    nano.db.destroy(settings.couchdb.metrics, function (err) {
-                      if(err && err.status_code !== 404) return done(err);
-                      // console.log('Destroyed Metrics DB'.green);
-                      // Create metrics database
-                      nano.db.create(settings.couchdb.metrics, function (err) {
-                        if(err) return done(err);
-                        // console.log('Created Metrics DB'.green);
-                        var metrics = nano.db.use(settings.couchdb.metrics);
-                        // Insert mock metric
-                        metrics.insert(metric, metricid, function (err) {
+                    // console.log('Inserted Into Users DB'.green);
+                    // Insert views to make lookup calls with
+                    users.insert(userView, '_design/users', function (err) {
+                      if(err) return done(err);
+                      // console.log('Inserted View Into Users DB'.green);
+                      // Delete previous metrics database
+                      nano.db.destroy(settings.couchdb.metrics, function (err) {
+                        if(err && err.status_code !== 404) return done(err);
+                        // console.log('Destroyed Metrics DB'.green);
+                        // Create metrics database
+                        nano.db.create(settings.couchdb.metrics, function (err) {
                           if(err) return done(err);
-                          // console.log('Inserted Into Metrics DB'.green);
-                          // Login to the application
-                          request(app)
-                          .post('/api/login')
-                          .send({email: 'joeshmo@gmail.com', password: 'waffles'})
-                          .expect('Content-Type', /json/)
-                          .expect(200)
-                          .end(function (err, res) {
-                            if(err) {
-                              console.error(res.body.message.red);
-                              return done(err);
-                            }
-                            cookie = res.headers['set-cookie'];
-                            assert.equal(res.body.message, 'Logged in.');
-                            assert.equal(res.body.site, site.siteName);
-                            assert.equal(res.body.name, user.firstName.length === 0 ? '' : user.firstName + ' ' + user.lastName);
-                            done();
+                          // console.log('Created Metrics DB'.green);
+                          var metrics = nano.db.use(settings.couchdb.metrics);
+                          // Insert mock metric
+                          metrics.insert(metric, metricid, function (err) {
+                            if(err) return done(err);
+                            // console.log('Inserted Into Metrics DB'.green);
+                            // Login to the application
+                            request(app)
+                            .post('/api/login')
+                            .send({email: 'joeshmo@gmail.com', password: 'waffles'})
+                            .expect('Content-Type', /json/)
+                            .expect(200)
+                            .end(function (err, res) {
+                              if(err) {
+                                console.error(res.body.message.red);
+                                return done(err);
+                              }
+                              cookie = res.headers['set-cookie'];
+                              assert.equal(res.body.message, 'Logged in.');
+                              assert.equal(res.body.site, site.siteName);
+                              assert.equal(res.body.name, user.firstName.length === 0 ? '' : user.firstName + ' ' + user.lastName);
+                              done();
+                            });
                           });
                         });
                       });
@@ -626,8 +636,19 @@ describe('SysStatus API', function () {
     describe('GET /api/getCompany', function () {
       describe('when getting the company', function () {
         it('should successfully return the whole site', function (done) {
-          // TODO We should mock this API call when it's completed.
-          done();
+          request(app)
+          .get('/api/getCompany')
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.error(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.company.siteName, site.siteName);
+            done();
+          });
         });
       });
     });
@@ -1313,7 +1334,7 @@ describe('SysStatus API', function () {
               return done(err);
             }
             assert.equal(res.body.message, 'Twitter settings updated.');
-            _reCreateDB(userView, done);
+            _reCreateDB(userView, sitesView, done);
           });
         });
       });

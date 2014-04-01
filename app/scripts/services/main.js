@@ -91,8 +91,8 @@ sysStatusApp.service('API', ['$http', function ($http) {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
-    getPrivateCompany: function() {
-      return $http.get('/api/getPrivateCompany');
+    getCompany: function() {
+      return $http.get('/api/getCompany');
     },
     getSubscriptions: function() {
       return $http.get('/api/getSubscribers');

@@ -60,9 +60,9 @@ function pastTenDays() {
   return timeArray;
 }
 
-function getPrivateCompany($scope, $location, api, favicoService) {
+function getCompany($scope, $location, api, favicoService) {
   // Get the company object from the server
-  api.getPrivateCompany().success(function (companyData) {
+  api.getCompany().success(function (companyData) {
     $scope.company = companyData.company;
     var badgeCtr = 0;
     for(var cmpCtr = 0; cmpCtr < $scope.company.components.length; cmpCtr++) {
@@ -611,7 +611,7 @@ sysStatusApp.controller('ComponentsCtrl', ['$scope', '$location', 'API', '$modal
 }]);
 
 sysStatusApp.controller('StatusPageCtrl', ['$scope', '$window', 'API', '$location', 'favicoService', function ($scope, $window, api, $location, favicoService) {
-  getPrivateCompany($scope, $location, api, favicoService);
+  getCompany($scope, $location, api, favicoService);
   $scope.lastUpdate = $window.localStorage.getItem('lastUpdate') || Date.now();
 }]);
 
