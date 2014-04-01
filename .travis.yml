@@ -10,4 +10,4 @@ services:
   - redis-server
 env:
   global:
-    - NODE_ENV='development'
+    - NODE_ENV='test'
