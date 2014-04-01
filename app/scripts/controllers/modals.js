@@ -190,11 +190,11 @@ sysStatusApp.controller('ChangePasswordModalCtrl', ['$scope', '$modalInstance', 
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');
   };
-  $scope.chanegPassword = function(oldPassword, newPassword, confirmNewPass) {
+  $scope.chanegPassword = function(oldPassword, newPassword, confirmNewPassword) {
     var passwordData = {
       oldPassword: oldPassword,
       newPassword: newPassword,
-      confirmNewPass: confirmNewPass
+      confirmNewPassword: confirmNewPassword
     };
     $modalInstance.close(passwordData);
   };

@@ -1166,7 +1166,7 @@ describe('SysStatus API', function () {
         it('should successfully update the password', function (done) {
           request(app)
           .post('/api/changePassword')
-          .send({oldPassword: 'waffles', newPassword: 'waffles123', confirmNewPass: 'waffles123'})
+          .send({oldPassword: 'waffles', newPassword: 'waffles123', confirmNewPassword: 'waffles123'})
           .expect('Content-Type', /json/)
           .set('cookie', cookie)
           .expect(200)
@@ -1210,6 +1210,7 @@ describe('SysStatus API', function () {
           .post('/api/storeTwitter')
           .send({oauth_token: 'blah', oauth_token_secret: 'shhhQuiet!'})
           .expect('Content-Type', /json/)
+          .set('cookie', cookie)
           .expect(200)
           .end(function (err, res) {
             if(err) {
@@ -1228,6 +1229,7 @@ describe('SysStatus API', function () {
           request(app)
           .get('/api/removeTwitter')
           .expect('Content-Type', /json/)
+          .set('cookie', cookie)
           .expect(200)
           .end(function (err, res) {
             if(err) {
@@ -1247,6 +1249,7 @@ describe('SysStatus API', function () {
           .post('/api/updateTwitter')
           .send({prefix: '', suffix: '', allowTweets: true})
           .expect('Content-Type', /json/)
+          .set('cookie', cookie)
           .expect(200)
           .end(function (err, res) {
             if(err) {
