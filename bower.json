@@ -26,7 +26,6 @@
     "favico.js": "~0.3.4",
     "angular-meta": "*",
     "angular-css-injector": "~1.0.1",
-    "yui": "~3.15.0",
     "oauth.io": "~0.1.7"
   },
   "devDependencies": {

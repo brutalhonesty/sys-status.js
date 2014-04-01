@@ -4,6 +4,7 @@ Sys-Status
 An Open-Source Status Page Server/Interface
 
 [![Build Status](https://travis-ci.org/brutalhonesty/sys-status.js.svg?branch=master)](https://travis-ci.org/brutalhonesty/sys-status.js)
+[![Dependency Status](https://david-dm.org/brutalhonesty/sys-status.js.png)](https://david-dm.org/brutalhonesty/sys-status.js)
 Version
 -------
 0.5

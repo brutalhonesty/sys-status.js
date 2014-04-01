@@ -6,16 +6,17 @@
           <a ng-href="{{item.link}}">{{item.title}}</a>
         </li>
     </ul>
-    <ul id="std-profile" yui-menu>
+    <ul id="std-profile">
     <li>
       <a id="myProfile">My Profile</a>
-      <ul>
-        <li class="pure-menu-heading">{{username || 'Username'}}</li>
+      <ul class="submenu">
+        <li class="pure-menu-heading">{{name || site}}</li>
         <li class="pure-menu-separator"></li>
         <li><a ng-href="/profile">Profile</a></li>
         <li><a ng-href="/logout">Logout</a></li>
       </ul>
     </li>
+    <b class="caret"></b>
   </ul>
 </div>
 <hr />

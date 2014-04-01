@@ -33,26 +33,55 @@ function _deleteUploads(paths, done) {
   });
 }
 
-function _removeDB(done) {
+function _reCreateDB(userView, done) {
   // Delete previous sites database
   nano.db.destroy(settings.couchdb.sites, function (err) {
     if(err) {
-      console.log('Error deleting sites database.'.red);
+      console.log('Error recreating database.'.red);
       return done(err);
     }
-    // Delete previous users database
-    nano.db.destroy(settings.couchdb.users, function (err) {
+    // Create sites database
+    nano.db.create(settings.couchdb.sites, function (err) {
       if(err) {
-        console.log('Error deleting users database.'.red);
+        console.log('Error recreating database.'.red);
         return done(err);
       }
-      // Delete previous metrics database
-      nano.db.destroy(settings.couchdb.metrics, function (err) {
+      // Delete previous users database
+      nano.db.destroy(settings.couchdb.users, function (err) {
         if(err) {
-          console.log('Error deleting metrics database.'.red);
+          console.log('Error recreating database.'.red);
           return done(err);
         }
-        done();
+        // Create users database
+        nano.db.create(settings.couchdb.users, function (err) {
+          if(err) {
+            console.log('Error recreating database.'.red);
+            return done(err);
+          }
+          var users = nano.db.use(settings.couchdb.users);
+          // Insert views to make lookup calls with
+          users.insert(userView, '_design/users', function (err) {
+            if(err) {
+              console.log('Error recreating database.'.red);
+              return done(err);
+            }
+            // Delete previous metrics database
+            nano.db.destroy(settings.couchdb.metrics, function (err) {
+              if(err) {
+                console.log('Error recreating database.'.red);
+                return done(err);
+              }
+              // Create metrics database
+              nano.db.create(settings.couchdb.metrics, function (err) {
+                if(err) {
+                  console.log('Error recreating database.'.red);
+                  return done(err);
+                }
+                done();
+              });
+            });
+          });
+        });
       });
     });
   });
@@ -131,7 +160,8 @@ describe('SysStatus API', function () {
                             }
                             cookie = res.headers['set-cookie'];
                             assert.equal(res.body.message, 'Logged in.');
-                            assert.equal(res.body.name, site.siteName);
+                            assert.equal(res.body.site, site.siteName);
+                            assert.equal(res.body.name, user.firstName.length === 0 ? '' : user.firstName + ' ' + user.lastName);
                             done();
                           });
                         });
@@ -1141,7 +1171,7 @@ describe('SysStatus API', function () {
               return done(err);
             }
             assert.equal(res.body.message, 'Registered.');
-            assert.equal(res.body.name, site.name);
+            assert.equal(res.body.site, site.name);
             done();
           });
         });
@@ -1181,6 +1211,7 @@ describe('SysStatus API', function () {
               return done(err);
             }
             assert.equal(res.body.message, 'Profile updated.');
+            assert.equal(res.body.name, 'Joe Shmo');
             done();
           });
         });
@@ -1282,7 +1313,7 @@ describe('SysStatus API', function () {
               return done(err);
             }
             assert.equal(res.body.message, 'Twitter settings updated.');
-            _removeDB(done);
+            _reCreateDB(userView, done);
           });
         });
       });

@@ -206,7 +206,7 @@ sysStatusApp.controller('NotFoundCtrl', ['cssInjector', function (cssInjector) {
   cssInjector.setSinglePageMode(true);
 }]);
 
-sysStatusApp.controller('NavbarCtrl', ['$scope', '$location', function ($scope, $location) {
+sysStatusApp.controller('NavbarCtrl', ['$scope', '$location', '$window', function ($scope, $location, $window) {
   $scope.menu = [
     {title: 'Dashboard', link: '/dashboard'},
     {title: 'Incidents', link: '/incidents'},
@@ -217,6 +217,8 @@ sysStatusApp.controller('NavbarCtrl', ['$scope', '$location', function ($scope, 
     {title: 'Team Members', link: '/team'},
     {title: 'Integrations', link: '/integration'}
   ];
+  $scope.name = $window.localStorage.getItem('name') || null;
+  $scope.site = $window.localStorage.getItem('site') || null;
   // If we are on the link that is passed to the function, set the class as active
   $scope.isActive = function(route) {
     return route === $location.path();
@@ -227,6 +229,7 @@ sysStatusApp.controller('LoginCtrl', ['$scope', 'API', '$location', '$window', f
   $scope.login = function() {
     api.login($scope.email, $scope.password).success(function (data) {
       // Get site name to local storage
+      $window.localStorage.setItem('site', data.site);
       $window.localStorage.setItem('name', data.name);
       $location.path('/dashboard');
     }).error(function (error) {
@@ -245,7 +248,7 @@ sysStatusApp.controller('GetStartedCtrl', ['$scope', 'API', '$location', '$windo
     };
     api.register(registerData).success(function (registerResponse) {
       $location.path('/dashboard').search({'registered': 1});
-      $window.localStorage.setItem('name', registerResponse.name);
+      $window.localStorage.setItem('site', registerResponse.site);
     }).error(function (error) {
       $scope.asideError = error.message;
     });
@@ -770,7 +773,7 @@ sysStatusApp.controller('MetricCtrl', ['$scope', '$window', 'API', '$route', '$m
 sysStatusApp.controller('MetricSourceCtrl', [function () {}]);
 
 sysStatusApp.controller('CustomizeCtrl', ['$scope', '$window', 'API', '$modal', '$location', '$anchorScroll', function ($scope, $window, api, $modal, $location, $anchorScroll) {
-  $scope.siteName = $window.localStorage.getItem('name') || null;
+  $scope.siteName = $window.localStorage.getItem('site') || null;
   api.getCustomData().success(function (customData) {
     $scope.customData = customData;
   }).error(function (error, statusCode) {
@@ -896,7 +899,7 @@ sysStatusApp.controller('TeamMembersCtrl', ['$scope', '$modal', 'API', '$locatio
 }]);
 
 sysStatusApp.controller('ProfileCtrl', ['$scope', 'API', '$window', '$location', '$modal', function ($scope, api, $window, $location, $modal) {
-  $scope.siteName = $window.localStorage.getItem('name');
+  $scope.siteName = $window.localStorage.getItem('site') || null;
   api.getProfile().success(function (profileResponse) {
     $scope.user = profileResponse.profile;
   }).error(function (error, statusCode) {
@@ -908,6 +911,8 @@ sysStatusApp.controller('ProfileCtrl', ['$scope', 'API', '$window', '$location',
   $scope.updateProfile = function(user) {
     api.updateProfile(user).success(function (updateResponse) {
       $scope.asideSuccess = updateResponse.message;
+      // Update user's full  name if we get it.
+      $window.localStorage.setItem('name', updateResponse.name);
     }).error(function (error, statusCode) {
       if(statusCode === 401) {
         $location.path('/login');
@@ -933,8 +938,9 @@ sysStatusApp.controller('ProfileCtrl', ['$scope', 'API', '$window', '$location',
   };
 }]);
 
-sysStatusApp.controller('LogoutCtrl', ['$scope', 'API', '$location', function ($scope, api, $location) {
+sysStatusApp.controller('LogoutCtrl', ['$scope', 'API', '$location', '$window', function ($scope, api, $location, $window) {
   api.logout().success(function () {
+    $window.localStorage.clear();
     $location.path('/');
   }).error(function (error) {
     $location.path('/');

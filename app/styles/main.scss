@@ -148,7 +148,7 @@ button#addComponent, button#addMetrmetricEdit, div#componentEdit, button#newInci
     color: rgb(231, 76, 60);
 }
 
-a.componentEdit, a#deleteMetric, div#incidents a#incidentDelete, a#maintenanceUpdate, a#maintenanceDetails, a#maintenancePostmortem, a#maintenanceDelete, div#intervalContainer a, a#changePassword, img#twitterBtn, a#unauthorizeTwitter {
+a.componentEdit, a#deleteMetric, div#incidents a#incidentDelete, a#maintenanceUpdate, a#maintenanceDetails, a#maintenancePostmortem, a#maintenanceDelete, div#intervalContainer a, a#changePassword, img#twitterBtn, a#unauthorizeTwitter, ul#std-profile a {
     cursor: pointer;
 }
 
@@ -177,7 +177,7 @@ div#incidentHeader {
 div#aboutPage {
     color: white;
     position: relative;
-    top: -100px;
+    top: -50px;
     padding: 0 0 0 10px;
     font-size: 24px;
 }
@@ -190,6 +190,20 @@ h3#metricAverage {
 
 div.incident {
     padding: 30px !important;
+}
+
+/* Thanks https://github.com/csarsam */
+li:hover .submenu {
+    background: #fff;
+    border: 1px solid #b7b7b7;
+    display: block;
+    left: -0.5px;
+    top: 32.625px;
+    visibility: visible;
+}
+
+ul#std-profile .caret {
+    margin-left: -20px;
 }
 
 div#openIncidentContainer div.page-header h1 {
