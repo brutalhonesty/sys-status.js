@@ -13,7 +13,7 @@ nano.db.create(settings.couchdb.users, function (err, body) {
   users.insert(userView, '_design/users', function (err) {
     if(err) {
       console.log('Error recreating database.'.red);
-      return done(err);
+      return;
     }
     nano.db.create(settings.couchdb.metrics, function (err) {
       if(err && err.status_code !== 412) {
