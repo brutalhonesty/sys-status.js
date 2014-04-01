@@ -300,14 +300,16 @@ module.exports = function (grunt) {
             '.htaccess',
             'bower_components/**/*',
             'images/{,*/}*.{webp}',
-            'fonts/**/*'
+            'fonts/**/*',
+            'db/**/*',
+            '*.js'
           ]
         }, {
           expand: true,
           dot: true,
           cwd: '<%= yeoman.app %>/views',
           dest: '<%= yeoman.dist %>/views',
-          src: '**/*.jade'
+          src: '**/*.html'
         }, {
           expand: true,
           cwd: '.tmp/images',
