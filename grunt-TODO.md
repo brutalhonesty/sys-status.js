@@ -7,10 +7,10 @@
 * **TODO** `(line 80)`  Figure out how this changes when the data is repainted
 * **TODO** `(line 122)`  Figure out a way to poll new metric data.
 * **TODO** `(line 147)`  figure out how this changes when the data is repainted
-* **TODO** `(line 313)`  and setup the function to do it as well
-* **TODO** `(line 710)`  figure out why these are here
-* **TODO** `(line 721)`  repaint the graph with new changes
-* **TODO** `(line 959)`  We need to allow users to add their own public key into the OAuth.intialize() call.
+* **TODO** `(line 316)`  and setup the function to do it as well
+* **TODO** `(line 713)`  figure out why these are here
+* **TODO** `(line 724)`  repaint the graph with new changes
+* **TODO** `(line 965)`  We need to allow users to add their own public key into the OAuth.intialize() call.
 
 ## app/scripts/directives/main.js
 
@@ -51,7 +51,7 @@
 ## lib/controllers/team.js
 
 * **TODO** `(line 89)`  We might want to add an array of sites that a user is linked to
-* **TODO** `(line 115)` Send out email with clear-text temp password
+* **TODO** `(line 115)`  Send out email with clear-text temp password
 
 ## lib/controllers/users.js
 
@@ -59,8 +59,8 @@
 
 ## test/node/mock/api.js
 
-* **TODO** `(line 72)`  We should fix the callback hell (http://callbackhell.com/) in the mock testings.
-* **TODO** `(line 574)`  We should mock this API call when it's completed.
+* **TODO** `(line 102)`  We should fix the callback hell (http://callbackhell.com/) in the mock testings.
+* **TODO** `(line 629)`  We should mock this API call when it's completed.
 
 ## app/views/index.html
 
