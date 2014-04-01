@@ -7,12 +7,7 @@ module.exports = {
     url: 'http://localhost:5984',
     users: 'sysstatus-users',
     metrics: 'sysstatus-metrics',
-    sites: 'sysstatus-sites',
-    test: {
-      users: 'sysstatus-test-users',
-      metrics: 'sysstatus-test-metrics',
-      sites: 'sysstatus-test-sites',
-    }
+    sites: 'sysstatus-sites'
   },
   crypto: {
     salt: 'nW5TzoURGNEI10CQAhhlRM6al6gcPr3ACQsgU5V3HtlvFmafewfKo1A7udNffLMe' // Some 64+ char string
