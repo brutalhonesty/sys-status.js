@@ -1202,7 +1202,8 @@ describe('SysStatus API', function () {
         });
       });
     });
-    describe('POST /api/storeTwitter', function () {
+    // We cannot test with adding in a api key and secret for Twitter to the settings file.
+    /*describe('POST /api/storeTwitter', function () {
       describe('when storing Twitter information', function () {
         it('should successfully store the Twitter information', function (done) {
           request(app)
@@ -1220,7 +1221,7 @@ describe('SysStatus API', function () {
           });
         });
       });
-    });
+    });*/
     describe('POST /api/removeTwitter', function () {
       describe('when removing Twitter information', function () {
         it('should successfully remove the Twitter information', function (done) {
