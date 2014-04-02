@@ -35,7 +35,7 @@
       <a ng-click="updateInterval('day')">Day</a> <span>| <a ng-click="updateInterval('week')">Week</a> | <a ng-click="updateInterval('month')">Month</a></span>
     </div>
     <div class="pure-g-r">
-      <div id="{{metric.id}}" ng-repeat="metric in company.metrics" class="pure-u-1 l-box component">
+      <div id="{{metric.id}}" ng-repeat="metric in company.metrics" class="pure-u-1 l-box component" ng-show="metric.visible">
         <h3>{{metric.name}}</h3>
         <h3 id="metricAverage">{{metric.average.toFixed(metric.decimalPlaces) || 'N/A'}} {{metric.suffix}}</h3>
         <!-- TODO make sure we don't slice the values in production. Only good for testing. -->
