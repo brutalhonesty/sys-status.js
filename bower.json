@@ -26,7 +26,7 @@
     "angular-css-injector": "~1.0.1",
     "oauth.io": "~0.1.7",
     "components-font-awesome": "~4.0.3",
-    "ace-builds": "~1.1.1"
+    "ace-modejs-bower": "https://github.com/brutalhonesty/ace-modejs-bower.git"
   },
   "devDependencies": {
     "angular-mocks": "1.2.14",
