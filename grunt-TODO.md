@@ -61,11 +61,6 @@
 
 * **TODO** `(line 110)`  We should fix the callback hell (http://callbackhell.com/) in the mock testings.
 
-## app/views/index.html
-
-* **TODO** `(line 23)`  need to add these files to bower-install grunt task somehow -->
-* **TODO** `(line 85)`  need to add these files to bower-install grunt task somehow -->
-
 ## app/views/partials/metrics/metrics.html
 
 * **TODO** `(line 23)` : Need to figure out why if we switch one different than the first one, that the first one switches.-->

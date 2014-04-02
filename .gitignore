@@ -9,3 +9,4 @@ heroku
 dist
 lib/controllers/settings.js
 .DS_Store
+prod.sh

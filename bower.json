@@ -22,7 +22,7 @@
     "angular-markdown": "~0.0.1",
     "offline": "~0.7.2",
     "favico.js": "~0.3.4",
-    "angular-meta": "*",
+    "angular-meta-bower": "https://github.com/brutalhonesty/angular-meta-bower.git",
     "angular-css-injector": "~1.0.1",
     "oauth.io": "~0.1.7",
     "components-font-awesome": "~4.0.3",

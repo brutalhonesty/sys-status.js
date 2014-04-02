@@ -321,7 +321,7 @@ module.exports = function (grunt) {
             'server.js',
             'lib/**/*',
             'db/**/*',
-            '*.js'
+            'install.js'
           ]
         }]
       },
