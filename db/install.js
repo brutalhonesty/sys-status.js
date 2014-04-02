@@ -28,11 +28,12 @@ nano.db.create(settings.couchdb.users, function (err, body) {
         }
         var sites = nano.db.use(settings.couchdb.sites);
         sites.insert(sitesView, '_design/sites', function (err) {
-        if(err) {
-          console.log('Error recreating database.'.red);
-          return;
-        }
-        console.log('DB Installation successful.'.green);
+          if(err) {
+            console.log('Error recreating database.'.red);
+            return;
+          }
+          console.log('DB Installation successful.'.green);
+        });
       });
     });
   });
