@@ -3,96 +3,96 @@
 
 var sysStatusApp = angular.module('sysStatusApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute', 'ngAnimate', 'nvd3ChartDirectives', 'ui.ace', 'angularMoment', 'ui.bootstrap', 'angular-markdown', 'meta', 'angular.css.injector']).config(function ($routeProvider, $locationProvider, MetaProvider) {
   $routeProvider.when('/', {
-    templateUrl: 'partials/main',
+    templateUrl: 'partials/main.html',
     controller: 'MainCtrl'
   }).when('/login', {
-    templateUrl: 'partials/login',
+    templateUrl: 'partials/login.html',
     controller: 'LoginCtrl'
   }).when('/statusPage', {
-    templateUrl: 'partials/statusPage',
+    templateUrl: 'partials/statusPage.html',
     controller: 'StatusPageCtrl'
   }).when('/getStarted', {
-    templateUrl: 'partials/getStarted',
+    templateUrl: 'partials/getStarted.html',
     controller: 'GetStartedCtrl'
   }).when('/logout', {
-    templateUrl: 'partials/logout',
+    templateUrl: 'partials/logout.html',
     controller: 'LogoutCtrl'
   }).when('/profile', {
-    templateUrl: 'partials/profile/profile',
+    templateUrl: 'partials/profile/profile.html',
     controller: 'ProfileCtrl'
   }).when('/dashboard', {
-    templateUrl: 'partials/dashboard',
+    templateUrl: 'partials/dashboard.html',
     controller: 'DashboardCtrl'
   }).when('/components', {
-    templateUrl: 'partials/components',
+    templateUrl: 'partials/components.html',
     controller: 'ComponentsCtrl'
   }).when('/incidents', {
-    templateUrl: 'partials/incidents/incidents',
+    templateUrl: 'partials/incidents/incidents.html',
     controller: 'IncidentsCtrl'
   }).when('/incidents/maintenance', {
-    templateUrl: 'partials/incidents/maintenance',
+    templateUrl: 'partials/incidents/maintenance.html',
     controller: 'MaintenancesCtrl'
   }).when('/incidents/maintenance/new', {
-    templateUrl: 'partials/incidents/newMaintenance',
+    templateUrl: 'partials/incidents/newMaintenance.html',
     controller: 'MaintenancesCtrl'
   }).when('/incidents/maintenance/:id', {
-    templateUrl: 'partials/incidents/updateMaintenance',
+    templateUrl: 'partials/incidents/updateMaintenance.html',
     controller: 'MaintenanceCtrl'
   }).when('/incidents/maintenance/:id/details', {
-    templateUrl: 'partials/incidents/maintenanceDetails',
+    templateUrl: 'partials/incidents/maintenanceDetails.html',
     controller: 'MaintenanceCtrl'
   }).when('/incidents/templates', {
-    templateUrl: 'partials/incidents/templates',
+    templateUrl: 'partials/incidents/templates.html',
     controller: 'TemplatesCtrl'
   }).when('/incident/:id', {
-    templateUrl: 'partials/incidents/incident',
+    templateUrl: 'partials/incidents/incident.html',
     controller: 'IncidentCtrl'
   }).when('/incident/:id/postmortem', {
-    templateUrl: 'partials/incidents/postmortem',
+    templateUrl: 'partials/incidents/postmortem.html',
     controller: 'IncidentPostmortemCtrl'
   }).when('/notifications', {
-    templateUrl: 'partials/notifications/notifications',
+    templateUrl: 'partials/notifications/notifications.html',
     controller: 'NotificationsCtrl'
   }).when('/notifications/settings', {
-    templateUrl: 'partials/notifications/settings',
+    templateUrl: 'partials/notifications/settings.html',
     controller: 'NotificationsCtrl'
   }).when('/notifications/faq', {
-    templateUrl: 'partials/notifications/FAQ',
+    templateUrl: 'partials/notifications/FAQ.html',
     controller: 'NotificationsCtrl'
   }).when('/metrics', {
-    templateUrl: 'partials/metrics/metrics',
+    templateUrl: 'partials/metrics/metrics.html',
     controller: 'MetricsCtrl'
   }).when('/metric/:id', {
-    templateUrl: 'partials/metrics/metric',
+    templateUrl: 'partials/metrics/metric.html',
     controller: 'MetricCtrl'
   }).when('/metrics/dataSources', {
-    templateUrl: 'partials/metrics/dataSources',
+    templateUrl: 'partials/metrics/dataSources.html',
     controller: 'MetricSourceCtrl'
   }).when('/metrics/tutorials', {
-    templateUrl: 'partials/metrics/tutorials'
+    templateUrl: 'partials/metrics/tutorials.html'
   }).when('/customize', {
-    templateUrl: 'partials/customize/customize',
+    templateUrl: 'partials/customize/customize.html',
     controller: 'CustomizeCtrl'
   }).when('/customize/url', {
-    templateUrl: 'partials/customize/url',
+    templateUrl: 'partials/customize/url.html',
     controller: 'CustomizeURLCtrl'
   }).when('/customize/code', {
-    templateUrl: 'partials/customize/code',
+    templateUrl: 'partials/customize/code.html',
     controller: 'CustomizeCodeCtrl'
   }).when('/team', {
-    templateUrl: 'partials/team/team',
+    templateUrl: 'partials/team/team.html',
     controller: 'TeamMembersCtrl'
   }).when('/integration', {
-    templateUrl: 'partials/integration/integration',
+    templateUrl: 'partials/integration/integration.html',
     controller: 'IntegrationCtrl'
   }).when('/integration/twitter', {
-    templateUrl: 'partials/integration/twitter',
+    templateUrl: 'partials/integration/twitter.html',
     controller: 'TwitterCtrl'
   }).when('/integration/automate', {
-    templateUrl: 'partials/integration/automate',
+    templateUrl: 'partials/integration/automate.html',
     controller: 'AutomateCtrl'
   }).when('/404', {
-    templateUrl: 'partials/notfound',
+    templateUrl: 'partials/notfound.html',
     controller: 'NotFoundCtrl'
   }).otherwise({
     redirectTo: '/404'

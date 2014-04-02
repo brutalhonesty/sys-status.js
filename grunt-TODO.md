@@ -35,7 +35,7 @@
 
 ## lib/controllers/incidents.js
 
-* **TODO** `(line 53)`  when we create an incident, we need to send out a tweet if we are allowed to.
+* **TODO** `(line 56)`  when we create an incident, we need to send out a tweet if we are allowed to.
 
 ## lib/controllers/maintenance.js
 

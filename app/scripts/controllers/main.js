@@ -274,7 +274,7 @@ function DashboardCtrl($scope, $location, api, $modal, $route) {
     var createIncidentModal = $modal.open({
       // Find controller in modals.js
       controller: 'NewIncidentModalCtrl',
-      templateUrl: 'views/partials/newIncidentModal.html'
+      templateUrl: 'partials/newIncidentModal.html'
     });
     // Upon successful closing of modal, create incident on the server
     createIncidentModal.result.then(function (incidentData) {
@@ -322,7 +322,7 @@ function IncidentsCtrl($scope, $window, api, $modal, $route, $location) {
     var createIncidentModal = $modal.open({
         // Find controller in modals.js
         controller: 'NewIncidentModalCtrl',
-        templateUrl: 'views/partials/newIncidentModal.html'
+        templateUrl: 'partials/newIncidentModal.html'
       });
     createIncidentModal.result.then(function (incidentData) {
       // This call has to be separate than createIncident() because we switch locations afterward, though we could TODO and setup the function to do it as well
@@ -353,7 +353,7 @@ function IncidentsCtrl($scope, $window, api, $modal, $route, $location) {
           return incidentID;
         }
       },
-      templateUrl: 'views/partials/incidents/incidentDeleteReqModal.html'
+      templateUrl: 'partials/incidents/incidentDeleteReqModal.html'
     });
     incidentDeleteReqModal.result.then(function (incidentDelData) {
       api.deleteIncident(incidentDelData).success(function () {
@@ -401,7 +401,7 @@ function MaintenancesCtrl($scope, $location, api, $route, $modal) {
           return maintainenceID;
         }
       },
-      templateUrl: 'views/partials/maintenanceDeleteReqModal.html'
+      templateUrl: 'partials/maintenanceDeleteReqModal.html'
     });
     maintenanceDeleteReqModal.result.then(function (maintenanceObj) {
       api.deleteMaintenance(maintenanceObj).success(function () {
@@ -573,7 +573,7 @@ function ComponentsCtrl($scope, $location, api, $modal, $route) {
   $scope.addComponent = function() {
     var componentModal = $modal.open({
       controller: 'ComponentModalCtrl',
-      templateUrl: 'views/partials/componentModal.html'
+      templateUrl: 'partials/componentModal.html'
     });
     componentModal.result.then(function (component) {
       api.setComponent(component).success(function (data) {
@@ -593,7 +593,7 @@ function ComponentsCtrl($scope, $location, api, $modal, $route) {
   $scope.editComponent = function(componentID, componentName, description) {
     var editComponentModal = $modal.open({
       controller: 'EditComponentModalCtrl',
-      templateUrl: 'views/partials/editComponentModal.html',
+      templateUrl: 'partials/editComponentModal.html',
       resolve: {
         componentID: function() {
           return componentID;
@@ -622,7 +622,7 @@ function ComponentsCtrl($scope, $location, api, $modal, $route) {
           return componentID;
         }
       },
-      templateUrl: 'views/partials/componentDeleteReqModal.html'
+      templateUrl: 'partials/componentDeleteReqModal.html'
     });
     deleteComponentReqModal.result.then(function (component) {
       api.deleteComponent(component).success(function () {
@@ -712,7 +712,7 @@ function MetricsCtrl($scope, $modal, api, $window, $route, $location) {
           return $scope.dataSources;
         }
       },
-      templateUrl: 'views/partials/metricModal.html'
+      templateUrl: 'partials/metricModal.html'
     });
     metricModal.result.then(function(metric) {
       api.createMetric(metric).success(function (metricResponse) {
@@ -780,7 +780,7 @@ function MetricCtrl($scope, $window, api, $route, $modal, $location, $filter) {
           return metricID;
         }
       },
-      templateUrl: 'views/partials/metricDeleteReqModal.html'
+      templateUrl: 'partials/metricDeleteReqModal.html'
     });
     metricDeleteReqModal.result.then(function (metricDeleteData) {
       api.deleteMetric(metricDeleteData).success(function () {
@@ -825,7 +825,7 @@ function CustomizeCtrl($scope, $window, api, $modal, $location, $anchorScroll) {
   $scope.addLogoModal = function() {
     var addLogoModal = $modal.open({
       controller: 'AddImageModalCtrl',
-      templateUrl: 'views/partials/customize/addLogoModal.html'
+      templateUrl: 'partials/customize/addLogoModal.html'
     });
     addLogoModal.result.then(function (logoObj) {
       api.uploadLogo(logoObj).success(function (uploadResponse) {
@@ -842,7 +842,7 @@ function CustomizeCtrl($scope, $window, api, $modal, $location, $anchorScroll) {
   $scope.addCoverModal = function() {
     var addCoverModal = $modal.open({
       controller: 'AddImageModalCtrl',
-      templateUrl: 'views/partials/customize/addCoverModal.html'
+      templateUrl: 'partials/customize/addCoverModal.html'
     });
     addCoverModal.result.then(function (coverObj) {
       api.uploadCover(coverObj).success(function (uploadResponse) {
@@ -859,7 +859,7 @@ function CustomizeCtrl($scope, $window, api, $modal, $location, $anchorScroll) {
   $scope.addFavModal = function() {
     var addFavModal = $modal.open({
       controller: 'AddFavModalCtrl',
-      templateUrl: 'views/partials/customize/addFaviconModal.html'
+      templateUrl: 'partials/customize/addFaviconModal.html'
     });
     addFavModal.result.then(function (favObj) {
       api.uploadFavicon(favObj).success(function (uploadResponse) {
@@ -929,7 +929,7 @@ function TeamMembersCtrl($scope, $modal, api, $location) {
   $scope.addMember = function() {
     var memberModal = $modal.open({
       controller: 'AddMemberModalCtrl',
-      templateUrl: 'views/partials/team/addMemberModal.html'
+      templateUrl: 'partials/team/addMemberModal.html'
     });
     memberModal.result.then(function (memberObj) {
       api.addMember(memberObj).success(function (memberResponse) {
@@ -971,7 +971,7 @@ function ProfileCtrl($scope, api, $window, $location, $modal) {
   $scope.changePassword = function() {
     var changePassModal = $modal.open({
       controller: 'ChangePasswordModalCtrl',
-      templateUrl: 'views/partials/changePasswordModal.html'
+      templateUrl: 'partials/changePasswordModal.html'
     });
     changePassModal.result.then(function (passData) {
       api.changePassword(passData).success(function(passwordResponse) {
