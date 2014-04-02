@@ -16,6 +16,7 @@
     "nvd3": "~1.1.15-beta",
     "angularjs-nvd3-directives": "~0.0.5-beta",
     "angular-motion": "~0.3.2",
+    "ace-modejs-bower": "https://github.com/brutalhonesty/ace-modejs-bower.git",
     "angular-ui-ace": "~0.1.0",
     "angular-ui-bootstrap-bower": "~0.10.0",
     "moment": "~2.5.1",
@@ -25,8 +26,7 @@
     "angular-meta-bower": "https://github.com/brutalhonesty/angular-meta-bower.git",
     "angular-css-injector": "~1.0.1",
     "oauth.io": "~0.1.7",
-    "components-font-awesome": "~4.0.3",
-    "ace-modejs-bower": "https://github.com/brutalhonesty/ace-modejs-bower.git"
+    "components-font-awesome": "~4.0.3"
   },
   "devDependencies": {
     "angular-mocks": "1.2.14",
