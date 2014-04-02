@@ -195,18 +195,21 @@ function getMaintenances($scope, $location, api) {
  * Controllers start here
  */
 
-sysStatusApp.controller('MainCtrl', ['API', '$location', function (api, $location) {
+function MainCtrl(api, $location) {
   api.checkCookie().success(function () {
     $location.path('/dashboard');
   });
-}]);
-
-sysStatusApp.controller('NotFoundCtrl', ['cssInjector', function (cssInjector) {
+}
+MainCtrl.$inject = ['API', '$location'];
+sysStatusApp.controller('MainCtrl', MainCtrl);
+function NotFoundCtrl(cssInjector) {
   cssInjector.add('../../styles/notfound.css');
   cssInjector.setSinglePageMode(true);
-}]);
+}
+NotFoundCtrl.$inject = ['cssInjector'];
 
-sysStatusApp.controller('NavbarCtrl', ['$scope', '$location', '$window', function ($scope, $location, $window) {
+sysStatusApp.controller('NotFoundCtrl', NotFoundCtrl);
+function NavbarCtrl($scope, $location, $window) {
   $scope.menu = [
     {title: 'Dashboard', link: '/dashboard'},
     {title: 'Incidents', link: '/incidents'},
@@ -223,9 +226,11 @@ sysStatusApp.controller('NavbarCtrl', ['$scope', '$location', '$window', functio
   $scope.isActive = function(route) {
     return route === $location.path();
   };
-}]);
+}
+NavbarCtrl.$inject = ['$scope', '$location', '$window'];
+sysStatusApp.controller('NavbarCtrl', NavbarCtrl);
 
-sysStatusApp.controller('LoginCtrl', ['$scope', 'API', '$location', '$window', function ($scope, api, $location, $window) {
+function LoginCtrl($scope, api, $location, $window) {
   $scope.login = function() {
     api.login($scope.email, $scope.password).success(function (data) {
       // Get site name to local storage
@@ -236,9 +241,11 @@ sysStatusApp.controller('LoginCtrl', ['$scope', 'API', '$location', '$window', f
       $scope.asideError = error.message;
     });
   };
-}]);
+}
+LoginCtrl.$inject = ['$scope', 'API', '$location', '$window'];
+sysStatusApp.controller('LoginCtrl', LoginCtrl);
 
-sysStatusApp.controller('GetStartedCtrl', ['$scope', 'API', '$location', '$window', function ($scope, api, $location, $window) {
+function GetStartedCtrl($scope, api, $location, $window) {
   $scope.register = function () {
     var registerData = {
       name: $scope.site,
@@ -253,9 +260,11 @@ sysStatusApp.controller('GetStartedCtrl', ['$scope', 'API', '$location', '$windo
       $scope.asideError = error.message;
     });
   };
-}]);
+}
+GetStartedCtrl.$inject = ['$scope', 'API', '$location', '$window'];
+sysStatusApp.controller('GetStartedCtrl', GetStartedCtrl);
 
-sysStatusApp.controller('DashboardCtrl', ['$scope', '$location', 'API', '$modal', '$route', function ($scope, $location, api, $modal, $route) {
+function DashboardCtrl($scope, $location, api, $modal, $route) {
   if(parseInt($route.current.params.registered, 10) === 1) {
     $scope.asideSuccess = 'Successfully registered.';
   }
@@ -295,9 +304,12 @@ sysStatusApp.controller('DashboardCtrl', ['$scope', '$location', 'API', '$modal'
   $scope.updateIncident = function(incidentID) {
     $location.path('/incident/'+incidentID);
   };
-}]);
+}
+DashboardCtrl.$inject = ['$scope', '$location', 'API', '$modal', '$route'];
+sysStatusApp.controller('DashboardCtrl', DashboardCtrl);
 
-sysStatusApp.controller('IncidentsCtrl', ['$scope', '$window', 'API', '$modal', '$route', '$location', function ($scope, $window, api, $modal, $route, $location) {
+
+function IncidentsCtrl($scope, $window, api, $modal, $route, $location) {
   if(parseInt($route.current.params.deleted, 10) === 1) {
     $scope.asideSuccess = 'Incident deleted.';
   } else if(parseInt($route.current.params.updated, 10) === 1) {
@@ -351,9 +363,12 @@ sysStatusApp.controller('IncidentsCtrl', ['$scope', '$window', 'API', '$modal', 
       });
     });
   };
-}]);
+}
+IncidentsCtrl.$inject = ['$scope', '$window', 'API', '$modal', '$route', '$location'];
 
-sysStatusApp.controller('MaintenancesCtrl', ['$scope', '$location', 'API', '$route', '$modal', function ($scope, $location, api, $route, $modal) {
+sysStatusApp.controller('IncidentsCtrl', IncidentsCtrl);
+
+function MaintenancesCtrl($scope, $location, api, $route, $modal) {
   if(parseInt($route.current.params.added, 10) === 1) {
     $scope.asideSuccess = 'Maintenance added.';
   } else if(parseInt($route.current.params.deleted, 10) === 1) {
@@ -396,9 +411,11 @@ sysStatusApp.controller('MaintenancesCtrl', ['$scope', '$location', 'API', '$rou
       });
     });
   };
-}]);
+}
+MaintenancesCtrl.$inject = ['$scope', '$location', 'API', '$route', '$modal'];
+sysStatusApp.controller('MaintenancesCtrl', MaintenancesCtrl);
 
-sysStatusApp.controller('MaintenanceCtrl', ['$scope', '$window', '$location', 'API', '$route', '$filter', function ($scope, $window, $location, api, $route, $filter) {
+function MaintenanceCtrl($scope, $window, $location, api, $route, $filter) {
   var maintenanceID = $route.current.params.id;
   api.getMaintenance(maintenanceID).success(function (maintenanceResponse) {
     $scope.maintenance = maintenanceResponse;
@@ -447,11 +464,17 @@ sysStatusApp.controller('MaintenanceCtrl', ['$scope', '$window', '$location', 'A
       $scope.asideError = error.message;
     });
   };
-}]);
+}
+MaintenanceCtrl.$inject = ['$scope', '$window', '$location', 'API', '$route', '$filter'];
 
-sysStatusApp.controller('TemplatesCtrl', [function () {}]);
+sysStatusApp.controller('MaintenanceCtrl', MaintenanceCtrl);
 
-sysStatusApp.controller('IncidentCtrl', ['$scope', '$route', '$window', 'API', '$location', function ($scope, $route, $window, api, $location) {
+function TemplatesCtrl() {}
+TemplatesCtrl.$inject = [];
+sysStatusApp.controller('TemplatesCtrl', TemplatesCtrl);
+
+
+function IncidentCtrl($scope, $route, $window, api, $location) {
   if(parseInt($route.current.params.saved, 10) === 1) {
     $scope.asideSuccess = 'Postmortem saved.';
   } else if(parseInt($route.current.params.reported, 10) === 1) {
@@ -490,9 +513,11 @@ sysStatusApp.controller('IncidentCtrl', ['$scope', '$route', '$window', 'API', '
       $scope.asideError = error.message;
     });
   };
-}]);
+}
+IncidentCtrl.$inject = ['$scope', '$route', '$window', 'API', '$location'];
+sysStatusApp.controller('IncidentCtrl', IncidentCtrl);
 
-sysStatusApp.controller('IncidentPostmortemCtrl', ['$scope', 'API', '$route', '$location', function ($scope, api, $route, $location) {
+function IncidentPostmortemCtrl($scope, api, $route, $location) {
   var incidentID = $route.current.params.id;
   api.getIncident(incidentID).success(function (incidentResponse) {
     $scope.incident = incidentResponse.incident;
@@ -536,9 +561,11 @@ sysStatusApp.controller('IncidentPostmortemCtrl', ['$scope', 'API', '$route', '$
     $scope.incident.postmortem.completed = !$scope.incident.postmortem.completed;
     $scope.report = $scope.incident.postmortem.data;
   };
-}]);
+}
+IncidentPostmortemCtrl.$inject = ['$scope', 'API', '$route', '$location'];
+sysStatusApp.controller('IncidentPostmortemCtrl', IncidentPostmortemCtrl);
 
-sysStatusApp.controller('ComponentsCtrl', ['$scope', '$location', 'API', '$modal', '$route', function ($scope, $location, api, $modal, $route) {
+function ComponentsCtrl($scope, $location, api, $modal, $route) {
   if(parseInt($route.current.params.deleted, 10) === 1) { // Use '==' instead of '===' for datatypes (string vs int)
     $scope.asideSuccess = 'Component deleted.';
   }
@@ -608,14 +635,18 @@ sysStatusApp.controller('ComponentsCtrl', ['$scope', '$location', 'API', '$modal
       });
     });
   };
-}]);
+}
+ComponentsCtrl.$inject = ['$scope', '$location', 'API', '$modal', '$route'];
+sysStatusApp.controller('ComponentsCtrl', ComponentsCtrl);
 
-sysStatusApp.controller('StatusPageCtrl', ['$scope', '$window', 'API', '$location', 'favicoService', function ($scope, $window, api, $location, favicoService) {
+function StatusPageCtrl($scope, $window, api, $location, favicoService) {
   getCompany($scope, $location, api, favicoService);
   $scope.lastUpdate = $window.localStorage.getItem('lastUpdate') || Date.now();
-}]);
+}
+StatusPageCtrl.$inject = ['$scope', '$window', 'API', '$location', 'favicoService'];
+sysStatusApp.controller('StatusPageCtrl', StatusPageCtrl);
 
-sysStatusApp.controller('NotificationsCtrl', ['$scope', '$window', 'API', function ($scope, $window, api) {
+function NotificationsCtrl($scope, $window, api) {
   api.getSubscriptions().success(function (data) {
     $scope.allowAutoSubscribe = data.subscribers.types.autoIncident;
     $scope.userIndivComponents = data.subscribers.types.individComponent;
@@ -663,9 +694,11 @@ sysStatusApp.controller('NotificationsCtrl', ['$scope', '$window', 'API', functi
     'placement': 'top',
     'trigger': 'mouseenter'
   };
-}]);
+}
+NotificationsCtrl.$inject = ['$scope', '$window', 'API'];
+sysStatusApp.controller('NotificationsCtrl', NotificationsCtrl);
 
-sysStatusApp.controller('MetricsCtrl', ['$scope', '$modal', 'API', '$window', '$route', '$location', function ($scope, $modal, api, $window, $route, $location) {
+function MetricsCtrl($scope, $modal, api, $window, $route, $location) {
   if(parseInt($route.current.params.deleted, 10) === 1) {
     $scope.asideSuccess = 'Metric deleted.';
   }
@@ -700,9 +733,12 @@ sysStatusApp.controller('MetricsCtrl', ['$scope', '$modal', 'API', '$window', '$
       $scope.asideError = error.message;
     });
   };
-}]);
+}
+MetricsCtrl.$inject = ['$scope', '$modal', 'API', '$window', '$route', '$location'];
+sysStatusApp.controller('MetricsCtrl', MetricsCtrl);
 
-sysStatusApp.controller('MetricCtrl', ['$scope', '$window', 'API', '$route', '$modal', '$location', '$filter', function ($scope, $window, api, $route, $modal, $location, $filter) {
+
+function MetricCtrl($scope, $window, api, $route, $modal, $location, $filter) {
   var metricID = $route.current.params.id || null;
   if(parseInt($route.current.params.added, 10) === 1) {
     $scope.asideSuccess = 'Metric added.';
@@ -768,11 +804,15 @@ sysStatusApp.controller('MetricCtrl', ['$scope', '$window', 'API', '$route', '$m
   $scope.aceLoaded = function(_editor){
     _editor.setShowPrintMargin(false);
   };
-}]);
+}
+MetricCtrl.$inject = ['$scope', '$window', 'API', '$route', '$modal', '$location', '$filter'];
+sysStatusApp.controller('MetricCtrl', MetricCtrl);
 
-sysStatusApp.controller('MetricSourceCtrl', [function () {}]);
+function MetricSourceCtrl() {}
+MetricSourceCtrl.$inject = [];
+sysStatusApp.controller('MetricSourceCtrl', MetricSourceCtrl);
 
-sysStatusApp.controller('CustomizeCtrl', ['$scope', '$window', 'API', '$modal', '$location', '$anchorScroll', function ($scope, $window, api, $modal, $location, $anchorScroll) {
+function CustomizeCtrl($scope, $window, api, $modal, $location, $anchorScroll) {
   $scope.siteName = $window.localStorage.getItem('site') || null;
   api.getCustomData().success(function (customData) {
     $scope.customData = customData;
@@ -846,9 +886,11 @@ sysStatusApp.controller('CustomizeCtrl', ['$scope', '$window', 'API', '$modal', 
       $scope.error = error.message;
     });
   };
-}]);
+}
+CustomizeCtrl.$inject = ['$scope', '$window', 'API', '$modal', '$location', '$anchorScroll'];
+sysStatusApp.controller('CustomizeCtrl', CustomizeCtrl);
 
-sysStatusApp.controller('CustomizeURLCtrl', ['$scope', 'API', '$location', function ($scope, api, $location) {
+function CustomizeURLCtrl($scope, api, $location) {
   api.getDomain().success(function (domainResponse) {
     $scope.customDomain = domainResponse.domain;
   }).error(function (error, statusCode) {
@@ -870,11 +912,15 @@ sysStatusApp.controller('CustomizeURLCtrl', ['$scope', 'API', '$location', funct
       $scope.asideError = error.message;
     });
   };
-}]);
+}
+CustomizeURLCtrl.$inject = ['$scope', 'API', '$location'];
+sysStatusApp.controller('CustomizeURLCtrl', CustomizeURLCtrl);
 
-sysStatusApp.controller('CustomizeCodeCtrl', [function () {}]);
+function CustomizeCodeCtrl(){}
+CustomizeCodeCtrl.$inject = [];
+sysStatusApp.controller('CustomizeCodeCtrl', CustomizeCodeCtrl);
 
-sysStatusApp.controller('TeamMembersCtrl', ['$scope', '$modal', 'API', '$location', function ($scope, $modal, api, $location) {
+function TeamMembersCtrl($scope, $modal, api, $location) {
   api.getMembers().success(function (membersResponse) {
     $scope.members = membersResponse.members;
   }).error(function (error) {
@@ -896,9 +942,11 @@ sysStatusApp.controller('TeamMembersCtrl', ['$scope', '$modal', 'API', '$locatio
       });
     });
   };
-}]);
+}
+TeamMembersCtrl.$inject = ['$scope', '$modal', 'API', '$location'];
+sysStatusApp.controller('TeamMembersCtrl', TeamMembersCtrl);
 
-sysStatusApp.controller('ProfileCtrl', ['$scope', 'API', '$window', '$location', '$modal', function ($scope, api, $window, $location, $modal) {
+function ProfileCtrl($scope, api, $window, $location, $modal) {
   $scope.siteName = $window.localStorage.getItem('site') || null;
   api.getProfile().success(function (profileResponse) {
     $scope.user = profileResponse.profile;
@@ -936,19 +984,26 @@ sysStatusApp.controller('ProfileCtrl', ['$scope', 'API', '$window', '$location',
       });
     });
   };
-}]);
+}
+ProfileCtrl.$inject = ['$scope', 'API', '$window', '$location', '$modal'];
+sysStatusApp.controller('ProfileCtrl', ProfileCtrl);
 
-sysStatusApp.controller('LogoutCtrl', ['$scope', 'API', '$location', '$window', function ($scope, api, $location, $window) {
+function LogoutCtrl($scope, api, $location, $window) {
   api.logout().success(function () {
     $window.localStorage.clear();
     $location.path('/');
   }).error(function (error) {
     $location.path('/');
   });
-}]);
+}
+LogoutCtrl.$inject = ['$scope', 'API', '$location', '$window'];
+sysStatusApp.controller('LogoutCtrl', LogoutCtrl);
 
-sysStatusApp.controller('IntegrationCtrl', ['$scope', function ($scope) {}]);
-sysStatusApp.controller('TwitterCtrl', ['$scope', '$rootScope', '$location', '$route', 'API', '$modal', function ($scope, $rootScope, $location, $route, api, $modal) {
+function IntegrationCtrl(){}
+IntegrationCtrl.$inject = [];
+sysStatusApp.controller('IntegrationCtrl', IntegrationCtrl);
+
+function TwitterCtrl($scope, $rootScope, $location, $route, api, $modal) {
   if(parseInt($route.current.params.success, 10) === 1) {
     $scope.asideSuccess = 'Twitter Integration added successfully.';
   }
@@ -1008,5 +1063,10 @@ sysStatusApp.controller('TwitterCtrl', ['$scope', '$rootScope', '$location', '$r
   };
   $scope.prefixMessage = 'Tweets can get the status type or any string prefixed to them to differentiate them from other status tweets.<br><br>Example: &lt;status&gt;Issue with component, looking into it.';
   $scope.suffixMessage = 'Tweets can get the url or any string suffixed to them.<br><br>Example: Issue with component, looking into it.&lt;siteurl&gt;';
-}]);
-sysStatusApp.controller('AutomateCtrl', ['$scope', function ($scope) {}]);
+}
+TwitterCtrl.$inject = ['$scope', '$rootScope', '$location', '$route', 'API', '$modal'];
+sysStatusApp.controller('TwitterCtrl', TwitterCtrl);
+
+function AutomateCtrl(){}
+AutomateCtrl.$inject = [];
+sysStatusApp.controller('AutomateCtrl', AutomateCtrl);

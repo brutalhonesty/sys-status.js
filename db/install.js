@@ -12,8 +12,10 @@ nano.db.create(settings.couchdb.users, function (err, body) {
   var users = nano.db.use(settings.couchdb.users);
   // Insert views to make lookup calls with.
   users.insert(userView, '_design/users', function (err) {
-    if(err) {
+    // 409 is Document update conflict.
+    if(err && err.status_code !== 409) {
       console.log('Error recreating database.'.red);
+      console.log(err);
       return;
     }
     nano.db.create(settings.couchdb.metrics, function (err) {
@@ -28,8 +30,10 @@ nano.db.create(settings.couchdb.users, function (err, body) {
         }
         var sites = nano.db.use(settings.couchdb.sites);
         sites.insert(sitesView, '_design/sites', function (err) {
-          if(err) {
+          // 409 is Document update conflict.
+          if(err && err.status_code !== 409) {
             console.log('Error recreating database.'.red);
+            console.log(err);
             return;
           }
           console.log('DB Installation successful.'.green);

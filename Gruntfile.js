@@ -300,9 +300,7 @@ module.exports = function (grunt) {
             '.htaccess',
             'bower_components/**/*',
             'images/{,*/}*.{webp}',
-            'fonts/**/*',
-            'db/**/*',
-            '*.js'
+            'fonts/**/*'
           ]
         }, {
           expand: true,
@@ -321,7 +319,9 @@ module.exports = function (grunt) {
           src: [
             'package.json',
             'server.js',
-            'lib/**/*'
+            'lib/**/*',
+            'db/**/*',
+            '*.js'
           ]
         }]
       },
