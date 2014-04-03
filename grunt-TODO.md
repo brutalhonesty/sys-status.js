@@ -7,10 +7,10 @@
 * **TODO** `(line 80)`  Figure out how this changes when the data is repainted
 * **TODO** `(line 122)`  Figure out a way to poll new metric data.
 * **TODO** `(line 147)`  figure out how this changes when the data is repainted
-* **TODO** `(line 328)`  and setup the function to do it as well
-* **TODO** `(line 749)`  figure out why these are here
-* **TODO** `(line 760)`  repaint the graph with new changes
-* **TODO** `(line 1020)`  We need to allow users to add their own public key into the OAuth.intialize() call.
+* **TODO** `(line 327)`  and setup the function to do it as well
+* **TODO** `(line 748)`  figure out why these are here
+* **TODO** `(line 759)`  repaint the graph with new changes
+* **TODO** `(line 1019)`  We need to allow users to add their own public key into the OAuth.intialize() call.
 
 ## app/scripts/directives/main.js
 
@@ -35,7 +35,8 @@
 
 ## lib/controllers/incidents.js
 
-* **TODO** `(line 56)`  when we create an incident, we need to send out a tweet if we are allowed to.
+* **TODO** `(line 102)`  if we have sub-domains, this siteurl might change and we need to account for that.
+* **TODO** `(line 362)`  We might want to add an option to allow users to delete the tweet associated with it as well.
 
 ## lib/controllers/maintenance.js
 
@@ -60,10 +61,6 @@
 ## test/node/mock/api.js
 
 * **TODO** `(line 110)`  We should fix the callback hell (http://callbackhell.com/) in the mock testings.
-
-## app/views/partials/metrics/metrics.html
-
-* **TODO** `(line 23)` : Need to figure out why if we switch one different than the first one, that the first one switches.-->
 
 ## app/views/partials/statusPage.html
 
