@@ -6,10 +6,17 @@ var twitter = new Twit({
   access_token: '',
   access_token_secret: ''
 });
-twitter.get('account/verify_credentials', function (error, twitterData) {
+/*twitter.get('account/verify_credentials', function (error, twitterData) {
   if(error) {
     console.log(error);
     return;
   }
   console.log(twitterData);
+});*/
+twitter.post('statuses/update', {status: 'Test tweet from Node.js!'}, function (error, reply) {
+  if(error) {
+    console.log(error);
+    return;
+  }
+  console.log(reply);
 });

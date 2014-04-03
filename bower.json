@@ -9,7 +9,7 @@
     "angular-cookies": "~1.2.14",
     "angular-sanitize": "~1.2.14",
     "angular-route": "~1.2.14",
-    "bootstrap-sass": "~3.0.2",
+    "bootstrap-sass": "^3.0.2",
     "pure": "~0.4.2",
     "angular-moment": "~0.6.0",
     "d3": "~3.4.1",
@@ -27,7 +27,7 @@
     "angular-css-injector": "~1.0.1",
     "oauth.io": "~0.1.7",
     "components-font-awesome": "~4.0.3",
-    "angular-bootstrap-switch": "~0.2.1"
+    "angular-sass-bootstrap-switch": "https://github.com/brutalhonesty/angular-sass-bootstrap-switch.git#master"
   },
   "devDependencies": {
     "angular-mocks": "1.2.14",

@@ -204,7 +204,6 @@ MainCtrl.$inject = ['API', '$location'];
 sysStatusApp.controller('MainCtrl', MainCtrl);
 function NotFoundCtrl(cssInjector) {
   cssInjector.add('../../styles/notfound.css');
-  cssInjector.setSinglePageMode(true);
 }
 NotFoundCtrl.$inject = ['cssInjector'];
 
