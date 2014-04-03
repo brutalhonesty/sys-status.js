@@ -1,7 +1,7 @@
 /* jshint unused: false */
 'use strict';
 
-var sysStatusApp = angular.module('sysStatusApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute', 'ngAnimate', 'nvd3ChartDirectives', 'ui.ace', 'angularMoment', 'ui.bootstrap', 'angular-markdown', 'meta', 'angular.css.injector']).config(function ($routeProvider, $locationProvider, MetaProvider) {
+var sysStatusApp = angular.module('sysStatusApp', ['ngCookies', 'ngResource', 'ngSanitize', 'ngRoute', 'ngAnimate', 'nvd3ChartDirectives', 'ui.ace', 'angularMoment', 'ui.bootstrap', 'angular-markdown', 'meta', 'angular.css.injector', 'frapontillo.bootstrap-switch']).config(function ($routeProvider, $locationProvider, MetaProvider) {
   $routeProvider.when('/', {
     templateUrl: 'partials/main.html',
     controller: 'MainCtrl'

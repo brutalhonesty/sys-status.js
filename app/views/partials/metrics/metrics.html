@@ -20,15 +20,17 @@
     <div id="metrics">
         <div class="pure-u-1" ng-repeat="metric in metrics" ng-show="metrics.length > 0">
             <h4 id="metricName">{{metric.name}}</h4>
-            <!--TODO: Need to figure out why if we switch one different than the first one, that the first one switches.-->
-            <div class="onoffswitch">
-                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" ng-model="metric.visible" ng-change="updateMetric(metric.id, metric.visible)" checked offline-disabled>
-                <label class="onoffswitch-label" for="myonoffswitch">
-                    <div class="onoffswitch-inner"></div>
-                    <div class="onoffswitch-switch"></div>
-                </label>
-            </div>
             <a ng-href="/metric/{{metric.id}}" id="metricEdit" offline-fade>Edit</a>
+            <input
+                bs-switch
+                ng-model="metric.visible"
+                ng-change="updateMetric(metric.id, metric.visible)"
+                type="checkbox"
+                switch-active="{{metric.visible}}"
+                switch-size="small"
+                switch-animate="true"
+                switch-on-label="On"
+                switch-off-label="Off" offline-disabled>
         </div>
     </div>
 </div>
