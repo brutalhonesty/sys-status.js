@@ -62,6 +62,10 @@
 
 * **TODO** `(line 110)`  We should fix the callback hell (http://callbackhell.com/) in the mock testings.
 
+## app/views/index.html
+
+* **TODO** `(line 85)`  Adding bootstrap-switch and the Angular directive seperately to fix the erorr where we are missing the module in app.js. -->
+
 ## app/views/partials/statusPage.html
 
 * **TODO** `(line 4)`  The data in the customize page needs to be confined to the specifications of the /customize changes. -->
