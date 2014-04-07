@@ -60,6 +60,15 @@ function pastTenDays() {
   return timeArray;
 }
 
+function pastCurrentYear() {
+  var currentMonth = moment().month();
+  var timeArray = [];
+  for(var yearCtr = 0; yearCtr <= currentMonth; yearCtr++) {
+    timeArray.push(moment().month(yearCtr).startOf('month').valueOf());
+  }
+  return timeArray;
+}
+
 function getCompany($scope, $location, api, favicoService) {
   // Get the company object from the server
   api.getCompany().success(function (companyData) {
@@ -70,8 +79,13 @@ function getCompany($scope, $location, api, favicoService) {
         badgeCtr++;
       }
     }
-    // TODO We would change this check to a for-loop and check for 'not completion' incase we flagged an incident instead of actually deleting it
-    favicoService.badge($scope.company.incidents.length + badgeCtr);
+    for(var incidentCtr = 0; incidentCtr < $scope.company.incidents.length; incidentCtr++) {
+      var events = $scope.company.incidents[incidentCtr].events;
+      if(events[events.length - 1].type !== 'Resolved') {
+        badgeCtr++;
+      }
+    }
+    favicoService.badge(badgeCtr);
     $scope.incidentDates = pastTenDays();
     // Used for graphs
     $scope.xAxisTickFormatFunction = function(){
@@ -208,7 +222,8 @@ function NotFoundCtrl(cssInjector) {
 NotFoundCtrl.$inject = ['cssInjector'];
 
 sysStatusApp.controller('NotFoundCtrl', NotFoundCtrl);
-function NavbarCtrl($scope, $location, $window) {
+function NavbarCtrl($scope, $location, $window, cssInjector) {
+  cssInjector.removeAll();
   $scope.menu = [
     {title: 'Dashboard', link: '/dashboard'},
     {title: 'Incidents', link: '/incidents'},
@@ -226,7 +241,7 @@ function NavbarCtrl($scope, $location, $window) {
     return route === $location.path();
   };
 }
-NavbarCtrl.$inject = ['$scope', '$location', '$window'];
+NavbarCtrl.$inject = ['$scope', '$location', '$window', 'cssInjector'];
 sysStatusApp.controller('NavbarCtrl', NavbarCtrl);
 
 function LoginCtrl($scope, api, $location, $window) {
@@ -638,12 +653,48 @@ function ComponentsCtrl($scope, $location, api, $modal, $route) {
 ComponentsCtrl.$inject = ['$scope', '$location', 'API', '$modal', '$route'];
 sysStatusApp.controller('ComponentsCtrl', ComponentsCtrl);
 
-function StatusPageCtrl($scope, $window, api, $location, favicoService) {
+function StatusPageCtrl($scope, $window, api, $location, favicoService, cssInjector) {
+  cssInjector.removeAll();
   getCompany($scope, $location, api, favicoService);
   $scope.lastUpdate = $window.localStorage.getItem('lastUpdate') || Date.now();
 }
-StatusPageCtrl.$inject = ['$scope', '$window', 'API', '$location', 'favicoService'];
+StatusPageCtrl.$inject = ['$scope', '$window', 'API', '$location', 'favicoService', 'cssInjector'];
 sysStatusApp.controller('StatusPageCtrl', StatusPageCtrl);
+
+function IncidentHistoryCtrl($scope, api, $location) {
+  $scope.months = pastCurrentYear();
+  api.getIncidentHistory().success(function (historyResponse) {
+    $scope.history = historyResponse.history;
+    $scope.siteName = historyResponse.siteName;
+  }).error(function (err, statusCode) {
+    if(statusCode === 401) {
+      $location.path('/login');
+    }
+    $scope.asideError = err.message;
+  });
+  $scope.inMonth = function(incidents, month) {
+    if(!incidents) {
+      return [];
+    }
+    var incidentData = [];
+    for(var incidentCtr = 0; incidentCtr < incidents.length; incidentCtr++) {
+      var incident = incidents[incidentCtr];
+      var lastIncidentDate = incident.events[incident.events.length - 1].date;
+      var firstMonth = moment(month);
+      //console.log('First Month: ' + firstMonth.toString());
+      var incidentMonth = moment(lastIncidentDate);
+      //console.log('Incident Month: ' + incidentMonth.toString());
+      var nextMonth = moment().startOf('month').month(firstMonth.month() + 1);
+      //console.log('Next Month: ' + nextMonth.toString());
+      if(firstMonth.isBefore(incidentMonth) && nextMonth.isAfter(incidentMonth)) {
+        incidentData.push(incident);
+      }
+    }
+    return incidentData;
+  };
+}
+IncidentHistoryCtrl.$inject = ['$scope', 'API', '$location'];
+sysStatusApp.controller('IncidentHistoryCtrl', IncidentHistoryCtrl);
 
 function NotificationsCtrl($scope, $window, api) {
   api.getSubscriptions().success(function (data) {
@@ -958,7 +1009,7 @@ function ProfileCtrl($scope, api, $window, $location, $modal) {
   $scope.updateProfile = function(user) {
     api.updateProfile(user).success(function (updateResponse) {
       $scope.asideSuccess = updateResponse.message;
-      // Update user's full  name if we get it.
+      // Update user's full name if we get it.
       $window.localStorage.setItem('name', updateResponse.name);
     }).error(function (error, statusCode) {
       if(statusCode === 401) {

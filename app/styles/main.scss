@@ -72,12 +72,14 @@ div#metrickey, div#metrickeyMissing {
     background: $pureSuccess;
 }
 
-.pure-button-success:hover, .pure-button-primary:hover {
+.pure-button-success:hover,
+.pure-button-primary:hover {
     text-decoration: none;
     color: white;
 }
 
-.pure-button-error, .aside-error {
+.pure-button-error,
+.aside-error {
     background: $pureError;
 }
 
@@ -105,12 +107,14 @@ div#metrickey, div#metrickeyMissing {
     font-size: 125%;
 }
 
-.pure-form .pure-radio {
+.pure-form
+.pure-radio {
     display: inline-block;
     margin: .5em 1.5em;
 }
 
-div#registerTron, div#loginTron {
+div#registerTron,
+div#loginTron {
     background-color: transparent;
 }
 
@@ -122,12 +126,26 @@ body {
     background: #f9f9f9;
 }
 
-h1#componentTitle, div#componentError {
+h1#componentTitle,
+div#componentError {
     display: inline-block;
     width: 75%;
 }
 
-button#addComponent, button#addMetrmetricEdit, div#componentEdit, button#newIncident, button#addIncident, a#incidentEdit, a#incidentDelete, a#addMaintenance, div#maintenanceEdit, div#incidentEdit, button#addMember, span.memberType, a#metricEdit, div.has-switch {
+button#addComponent,
+button#addMetrmetricEdit,
+div#componentEdit,
+button#newIncident,
+button#addIncident,
+a#incidentEdit,
+a#incidentDelete,
+a#addMaintenance,
+div#maintenanceEdit,
+div#incidentEdit,
+button#addMember,
+span.memberType,
+a#metricEdit,
+div.has-switch {
     float: right;
 }
 
@@ -151,8 +169,24 @@ button#addComponent, button#addMetrmetricEdit, div#componentEdit, button#newInci
     color: rgb(231, 76, 60);
 }
 
-a.componentEdit, a#deleteMetric, div#incidents a#incidentDelete, a#maintenanceUpdate, a#maintenanceDetails, a#maintenancePostmortem, a#maintenanceDelete, div#intervalContainer a, a#changePassword, img#twitterBtn, a#unauthorizeTwitter, ul#std-profile a {
+a.componentEdit,
+a#deleteMetric,
+div#incidents a#incidentDelete,
+a#maintenanceUpdate,
+a#maintenanceDetails,
+a#maintenancePostmortem,
+a#maintenanceDelete,
+div#intervalContainer a,
+a#changePassword,
+img#twitterBtn,
+a#unauthorizeTwitter,
+ul#std-profile a {
     cursor: pointer;
+}
+
+div#incidentList small,
+div#month small {
+    color: #AAAAAA;
 }
 
 div#intervalContainer {
@@ -224,7 +258,8 @@ div#incidentHeader a {
     margin: 0;
 }
 
-a#statusPage, a#myProfile {
+a#statusPage,
+a#myProfile {
     float: right;
 }
 
@@ -233,7 +268,8 @@ div#statusPageStatus {
     padding: 0.4em;
 }
 
-div#logoImage p.asideError, div#faviconImage p.asideError {
+div#logoImage p.asideError,
+div#faviconImage p.asideError {
     color: $pureError;
 }
 
@@ -284,7 +320,37 @@ ul#uploadOptions li > a {
     cursor: pointer;
 }
 
-input#userAutoSubscribe, input#userIndivComponents, input#userIndivIncidents, h2#subscriptionTypes, h2#notificationDeliveryTypes, input#allowEmailSubs, input#allowSMSSubs, input#allowWebSubs, input#yAxisMin, input#yAxisMax, input#hideYAxis, input#xAxisMin, input#xAxisMax, input#hideXAxis, div#metrics h4#metricName, h3#incidentName, h1#metricName, form#editForm input, input#maintenanceStartDate, input#maintenanceStartTime, input#maintenanceEndDate, input#maintenanceEndTime, input#remindSubs, input#setProgress, input#basicLogo, input#coverLogo, div#intervalContainer, h2#systemMetricsTitle, p.memberType, input#noDefault, input#useDefault {
+input#userAutoSubscribe,
+input#userIndivComponents,
+input#userIndivIncidents,
+h2#subscriptionTypes,
+h2#notificationDeliveryTypes,
+input#allowEmailSubs,
+input#allowSMSSubs,
+input#allowWebSubs,
+input#yAxisMin,
+input#yAxisMax,
+input#hideYAxis,
+input#xAxisMin,
+input#xAxisMax,
+input#hideXAxis,
+div#metrics h4#metricName,
+h3#incidentName,
+h1#metricName,
+form#editForm input,
+input#maintenanceStartDate,
+input#maintenanceStartTime,
+input#maintenanceEndDate,
+input#maintenanceEndTime,
+input#remindSubs,
+input#setProgress,
+input#basicLogo,
+input#coverLogo,
+div#intervalContainer,
+h2#systemMetricsTitle,
+p.memberType,
+input#noDefault,
+input#useDefault {
     display: inline-block;
 }
 
@@ -300,7 +366,8 @@ div#maintenanceList {
     margin-top: 2%;
 }
 
-div#maintenanceStart, div#maintenanceEnd {
+div#maintenanceStart,
+div#maintenanceEnd {
     display: inline-block;
     margin-left: 10px;
 }
@@ -344,7 +411,9 @@ div#postMortemPreview button#editReport {
     float: right;
 }
 
-div#logoImage small, div#faviconImage small, div#aboutPage small {
+div#logoImage small,
+div#faviconImage small,
+div#aboutPage small {
     display: block;
 }
 

@@ -1,0 +1,20 @@
+<div id="historyContainer" class="container">
+  <h1>{{siteName}}</h1>
+  <br>
+  <div id="list">
+    <div id="month" ng-repeat="month in months">
+      <h2>{{month | date: 'MMMM yyyy'}}</h2>
+      <hr>
+      <small ng-show="inMonth(history, month).length === 0">No Incidents for this month.</small>
+      <div id="incidentList" ng-repeat="incident in inMonth(history, month)">
+        <h4>{{incident.name}}</h4>
+        <h5>{{incident.events[incident.events.length - 1].message}}</h5>
+        <small>{{incident.events[0].date | date: 'MMM dd, HH:mm'}} - {{incident.events[incident.events.length - 1].date | date: 'MMM dd, HH:mm'}}</small>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div id="historylink">
+    <a ng-href="/statusPage">&#8592; Status Page</a>
+  </div>
+</div>

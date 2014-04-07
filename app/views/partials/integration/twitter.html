@@ -22,7 +22,7 @@
     <h4>Authenticated using account <a ng-href="//twitter.com/{{twitter.username}}" target="_blank">@{{twitter.username}}</a>.</h4><a id="unauthorizeTwitter" ng-click="deauthorize()">Unauthorize</a>
     <strong><h3>Tweet Default</h3></strong>
     <form class="pure-form" ng-submit="updateTwitter(twitter)">
-      <fieldset class="pure-group">
+      <fieldset class="pure-group" ng-init="twitter.allowTweets=true">
         <label for="useDefault" class="pure-radio">
           <input id="useDefault" type="radio" name="default" value="true" ng-model="twitter.allowTweets" ng-checked="twitter.allowTweets"> I <strong>want</strong> the tweets to be send with each incident.
         </label>

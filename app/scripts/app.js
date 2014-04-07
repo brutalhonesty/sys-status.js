@@ -11,6 +11,9 @@ var sysStatusApp = angular.module('sysStatusApp', ['ngCookies', 'ngResource', 'n
   }).when('/statusPage', {
     templateUrl: 'partials/statusPage.html',
     controller: 'StatusPageCtrl'
+  }).when('/statusPage/history', {
+    templateUrl: 'partials/history.html',
+    controller: 'IncidentHistoryCtrl'
   }).when('/getStarted', {
     templateUrl: 'partials/getStarted.html',
     controller: 'GetStartedCtrl'
@@ -105,6 +108,8 @@ var sysStatusApp = angular.module('sysStatusApp', ['ngCookies', 'ngResource', 'n
     title: 'Login'
   }).when('/statusPage', {
     title: 'Status'
+  }).when('/statusPage/history', {
+    title: 'Incident History'
   }).when('/logout', {
     title: 'Logout'
   }).when('/getStarted', {

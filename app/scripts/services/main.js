@@ -309,6 +309,9 @@ sysStatusApp.service('API', ['$http', function ($http) {
         data: $.param(updateData),
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
+    },
+    getIncidentHistory: function() {
+      return $http.get('/api/getIncidentHistory');
     }
   };
 }]);
