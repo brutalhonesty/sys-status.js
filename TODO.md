@@ -22,8 +22,7 @@ TODO
 * History page
     * Incidents by month
 
-Migrate DB to CouchDB
-----------------------
+* ~~Migrate DB to CouchDB~~
 
 * ~~Integrate Offline.JS~~
 * ~~Integrate Favicon.JS~~
