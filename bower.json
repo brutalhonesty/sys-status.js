@@ -16,22 +16,49 @@
     "nvd3": "~1.1.15-beta",
     "angularjs-nvd3-directives": "~0.0.5-beta",
     "angular-motion": "~0.3.2",
-    "ace-modejs-bower": "https://github.com/brutalhonesty/ace-modejs-bower.git",
+    "ace-builds": "~1.1.3",
     "angular-ui-ace": "~0.1.0",
     "angular-ui-bootstrap-bower": "~0.10.0",
     "moment": "~2.5.1",
     "angular-markdown": "~0.0.1",
     "offline": "~0.7.2",
     "favico.js": "~0.3.4",
-    "angular-meta-bower": "https://github.com/brutalhonesty/angular-meta-bower.git",
     "angular-css-injector": "~1.0.1",
     "oauth.io": "~0.1.7",
     "components-font-awesome": "~4.0.3",
     "bootstrap-switch": "2.0.0",
-    "angular-sass-bootstrap-switch": "https://github.com/brutalhonesty/angular-sass-bootstrap-switch.git#master"
+    "angular-sass-bootstrap-switch": "~0.2.7",
+    "angular-meta": "https://github.com/brutalhonesty/angular-meta.git#master"
   },
   "devDependencies": {
     "angular-mocks": "1.2.14",
     "angular-scenario": "1.2.14"
+  },
+  "overrides": {
+    "ace-builds": {
+      "main": [
+        "src-noconflict/ace.js",
+        "src-noconflict/mode-javascript.js"
+      ]
+    },
+    "showdown": {
+      "main": [
+        "src/showdown.js",
+        "src/extensions/github.js"
+      ]
+    },
+    "angular-sass-bootstrap-switch": {
+      "main": [
+        "dist/angular-bootstrap-switch.js"
+      ],
+      "dependencies": {
+        "angular": "~1.2.6",
+        "bootstrap-sass": "^3.0.2",
+        "bootstrap-switch": "~2.0.1"
+      }
+    },
+    "angular-meta": {
+      "main": "angular-meta.js"
+    }
   }
 }

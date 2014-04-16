@@ -3,14 +3,13 @@
 ## app/scripts/controllers/main.js
 
 * **TODO** `(line 10)`  we could load some markup to say "Create a component now"
-* **TODO** `(line 73)`  We would change this check to a for-loop and check for 'not completion' incase we flagged an incident instead of actually deleting it
-* **TODO** `(line 80)`  Figure out how this changes when the data is repainted
-* **TODO** `(line 122)`  Figure out a way to poll new metric data.
-* **TODO** `(line 147)`  figure out how this changes when the data is repainted
-* **TODO** `(line 327)`  and setup the function to do it as well
-* **TODO** `(line 748)`  figure out why these are here
-* **TODO** `(line 759)`  repaint the graph with new changes
-* **TODO** `(line 1019)`  We need to allow users to add their own public key into the OAuth.intialize() call.
+* **TODO** `(line 94)`  Figure out how this changes when the data is repainted
+* **TODO** `(line 136)`  Figure out a way to poll new metric data.
+* **TODO** `(line 161)`  figure out how this changes when the data is repainted
+* **TODO** `(line 342)`  and setup the function to do it as well
+* **TODO** `(line 799)`  figure out why these are here
+* **TODO** `(line 810)`  repaint the graph with new changes
+* **TODO** `(line 1070)`  We need to allow users to add their own public key into the OAuth.intialize() call.
 
 ## app/scripts/directives/main.js
 
@@ -35,8 +34,8 @@
 
 ## lib/controllers/incidents.js
 
-* **TODO** `(line 102)`  if we have sub-domains, this siteurl might change and we need to account for that.
-* **TODO** `(line 362)`  We might want to add an option to allow users to delete the tweet associated with it as well.
+* **TODO** `(line 103)`  if we have sub-domains, this siteurl might change and we need to account for that.
+* **TODO** `(line 354)`  We might want to add an option to allow users to delete the tweet associated with it as well.
 
 ## lib/controllers/maintenance.js
 
@@ -64,7 +63,7 @@
 
 ## app/views/index.html
 
-* **TODO** `(line 85)`  Adding bootstrap-switch and the Angular directive seperately to fix the erorr where we are missing the module in app.js. -->
+* **TODO** `(line 84)`  Adding bootstrap-switch and the Angular directive seperately to fix the erorr where we are missing the module in app.js. -->
 
 ## app/views/partials/statusPage.html
 

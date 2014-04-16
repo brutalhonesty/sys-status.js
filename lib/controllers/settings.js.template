@@ -18,5 +18,8 @@ module.exports = {
   twitter: {
     apiKey: '', // https://apps.twitter.com/, click on App (or create one), visit API Keys tab.
     apiSecret: '' // Same as above line.
+  },
+  nodemailer: {
+    from: '' // Joe Shmo <joeshmo@example.com>
   }
 };

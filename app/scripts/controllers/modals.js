@@ -209,6 +209,21 @@ function AddMemberModalCtrl($scope, $modalInstance) {
 AddMemberModalCtrl.$inject = ['$scope', '$modalInstance'];
 sysStatusApp.controller('AddMemberModalCtrl', AddMemberModalCtrl);
 
+function DeleteMemberModalCtrl($scope, $modalInstance, memberid) {
+  $scope.memberid = memberid;
+  $scope.cancel = function() {
+    $modalInstance.dismiss('cancel');
+  };
+  $scope.deleteMember = function(memberid) {
+    var member = {
+      memberid: memberid
+    };
+    $modalInstance.close(member);
+  };
+}
+DeleteMemberModalCtrl.$inject = ['$scope', '$modalInstance', 'memberid'];
+sysStatusApp.controller('DeleteMemberModalCtrl', DeleteMemberModalCtrl);
+
 function ChangePasswordModalCtrl($scope, $modalInstance) {
   $scope.cancel = function() {
     $modalInstance.dismiss('cancel');

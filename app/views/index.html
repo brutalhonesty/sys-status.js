@@ -14,12 +14,12 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <!-- build:css(app) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap-sass/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/pure/pure.css" />
-    <link rel="stylesheet" href="bower_components/nvd3/src/nv.d3.css" />
-    <link rel="stylesheet" href="bower_components/angular-motion/dist/angular-motion.min.css" />
-    <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap-switch/build/css/bootstrap3/bootstrap-switch.css" />
+    <link rel="stylesheet" href="../bower_components/bootstrap-sass/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../bower_components/bootstrap-switch/build/css/bootstrap3/bootstrap-switch.css" />
+    <link rel="stylesheet" href="../bower_components/pure/pure.css" />
+    <link rel="stylesheet" href="../bower_components/nvd3/src/nv.d3.css" />
+    <link rel="stylesheet" href="../bower_components/angular-motion/dist/angular-motion.min.css" />
+    <link rel="stylesheet" href="../bower_components/components-font-awesome/css/font-awesome.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <link rel="stylesheet" href="bower_components/offline/themes/offline-language-english.css">
@@ -56,36 +56,37 @@
 
     <!-- build:js(app) scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="bower_components/jquery/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/bootstrap-sass/dist/js/bootstrap.js"></script>
-    <script src="bower_components/moment/moment.js"></script>
-    <script src="bower_components/angular-moment/angular-moment.js"></script>
-    <script src="bower_components/d3/d3.js"></script>
-    <script src="bower_components/nvd3/nv.d3.js"></script>
-    <script src="bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/ace-modejs-bower/ace.js"></script>
-    <script src="bower_components/ace-modejs-bower/mode-javascript.js"></script>
-    <script src="bower_components/angular-ui-ace/ui-ace.js"></script>
-    <script src="bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
-    <script src="bower_components/angular-markdown/angular.markdown.js"></script>
-    <script src="bower_components/offline/offline.min.js"></script>
-    <script src="bower_components/favico.js/favico.js"></script>
-    <script src="bower_components/angular-meta-bower/meta.js"></script>
-    <script src="bower_components/angular-css-injector/angular-css-injector.js"></script>
-    <script src="bower_components/oauth.io/oauth.min.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/es5-shim/es5-shim.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/json3/lib/json3.min.js"></script>
+    <script src="../bower_components/angular-resource/angular-resource.js"></script>
+    <script src="../bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="../bower_components/angular-route/angular-route.js"></script>
+    <script src="../bower_components/bootstrap-sass/dist/js/bootstrap.js"></script>
+    <script src="../bower_components/moment/moment.js"></script>
+    <script src="../bower_components/angular-moment/angular-moment.js"></script>
+    <script src="../bower_components/d3/d3.js"></script>
+    <script src="../bower_components/nvd3/nv.d3.js"></script>
+    <script src="../bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js"></script>
+    <script src="../bower_components/angular-animate/angular-animate.js"></script>
+    <script src="../bower_components/ace-builds/src-noconflict/ace.js"></script>
+    <script src="../bower_components/ace-builds/src-noconflict/mode-javascript.js"></script>
+    <script src="../bower_components/angular-ui-ace/ui-ace.js"></script>
+    <script src="../bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
+    <script src="../bower_components/showdown/src/showdown.js"></script>
+    <script src="../bower_components/showdown/src/extensions/github.js"></script>
+    <script src="../bower_components/angular-markdown/angular.markdown.js"></script>
+    <script src="../bower_components/offline/offline.min.js"></script>
+    <script src="../bower_components/favico.js/favico.js"></script>
+    <script src="../bower_components/angular-css-injector/angular-css-injector.js"></script>
+    <script src="../bower_components/oauth.io/oauth.min.js"></script>
+    <script src="../bower_components/bootstrap-switch/build/js/bootstrap-switch.js"></script>
+    <script src="../bower_components/angular-sass-bootstrap-switch/dist/angular-bootstrap-switch.js"></script>
+    <script src="../bower_components/angular-meta/angular-meta.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-    <!-- TODO Adding bootstrap-switch and the Angular directive seperately to fix the erorr where we are missing the module in app.js. -->
-    <script src="bower_components/bootstrap-switch/build/js/bootstrap-switch.js"></script>
-    <script src="bower_components/angular-sass-bootstrap-switch/dist/angular-bootstrap-switch.js"></script>
-    <script src="bower_components/showdown/compressed/showdown.js"></script>
-    <script src="bower_components/showdown/compressed/extensions/github.js"></script>
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>

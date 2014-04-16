@@ -266,6 +266,14 @@ sysStatusApp.service('API', ['$http', function ($http) {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
       });
     },
+    deleteMember: function(memberData) {
+      return $http({
+        url: '/api/deleteMember',
+        method: 'POST',
+        data: $.param(memberData),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+      });
+    },
     getProfile: function() {
       return $http.get('/api/getProfile');
     },

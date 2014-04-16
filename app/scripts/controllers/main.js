@@ -7,9 +7,9 @@ function getComponents($scope, $location, api) {
   // Get components from the server
   api.getComponents().success(function (data) {
     // No components so display "Error"
-    // TODO we could load some markup to say "Create a component now"
     if(data.components.length === 0) {
       $scope.componentError = 'No components found.';
+      $scope.showCreateButton = true;
     } else {
       // Show components on page
       $scope.components = data.components;
@@ -304,7 +304,6 @@ function DashboardCtrl($scope, $location, api, $modal, $route) {
     createIncident(incidentData, $scope, api);
   };
   $scope.updateComponent = function(componentID, status) {
-    console.log(status);
     var updateData = {
       id: componentID,
       status: status
@@ -317,6 +316,27 @@ function DashboardCtrl($scope, $location, api, $modal, $route) {
   };
   $scope.updateIncident = function(incidentID) {
     $location.path('/incident/'+incidentID);
+  };
+  $scope.addComponent = function() {
+    var componentModal = $modal.open({
+      controller: 'ComponentModalCtrl',
+      templateUrl: 'partials/componentModal.html'
+    });
+    componentModal.result.then(function (component) {
+      api.setComponent(component).success(function (data) {
+        $scope.asideSuccess = data.message;
+        if($scope.componentError) {
+          delete($scope.componentError);
+        }
+        $scope.showCreateButton = false;
+        $scope.components = $scope.components || [];
+        // Set predefined status like the server-side
+        component.status = 'Operational';
+        $scope.components.push(component);
+      }).error(function (error) {
+        $scope.asideError = error.message;
+      });
+    });
   };
 }
 DashboardCtrl.$inject = ['$scope', '$location', 'API', '$modal', '$route'];
@@ -984,6 +1004,27 @@ function TeamMembersCtrl($scope, $modal, api, $location) {
     memberModal.result.then(function (memberObj) {
       api.addMember(memberObj).success(function (memberResponse) {
         $scope.asideSuccess = memberResponse.message;
+      }).error(function (error, statusCode) {
+        if(statusCode === 401) {
+          $location.path('/login');
+        }
+        $scope.asideError = error.message;
+      });
+    });
+  };
+  $scope.deleteMemberReq = function(memberid) {
+    var deleteMemberModal = $modal.open({
+      controller: 'DeleteMemberModalCtrl',
+      templateUrl: 'partials/team/deleteMemberModal.html',
+      resolve: {
+        memberid: function() {
+          return memberid;
+        }
+      }
+    });
+    deleteMemberModal.result.then(function (memberobj) {
+      api.deleteMember(memberobj).success(function (deleteResp) {
+        $scope.asideSuccess = deleteResp.message;
       }).error(function (error, statusCode) {
         if(statusCode === 401) {
           $location.path('/login');

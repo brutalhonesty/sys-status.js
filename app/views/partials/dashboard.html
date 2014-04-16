@@ -37,6 +37,7 @@
     <div id="componentError">
     	{{componentError}}
 	</div>
+    <button id="createComponent" class="pure-button pure-button-primary pure-button-medium" ng-show="showCreateButton" ng-click="addComponent()">Create Component Now</button>
     <form class="pure-form" ng-repeat="component in components" ng-init="componentValue=component.status">
 		<span class="{{componentValue === 'Operational' ? 'operational' : ''}}{{componentValue === 'Degraded Performance' ? 'degraded' : ''}}{{componentValue === 'Partial Outage' ? 'partial' : ''}}{{componentValue === 'Major Outage' ? 'major' : ''}}">{{component.name}}</span>
 		<label for="operational" class="pure-radio">

@@ -1113,6 +1113,7 @@ describe('SysStatus API', function () {
     });
   });
   describe('Team Members API', function () {
+    var memberid;
     describe('GET /api/getMembers', function () {
       describe('when getting the team members', function () {
         it('should successfully return the members', function (done) {
@@ -1127,11 +1128,12 @@ describe('SysStatus API', function () {
               return done(err);
             }
             assert.equal(res.body.members[0]._id, userid);
+            memberid = res.body.members[0]._id;
             done();
           });
         });
-      })
-    })
+      });
+    });
     describe('POST /api/addMember', function () {
       describe('when adding a new team member', function () {
         it('should successfully add the team member', function (done) {
@@ -1147,6 +1149,26 @@ describe('SysStatus API', function () {
               return done(err);
             }
             assert.equal(res.body.message, 'Team member added.');
+            done();
+          });
+        });
+      });
+    });
+    describe('POST /api/deleteMember', function () {
+      describe('when deleting a team member', function () {
+        it('should successfully delete the team member', function (done) {
+          request(app)
+          .post('/api/deleteMember')
+          .send({memberid: memberid})
+          .expect('Content-Type', /json/)
+          .set('cookie', cookie)
+          .expect(200)
+          .end(function (err, res) {
+            if(err) {
+              console.log(res.body.message.red);
+              return done(err);
+            }
+            assert.equal(res.body.message, 'Team member deleted.');
             done();
           });
         });

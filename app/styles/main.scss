@@ -145,7 +145,8 @@ div#incidentEdit,
 button#addMember,
 span.memberType,
 a#metricEdit,
-div.has-switch {
+div.has-switch,
+button#createComponent {
     float: right;
 }
 
@@ -180,7 +181,8 @@ div#intervalContainer a,
 a#changePassword,
 img#twitterBtn,
 a#unauthorizeTwitter,
-ul#std-profile a {
+ul#std-profile a,
+span.memberType a {
     cursor: pointer;
 }
 

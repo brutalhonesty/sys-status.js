@@ -13,6 +13,7 @@
     <p>
       <span ng-show="member.firstName">{{member.firstName}}</span> <span ng-show="member.lastName">{{member.lastName}}</span> <span ng-show="member.firstName || member.lastName">-</span>
       <b>{{member.email}}</b>
+      <span ng-show="!member.isOwner" class="memberType"><a ng-click="deleteMemberReq(member._id)">Delete</a></span>
       <span ng-show="member.isOwner" class="memberType">Site Owner</span>
       <span ng-show="!member.isOwner" class="memberType">Site Member</span>
     </p>

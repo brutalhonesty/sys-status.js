@@ -13,7 +13,7 @@
     "validator": "^3.7.0",
     "redis": "~0.10.0",
     "connect-redis": "~1.4.6",
-    "moment": "~2.5.0",
+    "moment": "~2.6.0",
     "node-uuid": "~1.4.1",
     "request": "~2.34.0",
     "crypto": "0.0.3",
@@ -22,12 +22,14 @@
     "nano": "^5.7.1",
     "colors": "^0.6.2",
     "twit": "^1.1.12",
-    "mkdirp": "^0.3.5"
+    "mkdirp": "^0.3.5",
+    "nodemailer": "^0.6.2",
+    "helmet": "^0.2.1"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-autoprefixer": "~0.4.0",
-    "grunt-bower-install": "~0.7.0",
+    "grunt-bower-install": "^1.4.0",
     "grunt-concurrent": "~0.4.1",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-coffee": "~0.7.0",
