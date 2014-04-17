@@ -32,6 +32,8 @@ TODO
 * Move all settings.js elements to the config.js files
     * Includes reworking all files that depend on settings.js and migrate it to config.js
 
+* Need to fix gruntFile.js not added vendor files with new install of grunt-bower-install#1.4.0
+
 * ~~Migrate DB structure from user-centric to site-centric~~
 
 * Check to make sure when an event is added or updated in the incident's object, the update time is changed.
