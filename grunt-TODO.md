@@ -2,14 +2,13 @@
 
 ## app/scripts/controllers/main.js
 
-* **TODO** `(line 10)`  we could load some markup to say "Create a component now"
 * **TODO** `(line 94)`  Figure out how this changes when the data is repainted
 * **TODO** `(line 136)`  Figure out a way to poll new metric data.
 * **TODO** `(line 161)`  figure out how this changes when the data is repainted
-* **TODO** `(line 342)`  and setup the function to do it as well
-* **TODO** `(line 799)`  figure out why these are here
-* **TODO** `(line 810)`  repaint the graph with new changes
-* **TODO** `(line 1070)`  We need to allow users to add their own public key into the OAuth.intialize() call.
+* **TODO** `(line 362)`  and setup the function to do it as well
+* **TODO** `(line 819)`  figure out why these are here
+* **TODO** `(line 830)`  repaint the graph with new changes
+* **TODO** `(line 1111)`  We need to allow users to add their own public key into the OAuth.intialize() call.
 
 ## app/scripts/directives/main.js
 
@@ -27,10 +26,8 @@
 
 ## lib/controllers/customize.js
 
-* **TODO** `(line 61)`  possibly check for 304 (Not Modified) as well
-* **TODO** `(line 111)`  We might want to improve this some how. For now, we want the path only for unlinking the file when we are doing testing
-* **TODO** `(line 205)`  We might want to improve this some how. For now, we want the path only for unlinking the file when we are doing testing
-* **TODO** `(line 243)`  add session checking if wanted
+* **TODO** `(line 110)`  We might want to improve this some how. For now, we want the path only for unlinking the file when we are doing testing
+* **TODO** `(line 204)`  We might want to improve this some how. For now, we want the path only for unlinking the file when we are doing testing
 
 ## lib/controllers/incidents.js
 
@@ -50,8 +47,9 @@
 
 ## lib/controllers/team.js
 
-* **TODO** `(line 89)`  We might want to add an array of sites that a user is linked to
-* **TODO** `(line 115)`  Send out email with clear-text temp password
+* **TODO** `(line 17)`  This template file could look nicer. The HTML looks tacky, even for my standards :).
+* **TODO** `(line 130)`  We might want to add an array of sites that a user is linked to
+* **TODO** `(line 217)`  If we delete the owner, a new owner must be specified to take over the site.
 
 ## lib/controllers/users.js
 
@@ -60,10 +58,7 @@
 ## test/node/mock/api.js
 
 * **TODO** `(line 110)`  We should fix the callback hell (http://callbackhell.com/) in the mock testings.
-
-## app/views/index.html
-
-* **TODO** `(line 84)`  Adding bootstrap-switch and the Angular directive seperately to fix the erorr where we are missing the module in app.js. -->
+* **TODO** `(line 1137)`  Cannot test 'addMember; because we send an email out.
 
 ## app/views/partials/statusPage.html
 
@@ -71,3 +66,7 @@
 * **TODO** `(line 15)`  If incident is resolved, don't show here -->
 * **TODO** `(line 41)`  make sure we don't slice the values in production. Only good for testing. -->
 * **TODO** `(line 42)`  if we want to add the y axis label again, use yAxisLabel="{{metric.suffix}}" -->
+
+## bower.json
+
+* **TODO** `(line 64)`  need to wait for offlinejs to change their repo to use non-minified for main property before we can change ours.",

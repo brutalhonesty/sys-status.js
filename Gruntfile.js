@@ -161,7 +161,9 @@ module.exports = function (grunt) {
         src: [
           '<%= yeoman.app %>/views/index.html',
         ],
-        ignorePath: '<%= yeoman.app %>/'
+        dependencies: true,
+        devDependencies: false,
+        ignorePath: new RegExp('^<%= yeoman.app %>/')
       }
     },
 
@@ -212,8 +214,7 @@ module.exports = function (grunt) {
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
     useminPrepare: {
-      html: ['<%= yeoman.app %>/views/index.html',
-             '<%= yeoman.app %>/views/index.jade'],
+      html: '<%= yeoman.app %>/views/index.html',
       options: {
         dest: '<%= yeoman.dist %>/public'
       }
@@ -221,9 +222,8 @@ module.exports = function (grunt) {
 
     // Performs rewrites based on rev and the useminPrepare configuration
     usemin: {
-      html: ['<%= yeoman.dist %>/views/**/*.html',
-             '<%= yeoman.dist %>/views/{,*/}*.jade'],
-      css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
+      html: '<%= yeoman.dist %>/views/**/*.html',
+      css: '<%= yeoman.dist %>/styles/{,*/}*.css',
       options: {
         basedir: '<%= yeoman.dist %>',
         assetsDirs: ['<%= yeoman.dist %>/public']
@@ -367,6 +367,7 @@ module.exports = function (grunt) {
         '<%= yeoman.lib %>/**/*.js',
         '<%= yeoman.test %>/**/*.js',
         '<%= yeoman.app %>/views/**/*.html',
+        'bower.json'
       ],
     },
 

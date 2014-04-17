@@ -59,6 +59,10 @@
     },
     "angular-meta": {
       "main": "angular-meta.js"
+    },
+    "offline": {
+      "_comment": "TODO need to wait for offlinejs to change their repo to use non-minified for main property before we can change ours.",
+      "main": ["offline.min.js", "themes/offline-language-english.css", "themes/offline-theme-chrome.css"]
     }
   }
 }

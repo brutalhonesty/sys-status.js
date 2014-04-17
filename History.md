@@ -1,4 +1,4 @@
-History
+Changelog
 =======
 
 0.5

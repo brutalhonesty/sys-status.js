@@ -29,6 +29,9 @@ TODO
 
 * Add mail service for sending out registration info to users
 
+* Move all settings.js elements to the config.js files
+    * Includes reworking all files that depend on settings.js and migrate it to config.js
+
 * ~~Migrate DB structure from user-centric to site-centric~~
 
 * Check to make sure when an event is added or updated in the incident's object, the update time is changed.
