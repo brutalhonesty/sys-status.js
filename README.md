@@ -40,14 +40,26 @@ npm test
 grunt build
 ```
 
+Dependencies
+------------
+[NodeJS](http://nodejs.org/)
+[Redis](http://redis.io/)
+[CouchDB](http://couchdb.apache.org/)
+
 Installation
 ------------
 
 ```bash
 git clone <repo url>
 cd /path/to/repo
+
+# Start up DB and Session Store
+couchdb
+redis-server
+
 # Install dependencies, database structure and upload folders
 npm install
+
 # Dependency resolution: http://i.imgur.com/BH9Fas6.png
 bower install
 
@@ -63,8 +75,10 @@ vim lib/config/env/production.js
 # Production
 grunt
 mv ./dist /path/to/production/location && cd /path/to/production/location
+
 # Use Node to run
 PORT=9000 node server.js
+
 # Or use forever
 PORT=9000 forever start server.js
 ```
